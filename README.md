@@ -1,3 +1,10 @@
+# Workouts
+
+A simple, lightweight command line interface (CLI) for recording workouts.
+
+The goal here is to have a simple, robust way of storing workout information over time with an easy-to-use interface for adding new workouts, removing workouts, progressing workouts, viewing workouts, etc.
+
+
 # Stuff to do
 - sorting options (last date, alphabetical, any others?)
 - user can use id to skip the asking phase
