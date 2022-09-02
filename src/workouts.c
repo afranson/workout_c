@@ -28,6 +28,14 @@ workouts_init_bus(int argc, char **argv, char *filename)
 }
 
 
+struct string_method_pair
+{
+    char* string;
+    enum methods method;
+};
+
+const struct string_method_pair two_args_checks[] = { { "create", create }, { "help", help }, { "all", all }, { "show", show } };
+const struct string_method_pair three_args_checks[] = { { "list", list_wid }, { "progress", progress_wid }, { "edit", edit_wid }, { "rm", rm_wid } };
 /* Parses the command line args for the program
    If 1 (no args) - default to show
    If 2 - Check for create, help, all, and show
@@ -41,33 +49,23 @@ workouts_parse_options(struct bus *mainbus)
     if ( argc == 1 ) { 		/* No arguments given */
         method = show;
     } else if ( argc == 2 ) { 	/* Sinlge argument given */
-        if ( !strcmp(argv[1], "create") || argv[1][0] == 'c' ) {
-            method = create;
-        } else if ( !strcmp(argv[1], "help") || argv[1][0] == 'h' ) {
-            method = help;
-        } else if ( !strcmp(argv[1], "all") || argv[1][0] == 'a' ) {
-            method = all;
-        } else if ( !strcmp(argv[1], "show") || argv[1][0] == 's' ) {
-            method = show;
-        } else {		/* Failed to match any above cases */
-            method = broken;
-        }
+	for ( size_t i=0; i<sizeof(two_args_checks)/sizeof(two_args_checks[0]); i++ ) {
+	    
+	    struct string_method_pair arg_check = two_args_checks[i];
+	    if ( !strcmp(argv[1], arg_check.string) || argv[1][0] == arg_check.string[0] ) {
+		method = arg_check.method;
+		break;
+	    }
+	}
     } else if ( argc == 3 ) {	/* 2 arguments given */
-        if ( !strcmp(argv[1], "list") || argv[1][0] == 'l' ) {
-            method = list_wid;
-        }
-        else if ( !strcmp(argv[1], "progress") || argv[1][0] == 'p' ) {
-            method = progress_wid;
-        }
-        else if ( !strcmp(argv[1], "edit") || argv[1][0] == 'e' ) {
-            method = edit_wid;
-        }
-        else if ( !strcmp(argv[1], "rm") || argv[1][0] == 'r' ) {
-            method = rm_wid;
-        }
-        else { 			/* Failed to match any above cases */
-            method = broken;
-        }
+	for ( size_t i=0; i<sizeof(three_args_checks)/sizeof(three_args_checks[0]); i++ ) {
+	    
+	    struct string_method_pair arg_check = three_args_checks[i];
+	    if ( !strcmp(argv[1], arg_check.string) || argv[1][0] == arg_check.string[0] ) {
+		method = arg_check.method;
+		break;
+	    }
+	}
     } else {			/* Too many arguments */
         printf("\t** Invalid argument combination **\n");
         method = broken;
