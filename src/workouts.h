@@ -66,7 +66,8 @@ void print_split_string(struct split_string);
 int test_strsplit(void);
 
 struct workout string_to_workout(char* string);
-char * workout_to_string(struct workout workout_in);
+char *workout_to_string(struct workout workout_in);
+struct split_string workout_to_split_string(struct workout workout_in);
 
 /* Workouts Functions */
 struct bus workouts_init_bus(int, char **, char *);
@@ -97,6 +98,5 @@ void workouts_wid_actions(struct bus *);
   int workouts_write_edited_workout(struct bus *, struct bus *, struct workout, struct workout);
   int workouts_cmp_line_to_workout(char *, struct workout);
   struct workout workouts_generate_workout(char *[6]);
-  char **workouts_workout_to_charss(struct workout *);
 
 #endif

@@ -23,7 +23,7 @@ workouts_init_bus(int argc, char **argv, char *filename)
     struct bus mainbus = bus_default;
     mainbus.argc = argc;
     mainbus.argv = argv;
-    mainbus.method = broken;
+    /* mainbus.method = broken; */ 
 
     char filepath[FILENAME_MAX];
     snprintf(filepath, FILENAME_MAX, "%s/%s", dirname(argv[0]), filename);
@@ -89,7 +89,7 @@ workouts_handle_create_help_broken_methods(struct bus *mainbus)
     } else if ( mainbus->method == help || mainbus->method == broken) {
         puts("usage:  workouts [option]");
         puts("___options___");
-        printf("%-12s --  %s\n", "show", "Default, list all active, recent workouts");
+        printf("%-12s --  %s\n", "show", "Default, list all active, recent workouts and ids");
         printf("%-12s --  %s\n", "all", "Show all active and disactive, recent workouts");
         printf("%-12s --  %s\n", "create", "Create a new workout and add to active workouts");
         printf("%-12s --  %s\n", "help", "Display this help message");
@@ -187,7 +187,7 @@ workouts_read_workoutfile_into_bus(struct bus *mainbus)
 {
     mainbus->workouts = malloc(mainbus->num_workouts * sizeof(struct workout));
     mainbus->recent_workouts_indexes = malloc(mainbus->num_workouts * sizeof(size_t));
-    size_t workout_size = sizeof(struct workout);
+    size_t workout_size = 1000; /* Long workout line */
     char buffer[workout_size];
     size_t i = 0;
     while ( fgets(buffer, workout_size, mainbus->workoutFile) )
@@ -262,13 +262,13 @@ workouts_get_most_recent_workout(struct bus *mainbus, char *exercise, size_t max
 	    return i;
         }
     }
-    fprintf(stderr, "Failed to find instance of workout id, %s.", id);
+    fprintf(stderr, "Failed to find instance of workout id, %s.\n", id);
     return -1;
 }
 
 
 /* Takes a string "name," performs an algorithm, and puts the result into "id"
-   Currently takes first letters and then more to make 4 chars */
+   Currently takes first letters of each word and then more if neccessary from the last word to make 4 chars */
 void
 workouts_get_id(char *name, char *id)
 {
@@ -367,20 +367,24 @@ workouts_progress_wid_workout(struct bus *mainbus, char *id)
 {
     // open file for appending
     mainbus->workoutFile = workouts_safe_open_workoutfile_append(mainbus);
-    
-    size_t most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts);
+
+    size_t most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts-1);
+
     struct workout temp_workout = mainbus->workouts[most_current_index];
 
     // fill fields with proper defaults
-    char **default_workout = workouts_workout_to_charss(&temp_workout);
+    struct split_string default_workout_ss = workout_to_split_string(temp_workout);
+    char **default_workout = default_workout_ss.str_p_array;
     char *todays_date = workouts_get_todays_date();
-    strncpy(default_workout[4], todays_date, WORKOUT_FIELD_LENGTH);
-    free(todays_date);
+    
+    default_workout[4] = todays_date;
+
     temp_workout = workouts_generate_workout(default_workout);
+    printf("here?\n");
     // Then write full
     workouts_write_full_workout(mainbus, temp_workout);
 
-    free(default_workout);
+    free_split_string(default_workout_ss);
 
     // close file
     workouts_safe_close_workoutfile(mainbus);
@@ -516,9 +520,10 @@ workouts_cmp_line_to_workout(char *buffer, struct workout active_workout)
 struct workout
 workouts_generate_workout(char **default_options)
 {
+    /* TODO maybe ncurses to prefill stdin with default values */
     // add something in
     // allocate new workout space
-    char **total_buffer = (char **)malloc( 6*sizeof(char *) + 9*WORKOUT_FIELD_LENGTH ); // 5 pointers + 50 for each field + 1 at 200
+    char **total_buffer = (char **)malloc( 1000*sizeof(char *));
     char *first_data_loc = (char *)(total_buffer + 6);
     memset(total_buffer, 0, 6*sizeof(char *) + 9*WORKOUT_FIELD_LENGTH);
     for (int i=0; i<6; i++) {
@@ -567,31 +572,11 @@ workouts_generate_workout(char **default_options)
     // uncomment to see the whole allocated buffer in hex
     // for (int i=0; i<525; i++) { printf("%#.2x ", *(*total_buffer + i)); if ((i+1)%50 == 0) printf("\n"); } printf("\n");
     struct workout workout_to_add = workout_default;
-    strncpy(workout_to_add.exercise, total_buffer[0], WORKOUT_FIELD_LENGTH);
-    strncpy(workout_to_add.weights, total_buffer[1], WORKOUT_FIELD_LENGTH);
-    strncpy(workout_to_add.sets, total_buffer[2], WORKOUT_FIELD_LENGTH);
-    strncpy(workout_to_add.reps, total_buffer[3], WORKOUT_FIELD_LENGTH);
-    strncpy(workout_to_add.date, total_buffer[4], WORKOUT_FIELD_LENGTH);
-    strncpy(workout_to_add.notes, total_buffer[5], 4*WORKOUT_FIELD_LENGTH);
-    free(total_buffer);
+    workout_to_add.exercise = total_buffer[0];
+    workout_to_add.weights = total_buffer[1];
+    workout_to_add.sets = total_buffer[2];
+    workout_to_add.reps = total_buffer[3];
+    workout_to_add.date = total_buffer[4];
+    workout_to_add.notes = total_buffer[5];
     return workout_to_add;
-}
-
-
-char
-** workouts_workout_to_charss(struct workout *workouts)
-{
-    char **struct_list = malloc( 6*sizeof(char *) + 9*WORKOUT_FIELD_LENGTH );
-    char *first_ptr = (char *)(struct_list + 6);
-    for (int i=0; i<6; i++)
-    {
-        struct_list[i] = (first_ptr + i * WORKOUT_FIELD_LENGTH);
-    }
-    strncpy( struct_list[0], workouts->exercise, WORKOUT_FIELD_LENGTH);
-    strncpy( struct_list[1], workouts->weights, WORKOUT_FIELD_LENGTH);
-    strncpy( struct_list[2], workouts->sets, WORKOUT_FIELD_LENGTH);
-    strncpy( struct_list[3], workouts->reps, WORKOUT_FIELD_LENGTH);
-    strncpy( struct_list[4], workouts->date, WORKOUT_FIELD_LENGTH);
-    strncpy( struct_list[5], workouts->notes, 4*WORKOUT_FIELD_LENGTH);
-    return struct_list;
 }
