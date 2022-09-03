@@ -11,7 +11,7 @@
 const char *workout_pprint_format = "%-4s |%-30s |%-10s |%-4s |%-7s |%-8s |%-40s\n";
 
 /* Default, empty objects for initializing */
-struct workout workout_default = {.active=false, .next_workout=NULL, .previous_workout=NULL, {}, {}, {}, {}, {}, {}, {}, {}};
+struct workout workout_default = {.active=false, .next_workout=NULL, .previous_workout=NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 struct bus bus_default = {0, NULL, broken, NULL, NULL, 0, NULL, NULL, 0};
 
 
@@ -195,11 +195,11 @@ workouts_read_workoutfile_into_bus(struct bus *mainbus)
 	buffer[strlen(buffer)-1] = '\0'; /* Remove \n at end of each line */
         struct split_string parsed_string = strsplit(buffer, '|');
         if (parsed_string.num_elements == 2 && !strcmp(parsed_string.str_p_array[1], "rm") ) {
-            workouts_read_rmline(mainbus, parsed_string);
+            workouts_read_rmline(mainbus, parsed_string, i);
             i--; // don't advance counter
             mainbus->num_workouts--;
         } else if (parsed_string.num_elements == 6) {
-            workouts_read_fullline(mainbus, i, parsed_string);
+            workouts_read_full_line(mainbus, i, buffer);
             workouts_update_recent_workouts_indexes(mainbus, i);
         } else {
             perror("Error importing workout line from file");
@@ -212,30 +212,21 @@ workouts_read_workoutfile_into_bus(struct bus *mainbus)
 
 
 int
-workouts_read_rmline(struct bus *mainbus, struct split_string parsed_string)
+workouts_read_rmline(struct bus *mainbus, struct split_string parsed_string, size_t i)
 {
     // remove active stat from most recent workout matching parsed_string[0]
-    size_t max_i = workouts_get_most_recent_workout(mainbus, parsed_string.str_p_array[0]);
-    mainbus->workouts[max_i].active = false;
+    size_t workout_i = workouts_get_most_recent_workout(mainbus, parsed_string.str_p_array[0], i-1);
+    mainbus->workouts[workout_i].active = false;
     return EXIT_SUCCESS;
 }
 
 
 int
-workouts_read_fullline(struct bus* mainbus, size_t i, struct split_string parsed_string)
+workouts_read_full_line(struct bus* mainbus, size_t i, char* string)
 {
-    char id[10];
-    workouts_get_id(parsed_string.str_p_array[0], id);
-    char **workout_fields = parsed_string.str_p_array;
+    struct workout this_workout = string_to_workout(string);
+    mainbus->workouts[i] = this_workout;
 
-    mainbus->workouts[i].active = true;
-    strncpy(mainbus->workouts[i].id, id, WORKOUT_FIELD_LENGTH);
-    strncpy(mainbus->workouts[i].exercise, workout_fields[0], WORKOUT_FIELD_LENGTH);
-    strncpy(mainbus->workouts[i].weights, workout_fields[1], WORKOUT_FIELD_LENGTH);
-    strncpy(mainbus->workouts[i].sets, workout_fields[2], WORKOUT_FIELD_LENGTH);
-    strncpy(mainbus->workouts[i].reps, workout_fields[3], WORKOUT_FIELD_LENGTH);
-    strncpy(mainbus->workouts[i].date, workout_fields[4], WORKOUT_FIELD_LENGTH);
-    strncpy(mainbus->workouts[i].notes, workout_fields[5], 4*WORKOUT_FIELD_LENGTH);
     return EXIT_SUCCESS;
 }
 
@@ -262,11 +253,11 @@ workouts_update_recent_workouts_indexes(struct bus *mainbus, size_t i)
 /* Returns the index of the most recent (latest in list) workout with id matching
    the given exercise */
 size_t
-workouts_get_most_recent_workout(struct bus *mainbus, char *exercise)
+workouts_get_most_recent_workout(struct bus *mainbus, char *exercise, size_t max_i)
 {
     char id[10];
     workouts_get_id(exercise, id);
-    for (int i=mainbus->num_workouts; i>=0; i--) {
+    for (int i=max_i; i>=0; i--) {
         if( !strcmp(mainbus->workouts[i].id, id) ) {
 	    return i;
         }
@@ -377,7 +368,7 @@ workouts_progress_wid_workout(struct bus *mainbus, char *id)
     // open file for appending
     mainbus->workoutFile = workouts_safe_open_workoutfile_append(mainbus);
     
-    size_t most_current_index = workouts_get_most_recent_workout(mainbus, id);
+    size_t most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts);
     struct workout temp_workout = mainbus->workouts[most_current_index];
 
     // fill fields with proper defaults
@@ -415,7 +406,7 @@ workouts_rm_wid_workout(struct bus *mainbus, char *id)
     mainbus->workoutFile = workouts_safe_open_workoutfile_append(mainbus);
 
     // get matching workout
-    size_t most_current_index = workouts_get_most_recent_workout(mainbus, id);
+    size_t most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts);
     struct workout temp_workout = mainbus->workouts[most_current_index];
 
     // Then write rm field
@@ -458,7 +449,7 @@ workouts_edit_wid_workout(struct bus *mainbus, char *id)
     tempbus.workoutFile = workouts_safe_open_workoutfile_append(&tempbus);
     mainbus->workoutFile = workouts_safe_open_workoutfile(mainbus);
 
-    size_t most_current_index = workouts_get_most_recent_workout(mainbus, id);
+    size_t most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts);
     struct workout temp_workout = mainbus->workouts[most_current_index];
     struct workout generated_workout;
 

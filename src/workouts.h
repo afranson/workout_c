@@ -16,14 +16,14 @@ struct workout
     bool active;
     struct workout* next_workout;
     struct workout* previous_workout;
-    char id[WORKOUT_FIELD_LENGTH];
-    char exercise[WORKOUT_FIELD_LENGTH];
-    char weights[WORKOUT_FIELD_LENGTH];
-    char sets[WORKOUT_FIELD_LENGTH];
-    char reps[WORKOUT_FIELD_LENGTH];
-    char days[WORKOUT_FIELD_LENGTH];
-    char date[WORKOUT_FIELD_LENGTH];
-    char notes[4*WORKOUT_FIELD_LENGTH];
+    char* id;
+    char* exercise;
+    char* weights;
+    char* sets;
+    char* reps;
+    char* days;
+    char* date;
+    char* notes;
 };
 
 struct workouts
@@ -65,6 +65,9 @@ void free_split_string(struct split_string);
 void print_split_string(struct split_string);
 int test_strsplit(void);
 
+struct workout string_to_workout(char* string);
+char * workout_to_string(struct workout workout_in);
+
 /* Workouts Functions */
 struct bus workouts_init_bus(int, char **, char *);
 enum methods workouts_parse_options(struct bus *);
@@ -75,10 +78,10 @@ FILE *workouts_safe_open_workoutfile(struct bus *);
 FILE *workouts_safe_open_workoutfile_append(struct bus *);
 size_t workouts_get_num_workouts(struct bus *);
 void workouts_read_workoutfile_into_bus(struct bus *);
- int workouts_read_rmline(struct bus *, struct split_string);
- int workouts_read_fullline(struct bus *, size_t i, struct split_string);
+ int workouts_read_rmline(struct bus *, struct split_string, size_t i);
+ int workouts_read_full_line(struct bus *, size_t i, char* string);
  void workouts_update_recent_workouts_indexes(struct bus *, size_t);
- size_t workouts_get_most_recent_workout(struct bus *, char *);
+size_t workouts_get_most_recent_workout(struct bus *, char *workout_name, size_t i);
   void workouts_get_id(char *, char *);
 void workouts_safe_close_workoutfile(struct bus *);
 void workouts_print_workouts(struct bus *);
