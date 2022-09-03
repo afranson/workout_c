@@ -410,7 +410,7 @@ workouts_rm_wid_workout(struct bus *mainbus, char *id)
     mainbus->workoutFile = workouts_safe_open_workoutfile_append(mainbus);
 
     // get matching workout
-    size_t most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts);
+    size_t most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts-1);
     struct workout temp_workout = mainbus->workouts[most_current_index];
 
     // Then write rm field
@@ -453,12 +453,13 @@ workouts_edit_wid_workout(struct bus *mainbus, char *id)
     tempbus.workoutFile = workouts_safe_open_workoutfile_append(&tempbus);
     mainbus->workoutFile = workouts_safe_open_workoutfile(mainbus);
 
-    size_t most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts);
+    size_t most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts-1);
     struct workout temp_workout = mainbus->workouts[most_current_index];
     struct workout generated_workout;
 
     // fill fields with proper defaults
-    char **default_workout = workouts_workout_to_charss(&temp_workout);
+    struct split_string default_workout_ss = workout_to_split_string(temp_workout);
+    char **default_workout = default_workout_ss.str_p_array;
     generated_workout = workouts_generate_workout(default_workout);
 
     // Then write whole file replacing just the edited workout

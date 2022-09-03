@@ -48,3 +48,4 @@ Mid-Trap Extension|BW|4|8|210711|Wed Sat
 Forearm Supination|BW|3|10|210711|Wed Sat
 RDL for Length|185|4|7|210712|Mon
 Split Squat|rm
+Mid-Trap Extension|rm
