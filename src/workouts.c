@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <libgen.h> 		/* basename, dirname */
 #include <string.h>
 #include <stdbool.h>
 #include <ctype.h>
@@ -10,7 +11,7 @@
 const char *workout_pprint_format = "%-4s |%-30s |%-10s |%-4s |%-7s |%-8s |%-40s\n";
 
 /* Default, empty objects for initializing */
-struct workout workout_default = {false, {}, {}, {}, {}, {}, {}, {}, {}};
+struct workout workout_default = {.active=false, .next_workout=NULL, .previous_workout=NULL, {}, {}, {}, {}, {}, {}, {}, {}};
 struct bus bus_default = {0, NULL, broken, NULL, NULL, 0, NULL, NULL, 0};
 
 
@@ -23,7 +24,10 @@ workouts_init_bus(int argc, char **argv, char *filename)
     mainbus.argc = argc;
     mainbus.argv = argv;
     mainbus.method = broken;
-    mainbus.filename = strdup(filename);
+
+    char filepath[FILENAME_MAX];
+    snprintf(filepath, FILENAME_MAX, "%s/%s", dirname(argv[0]), filename);
+    mainbus.filename = strdup(filepath);
     return mainbus;
 }
 

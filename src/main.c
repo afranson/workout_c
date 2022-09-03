@@ -11,7 +11,7 @@ int
 main(int argc, char **argv)
 {
     // initialize omnibus
-    struct bus mainbus = workouts_init_bus(argc, argv, "./../data/test.txt");
+    struct bus mainbus = workouts_init_bus(argc, argv, "../data/test.txt");
 
     // parse options
     mainbus.method = workouts_parse_options(&mainbus);

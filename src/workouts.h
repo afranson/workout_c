@@ -14,6 +14,8 @@ enum methods { broken, show, create, progress, progress_wid, edit, edit_wid, rm,
 struct workout
 {
     bool active;
+    struct workout* next_workout;
+    struct workout* previous_workout;
     char id[WORKOUT_FIELD_LENGTH];
     char exercise[WORKOUT_FIELD_LENGTH];
     char weights[WORKOUT_FIELD_LENGTH];
@@ -29,6 +31,7 @@ struct workouts
     struct workout *all_lines; 	/* Contains the whole file */
     struct workout *all_workouts; /* Gets rid of the rm's */
     struct workout *recent_workouts; /* Only the active and most recent version of workouts */
+    char **unique_workout_names;     /* For determining if a workout is new or not */
 };
 
 struct split_string
