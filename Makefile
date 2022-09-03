@@ -19,7 +19,7 @@ obj/%.o: src/%.c $(DEPS)
 		$(CC) -c -o $@ $< $(CFLAGS)
 
 
-src/tst/tests.o: testing/tests.c $(DEPS)
+src/tst/tests.o: src/tst/tests.c $(DEPS)
 		$(CC) -c -o $@ $< $(CFLAGS)
 
 .PRECIOUS: $(EXE) $(OBJ)
