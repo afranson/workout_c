@@ -187,7 +187,7 @@ workouts_read_workoutfile_into_bus(struct bus *mainbus)
 {
     mainbus->workouts = malloc(mainbus->num_workouts * sizeof(struct workout));
     mainbus->recent_workouts_indexes = malloc(mainbus->num_workouts * sizeof(size_t));
-    size_t workout_size = 1000; /* Long workout line */
+    size_t workout_size = MAX_WORKOUT_SIZE; /* Long workout line */
     char buffer[workout_size];
     size_t i = 0;
     while ( fgets(buffer, workout_size, mainbus->workoutFile) )
@@ -397,8 +397,8 @@ workouts_get_todays_date(void)
 {
     time_t t = time(NULL);
     struct tm *tm = localtime(&t);
-    char *todays_date = malloc(WORKOUT_FIELD_LENGTH);
-    strftime(todays_date, WORKOUT_FIELD_LENGTH, "%y%m%d", tm);
+    char *todays_date = malloc(7);
+    strftime(todays_date, 7, "%y%m%d", tm);
     return todays_date;
 }
 
@@ -482,8 +482,8 @@ workouts_edit_wid_workout(struct bus *mainbus, char *id)
 int
 workouts_write_edited_workout(struct bus *mainbus, struct bus *tempbus, struct workout original_workout, struct workout edited_workout)
 {
-    char buffer[9*WORKOUT_FIELD_LENGTH];
-    while ( fgets(buffer, 9*WORKOUT_FIELD_LENGTH, mainbus->workoutFile ) ) {
+    char buffer[MAX_WORKOUT_SIZE];
+    while ( fgets(buffer, MAX_WORKOUT_SIZE, mainbus->workoutFile ) ) {
         if ( !workouts_cmp_line_to_workout(buffer, original_workout) )
         {
             //write new thing
@@ -517,18 +517,18 @@ workouts_cmp_line_to_workout(char *buffer, struct workout active_workout)
     }
 }
 
-
+/* TODO this could be a lot better */
 struct workout
 workouts_generate_workout(char **default_options)
 {
     /* TODO maybe ncurses to prefill stdin with default values */
     // add something in
     // allocate new workout space
-    char **total_buffer = (char **)malloc( 1000*sizeof(char *));
+    char **total_buffer = (char **)malloc( MAX_WORKOUT_SIZE*sizeof(char *));
     char *first_data_loc = (char *)(total_buffer + 6);
-    memset(total_buffer, 0, 6*sizeof(char *) + 9*WORKOUT_FIELD_LENGTH);
+    memset(total_buffer, 0, 6*sizeof(char *) + MAX_WORKOUT_SIZE);
     for (int i=0; i<6; i++) {
-        total_buffer[i] = first_data_loc + WORKOUT_FIELD_LENGTH*i;
+        total_buffer[i] = first_data_loc + 50*i;
     }
 
     // collect fields from user
@@ -538,18 +538,13 @@ workouts_generate_workout(char **default_options)
         for (int i=0; i<6; i++)
         {
             printf("%s: ", fields[i]);
-	    if (i==5) 		/* For the info field to be extra long */
-	    {
-		fgets(total_buffer[i], 4*WORKOUT_FIELD_LENGTH, stdin);
-	    } else {
-		fgets(total_buffer[i], WORKOUT_FIELD_LENGTH, stdin);
-	    }
+	    fgets(total_buffer[i], 200, stdin);
         }
     } else {
         for (int i=0; i<6; i++)
         {
             printf("%s [%s]: ", fields[i], default_options[i]);
-            fgets(total_buffer[i], WORKOUT_FIELD_LENGTH, stdin);
+            fgets(total_buffer[i], 200, stdin);
             if ( total_buffer[i][0] == '\n' || !total_buffer[i] ) {
                 strcpy(total_buffer[i], default_options[i]);
             }

@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define WORKOUT_FIELD_LENGTH 50
+#define MAX_WORKOUT_SIZE 1000
 
 enum methods { broken, show, create, progress, progress_wid, edit, edit_wid, rm, rm_wid, list, list_wid, all, help };
 
