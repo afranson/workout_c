@@ -465,7 +465,7 @@ workouts_edit_wid_workout(struct bus *mainbus, char *id)
     // Then write whole file replacing just the edited workout
     workouts_write_edited_workout(mainbus, &tempbus, temp_workout, generated_workout);
 
-    free(default_workout);
+    free_split_string(default_workout_ss);
 
     // close files
     workouts_safe_close_workoutfile(mainbus);
