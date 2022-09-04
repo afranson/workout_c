@@ -9,7 +9,7 @@ size_t
 workout_get_num_chars(struct workout workout_in)
 {
     /* Need to add in days later */
-    return strlen(workout_in.id) + strlen(workout_in.exercise) + strlen(workout_in.weights) + strlen(workout_in.sets) + strlen(workout_in.reps) + strlen(workout_in.date) + strlen(workout_in.notes);
+    return strlen(workout_in.id) + strlen(workout_in.exercise) + strlen(workout_in.weights) + strlen(workout_in.sets) + strlen(workout_in.reps) + strlen(workout_in.days) + strlen(workout_in.date) + strlen(workout_in.notes);
 }
 
 
@@ -17,8 +17,8 @@ char *
 workout_to_string(struct workout workout_in)
 {
     /* Upgrade to snprintf for safety */
-    char *buffer = malloc(7 + sizeof(char)*workout_get_num_chars(workout_in));
-    sprintf(buffer, "%s|%s|%s|%s|%s|%s\n", workout_in.exercise, workout_in.weights, workout_in.sets, workout_in.reps, workout_in.date, workout_in.notes);
+    char *buffer = malloc(8 + sizeof(char)*workout_get_num_chars(workout_in));
+    sprintf(buffer, "%s|%s|%s|%s|%s|%s|%s\n", workout_in.exercise, workout_in.weights, workout_in.sets, workout_in.reps, workout_in.days, workout_in.date, workout_in.notes);
     return buffer;
 }
 
@@ -49,8 +49,9 @@ string_to_workout(char* string)
     return_workout.weights = workout_fields[1];
     return_workout.sets = workout_fields[2];
     return_workout.reps = workout_fields[3];
-    return_workout.date = workout_fields[4];
-    return_workout.notes = workout_fields[5];
+    return_workout.days = workout_fields[4];
+    return_workout.date = workout_fields[5];
+    return_workout.notes = workout_fields[6];
     return return_workout;
 }
 

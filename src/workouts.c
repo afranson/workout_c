@@ -8,7 +8,7 @@
 #include "workouts.h"
 
 /* How workouts are printed in the terminal */
-const char *workout_pprint_format = "%-4s |%-30s |%-10s |%-4s |%-7s |%-8s |%-40s\n";
+const char *workout_pprint_format = "%-4s |%-25s |%-9s |%-4s |%-6s |%-11s |%-8s |%s\n";
 
 /* Default, empty objects for initializing */
 struct workout workout_default = {.active=false, .next_workout=NULL, .previous_workout=NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
@@ -198,7 +198,7 @@ workouts_read_workoutfile_into_bus(struct bus *mainbus)
             workouts_read_rmline(mainbus, parsed_string, i);
             i--; // don't advance counter
             mainbus->num_workouts--;
-        } else if (parsed_string.num_elements == 6) {
+        } else if (parsed_string.num_elements == 7) {
             workouts_read_full_line(mainbus, i, buffer);
             workouts_update_recent_workouts_indexes(mainbus, i);
         } else {
@@ -308,7 +308,7 @@ workouts_print_workouts(struct bus *mainbus)
     // get the fields to be printed for the first round of possible printing
     qsort(mainbus->recent_workouts_indexes, mainbus->num_uniques, sizeof(size_t), compare_size_t);
 
-    printf(workout_pprint_format, "id", "Exercise", "Weights", "Sets", "Reps", "Date", "Notes");
+    printf(workout_pprint_format, "id", "Exercise", "Weights", "Sets", "Reps", "Days", "Date", "Notes");
     for (size_t i=0; i<mainbus->num_uniques; i++) {
         size_t index = mainbus->recent_workouts_indexes[i];
         switch ( mainbus->method ) {
@@ -317,11 +317,11 @@ workouts_print_workouts(struct bus *mainbus)
         case rm:
         case progress:
         case edit:
-            printf(workout_pprint_format, mainbus->workouts[index].id, mainbus->workouts[index].exercise, mainbus->workouts[index].weights, mainbus->workouts[index].sets, mainbus->workouts[index].reps, mainbus->workouts[index].date, mainbus->workouts[index].notes);
+            printf(workout_pprint_format, mainbus->workouts[index].id, mainbus->workouts[index].exercise, mainbus->workouts[index].weights, mainbus->workouts[index].sets, mainbus->workouts[index].reps, mainbus->workouts[index].days, mainbus->workouts[index].date, mainbus->workouts[index].notes);
             break;
         case show:
             if ( mainbus->workouts[index].active ) {
-                printf(workout_pprint_format, mainbus->workouts[index].id, mainbus->workouts[index].exercise, mainbus->workouts[index].weights, mainbus->workouts[index].sets, mainbus->workouts[index].reps, mainbus->workouts[index].date, mainbus->workouts[index].notes);
+                printf(workout_pprint_format, mainbus->workouts[index].id, mainbus->workouts[index].exercise, mainbus->workouts[index].weights, mainbus->workouts[index].sets, mainbus->workouts[index].reps, mainbus->workouts[index].days, mainbus->workouts[index].date, mainbus->workouts[index].notes);
             }
             break;
         default:
@@ -497,6 +497,7 @@ workouts_write_edited_workout(struct bus *mainbus, struct bus *tempbus, struct w
 }
 
 
+/* TODO, just hash the whole workout string and compare hashes */
 int
 workouts_cmp_line_to_workout(char *buffer, struct workout active_workout)
 {
