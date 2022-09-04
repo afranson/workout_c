@@ -5,11 +5,28 @@
 
 /* Trying to construct things atomistically */
 
+const char *workout_pprint_format = "%-4s |%-25s |%-9s |%-4s |%-6s |%-11s |%-8s |%s\n";
+
+
+void
+workout_pprint_header()
+{
+    printf(workout_pprint_format, "id", "Exercise", "Weights", "Sets", "Reps", "Days", "Date", "Notes");
+}
+
+
+void
+workout_pprint(struct workout workout)
+{
+    printf(workout_pprint_format, workout.id, workout.exercise, workout.weights, workout.sets, workout.reps, workout.days, workout.date, workout.notes);
+}
+
+
 size_t
-workout_get_num_chars(struct workout workout_in)
+workout_get_num_chars(struct workout workout)
 {
     /* Need to add in days later */
-    return strlen(workout_in.id) + strlen(workout_in.exercise) + strlen(workout_in.weights) + strlen(workout_in.sets) + strlen(workout_in.reps) + strlen(workout_in.days) + strlen(workout_in.date) + strlen(workout_in.notes);
+    return strlen(workout.id) + strlen(workout.exercise) + strlen(workout.weights) + strlen(workout.sets) + strlen(workout.reps) + strlen(workout.days) + strlen(workout.date) + strlen(workout.notes);
 }
 
 
@@ -54,10 +71,3 @@ string_to_workout(char* string)
     return_workout.notes = workout_fields[6];
     return return_workout;
 }
-
-
-/* void */
-/* add_workout_to_workouts(struct workouts wos, struct workout wo) */
-/* { */
-/*     return; */
-/* } */

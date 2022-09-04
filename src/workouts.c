@@ -7,8 +7,6 @@
 #include <time.h>
 #include "workouts.h"
 
-/* How workouts are printed in the terminal */
-const char *workout_pprint_format = "%-4s |%-25s |%-9s |%-4s |%-6s |%-11s |%-8s |%s\n";
 
 /* Default, empty objects for initializing */
 struct workout workout_default = {.active=false, .next_workout=NULL, .previous_workout=NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
@@ -308,7 +306,7 @@ workouts_print_workouts(struct bus *mainbus)
     // get the fields to be printed for the first round of possible printing
     qsort(mainbus->recent_workouts_indexes, mainbus->num_uniques, sizeof(size_t), compare_size_t);
 
-    printf(workout_pprint_format, "id", "Exercise", "Weights", "Sets", "Reps", "Days", "Date", "Notes");
+    workout_pprint_header();
     for (size_t i=0; i<mainbus->num_uniques; i++) {
         size_t index = mainbus->recent_workouts_indexes[i];
         switch ( mainbus->method ) {
@@ -317,11 +315,11 @@ workouts_print_workouts(struct bus *mainbus)
         case rm:
         case progress:
         case edit:
-            printf(workout_pprint_format, mainbus->workouts[index].id, mainbus->workouts[index].exercise, mainbus->workouts[index].weights, mainbus->workouts[index].sets, mainbus->workouts[index].reps, mainbus->workouts[index].days, mainbus->workouts[index].date, mainbus->workouts[index].notes);
+	    workout_pprint(mainbus->workouts[index]);
             break;
         case show:
             if ( mainbus->workouts[index].active ) {
-                printf(workout_pprint_format, mainbus->workouts[index].id, mainbus->workouts[index].exercise, mainbus->workouts[index].weights, mainbus->workouts[index].sets, mainbus->workouts[index].reps, mainbus->workouts[index].days, mainbus->workouts[index].date, mainbus->workouts[index].notes);
+		workout_pprint(mainbus->workouts[index]);
             }
             break;
         default:
@@ -434,10 +432,10 @@ void
 workouts_list_wid_workout(struct bus *mainbus, char *id)
 {
     // print all matching workouts
-    printf(workout_pprint_format, "id", "Exercise", "Weights", "Sets", "Reps", "Date", "Notes");
+    workout_pprint_header();
     for (size_t i=0; i < mainbus->num_workouts; i++) {
         if( !strcmp(mainbus->workouts[i].id, id) ) {
-            printf(workout_pprint_format, mainbus->workouts[i].id, mainbus->workouts[i].exercise, mainbus->workouts[i].weights, mainbus->workouts[i].sets, mainbus->workouts[i].reps, mainbus->workouts[i].date, mainbus->workouts[i].notes);
+	    workout_pprint(mainbus->workouts[i]);
         }
     }
     exit(EXIT_SUCCESS);

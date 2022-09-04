@@ -65,9 +65,12 @@ void free_split_string(struct split_string);
 void print_split_string(struct split_string);
 int test_strsplit(void);
 
-struct workout string_to_workout(char* string);
+void workout_pprint_header();
+void workout_pprint(struct workout workout);
+size_t workout_get_num_chars(struct workout workout);
 char *workout_to_string(struct workout workout_in);
 struct split_string workout_to_split_string(struct workout workout_in);
+struct workout string_to_workout(char* string);
 
 /* Workouts Functions */
 struct bus workouts_init_bus(int, char **, char *);
