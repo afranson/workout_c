@@ -84,13 +84,13 @@ string_to_workout(char* string)
 int
 workout_compare(struct workout workout_a, struct workout workout_b)
 {
-    if ( !strcmp(workout_a.exercise, workout_b.exercise)
+    if (    !strcmp(workout_a.exercise, workout_b.exercise)
 	 && !strcmp(workout_a.weights, workout_b.weights)
 	 && !strcmp(workout_a.sets, workout_b.sets)
 	 && !strcmp(workout_a.reps, workout_b.reps)
 	 && !strcmp(workout_a.days, workout_b.days)	
 	 && !strcmp(workout_a.date, workout_b.date)
-	 && !strcmp(workout_a.notes, workout_b.notes) ) {
+	 && !strcmp(workout_a.notes, workout_b.notes) ) { /* If all fields are equal */
         return 1;
     } else {
 	return 0;

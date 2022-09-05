@@ -185,8 +185,9 @@ workouts_get_num_workouts(struct bus *mainbus)
 void
 workouts_read_workoutfile_into_bus(struct bus *mainbus)
 {
-    mainbus->workouts = malloc(mainbus->num_workouts * sizeof(*mainbus->workouts));
-    mainbus->recent_workouts = malloc(mainbus->num_workouts * sizeof(*mainbus->recent_workouts));
+    /* +1s account for potential added or modified workouts */
+    mainbus->workouts = malloc((mainbus->num_workouts+1) * sizeof(*mainbus->workouts));
+    mainbus->recent_workouts = malloc((mainbus->num_workouts+1) * sizeof(*mainbus->recent_workouts));
     char buffer[MAX_WORKOUT_SIZE];
     size_t i = 0;
     while ( fgets(buffer, MAX_WORKOUT_SIZE, mainbus->workoutFile) ) {
@@ -279,7 +280,7 @@ workouts_safe_close_workoutfile(struct bus *mainbus)
 void
 workouts_print_workouts(struct bus *mainbus)
 {
-    // get the fields to be printed for the first round of possible printing
+    /* TODO Figure out/implement how I want to sort the workouts (by date?) */
     // qsort(mainbus->recent_workouts_indexes, mainbus->num_uniques, sizeof(size_t), compare_size_t);
 
     workout_pprint_header();
@@ -287,12 +288,12 @@ workouts_print_workouts(struct bus *mainbus)
 	struct workout workout = mainbus->recent_workouts[i];
         switch ( mainbus->method ) {
         case all:
-        case rm_wid:
 	    workout_pprint(workout);
             break;
         case show:
-	    /* case progress_wid: */ /* Must re-read the file for this to work currently*/
-        /* case edit_wid: */
+	case progress_wid:
+        case edit_wid:
+	case rm_wid:
             if ( workout.active ) {
 		workout_pprint(workout);
             }
@@ -335,7 +336,7 @@ workouts_wid_actions(struct bus *mainbus)
 }
 
 
-void 
+int
 workouts_progress_wid_workout(struct bus *mainbus, char *id)
 {
     // open file for appending
@@ -350,19 +351,21 @@ workouts_progress_wid_workout(struct bus *mainbus, char *id)
     char **default_workout = default_workout_ss.str_p_array;
     char *todays_date = workouts_get_todays_date();
     
-    default_workout[4] = todays_date;
+    default_workout[5] = todays_date;
 
     temp_workout = workouts_generate_workout(default_workout);
 
     // Then write full
     workouts_write_full_workout(mainbus, temp_workout);
+    mainbus->workouts[mainbus->num_workouts] = temp_workout;
+    workouts_update_recent_workouts(mainbus, mainbus->workouts[mainbus->num_workouts]);
 
     free_split_string(default_workout_ss);
     free(todays_date);
 
     // close file
     workouts_safe_close_workoutfile(mainbus);
-    exit(EXIT_SUCCESS);
+    return EXIT_SUCCESS;
 }
 
 
@@ -377,7 +380,7 @@ workouts_get_todays_date(void)
 }
 
 
-void
+int
 workouts_rm_wid_workout(struct bus *mainbus, char *id)
 {
     // open file for appending
@@ -389,10 +392,12 @@ workouts_rm_wid_workout(struct bus *mainbus, char *id)
 
     // Then write rm field
     workouts_write_rm_workout(mainbus->workoutFile, temp_workout);
+    // Update mainbus
+    workouts_update_recent_workouts(mainbus, temp_workout);
 
     // close file
     workouts_safe_close_workoutfile(mainbus);
-    exit(EXIT_SUCCESS);
+    return EXIT_SUCCESS;
 }
 
 
@@ -510,6 +515,9 @@ workouts_generate_workout(char **default_options)
     }
     free(buffer);
 
+    char id[7];
+    workouts_get_id(workout_pointers[0], id);
+    generated_workout.id = strdup(id);
     generated_workout.exercise = workout_pointers[0];
     generated_workout.weights = workout_pointers[1];
     generated_workout.sets = workout_pointers[2];
