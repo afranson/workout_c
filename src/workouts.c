@@ -83,7 +83,7 @@ workouts_handle_create_help_broken_methods(struct bus *mainbus)
     {
         workouts_create_workout(mainbus);
         mainbus->method = show;
-        exit(EXIT_SUCCESS);
+        return;
     } else if ( mainbus->method == help || mainbus->method == broken) {
         puts("usage:  workouts [option]");
         puts("___options___");
