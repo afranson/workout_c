@@ -14,7 +14,7 @@ strsplit(char* string, char delim)
     size_t string_length = strlen(string);
     char *sacrificial_string = strdup(string);
     char **split_string_array = malloc(sizeof(*split_string_array) * string_length);
-    split_string_array[0] = (char *)(sacrificial_string);
+    split_string_array[0] = sacrificial_string;
     size_t i=0, j=1; /* i traverses the string, j the return pointer array */
     
     /* Modifies sacrificial_string by replacing delimiter locations by \0.
