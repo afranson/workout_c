@@ -228,13 +228,13 @@ void
 workouts_update_recent_workouts(struct bus *mainbus, struct workout workout)
 {
     /* Find the index of the entry in recent_workouts that matches input workout */
-    size_t match_i = 0;
+    int match_i = -1;
     for (size_t i=0; i < mainbus->num_uniques; i++) {
         if( !strcmp(mainbus->recent_workouts[i].id, workout.id) ) {
             match_i = i;
         }
     }
-    if ( match_i == 0 ) {	/* Workout not found in recents */
+    if ( match_i == -1 ) {	/* Workout not found in recents */
         mainbus->recent_workouts[mainbus->num_uniques++] = workout;
     } else if ( workout.active ) { /* Workout found and active */
         mainbus->recent_workouts[match_i] = workout;
