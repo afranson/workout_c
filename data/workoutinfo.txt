@@ -1,0 +1,459 @@
+Supermans|BW|3|8||210602|
+Supermans|rm
+RDL for Length|90|7|8||210603|
+Prone Bicep Curl|65|7|6||210603|
+Grip Curl|135|8|10||210607|
+Mid-Trap Extension|BW|6|8||210602|First time
+Assisted Pistol Squat|BW|3|8||210607|For knees
+Mid-Trap Extension|BW|3|8||210607|
+Split Squat|BW|3|8||210609|
+Mid-Trap Extension|BW|3|8||210609|
+Prone Bicep Curl|65|8|6||210609|
+RDL for Length|90|8|8||210610|
+Grip Curl|145|5|10||210610|
+Mid-Trap Extension|BW|4|8||210611|
+Assisted Pistol Squat|BW|3|8||210611|For knees
+Lever|Tuck|4|6||210612|
+Prone Bicep Curl|65|7|6||210614|
+Split Squat|BW|4|8||210614|Next 210621
+RDL for Length|135|7|8||210615|
+Mid-Trap Extension|BW|5|8||210615|
+Grip Curl|145|8|6||210615|
+Lever|Tuck|5|6||210616|Next 210623
+Assisted Pistol Squat|BW|3|8||210617|Next 210624
+RDL for Length|135|8|8||210617|
+Prone Bicep Curl|65|7|6||210619|
+Mid-Trap Extension|BW|4|8||210621|Switched to reaching on floor
+Grip Curl|145|10|6||210621|Next up weight
+Split Squat|BW|5|8||210622|Sets 4,5 at 20lbs & Next 210628
+Lever|Tuck|4|6||210623|Deeper & Next 210630
+RDL for Length|145|8|8||210624|
+Assisted Pistol Squat|BW|4|6||210625|Next 210702
+Prone Bicep Curl|rm
+Forearm Supination|BW|3|10||210626|
+Mid-Trap Extension|BW|4|8||210626|
+Grip Curl|155|7|6||210626|
+Split Squat|20|3|8|Tue Fri|210706|
+Assisted Pistol Squat|rm
+Hamstring Curl|BW|3|8|Tue Fri|210706|
+Grip Curl|155|10|6|Wed Sat|210707|
+Mid-Trap Extension|BW|3|8|Wed Sat|210707|
+Forearm Supination|BW|3|10|Wed Sat|210707|
+Psuedo-Planche Lean|BW|3|6|Thu|210708|& 22"
+Lever|Tuck|3|6|Thu|210708|
+Split Squat|30|3|8|Tue Fri|210709|
+Hamstring Curl|BW|3|8|Tue Fri|210709|
+Grip Curl|165|10|6|Wed Sat|210710|
+Mid-Trap Extension|BW|4|8|Wed Sat|210711|
+Forearm Supination|BW|3|10|Wed Sat|210711|
+RDL for Length|185|4|7|Mon|210712|
+Split Squat|30|3|8|Tue Fri|210713|
+Hamstring Curl|BW|3|8|Tue Fri|210713|
+Forearm Supination|BW|3|10|Wed Sat|210714|
+Mid-Trap Extension|BW|4|8|Wed Sat|210714|
+Grip Curl|185|5|6|Wed Sat|210714|
+Psuedo-Planche Lean|BW|4|6|Thu|210715|& 22" & last at 24"
+Lever|Tuck|4|6|Thu|210715|
+RDL for Length|185|3|7|Mon|210809|
+Hip Flexor|BW|3|8|Mon|210809|
+Bicep Curl|45|3|8|Tue Fri|210810|
+Split Squat|30|3|8|Tue Fri|210810|
+Hamstring Curl|BW|3|8|Tue Fri|210810|
+Forearm Supination|rm
+Mid-Trap Extension|BW|3|8|Wed Sat|210811|
+Grip Curl|185|3|6|Wed Sat|210811|
+Psuedo-Planche Lean|BW|3|6|Thu|210812|24"
+Lever|Tuck|3|6|Thu|210812|Straight Arms
+Bicep Curl|55|4|8|Tue Fri|210813|
+Split Squat|30|3|8|Tue Fri|210813|
+Hamstring Curl|BW|3|8|Tue Fri|210813|
+Mid-Trap Extension|BW|3|8|Wed Sat|210815|
+Grip Curl|185|4|6|Wed Sat|210815|Strict straight arms
+RDL for Length|185|4|7|Mon|210816|
+Hip Flexor|BW|3|8|Mon Thu|210816|
+Bicep Curl|55|5|8|Tue Fri|210817|
+Split Squat|30|3|8|Tue Fri|210817|
+Hamstring Curl|BW|3|8|Tue Fri|210817|
+Mid-Trap Extension|BW|3|8|Wed Sat|210818|
+Grip Curl|165|6|6|Wed Sat|210818|Strict straight arms, all the way up
+Psuedo-Planche Lean|BW|4|6|Thu|210819|24"
+Lever|Tuck|4|6|Thu|210819|Straight Arms
+Hip Flexor|BW|3|8|Mon Thu|210819|
+Bicep Curl|55|6|8|Tue Fri|210820|
+RDL for Length|45|4|8|Mon Wed Sat|210823|Switched to pulling from below
+Hip Flexor|rm
+Bicep Curl|55|6|8|Tue Fri|210824|Last set at 65
+Split Squat|30|3|8|Tue Fri|210824|
+Hamstring Curl|BW|3|8|Tue Fri|210824|
+Mid-Trap Extension|BW|3|8|Wed Sat|210825|
+RDL for Length|45|5|8|Mon Wed Sat|210825|
+Grip Curl|rm
+Deadlift Hold|295|4|1|Wed Sat|210825|10 s Hold Smooth Part
+Psuedo-Planche Lean|BW|4|6|Thu|210826|24"
+Lever|Tuck|4|6|Thu|210826|Straight Arms
+Mid-Trap Extension|BW|3|8|Wed Sat|210828|
+RDL for Length|45|5|8|Mon Wed Sat|210828|
+Deadlift Hold|295|5|1|Wed Sat|210828|10 s Hold Smooth Part
+Hamstring Curl|rm
+Bicep Curl|65|3|8|Tue Fri|210914|
+Split Squat|40|3|8|Tue Fri|210914|
+RDL for Length|rm
+Deadlift Hold|rm
+Mid-Trap Extension|BW|3|8|Wed Sat|210915|
+Handstand Hold|BW|3|1|Wed Sat|210915|10 s
+Psuedo-Planche Lean|BW|4|1 10 s|Mon|210920|24"
+Lever|Tuck|4|6|Mon|210920|Straight Arms
+Bicep Curl|65|4|8|Tue Fri|210921|
+Split Squat|rm
+Quad Lengthener|BW|3|10|Tue Fri|210921|
+Mid-Trap Extension|BW|3|8|Wed Sat|210922|
+Handstand Hold|BW|3|1|Wed Sat|210922|10 s
+Bicep Curl|rm
+Hammer Curl|30 ea|4|8|Tue Fri|210924|
+Quad Lengthener|BW|3|10|Tue Fri|210925|
+Mid-Trap Extension|BW|3|8|Wed Sat|210926|
+Handstand Hold|BW|4|1|Wed Sat|210926|10 s
+Psuedo-Planche Lean|rm
+Lever|Tuck|5|6|Mon|210927|Straight Arms
+Hammer Curl|30 ea|4|8|Tue Fri|210928|
+Quad Lengthener|BW|4|10|Tue Fri|210928|
+Mid-Trap Extension|rm
+Overhead Stretch|BW|4|20 s|Wed Sat|210929|
+Handstand Hold|BW|4|1|Wed Sat|210929|10 s
+Hammer Curl|30 ea|5|8|Tue Fri|211001|
+Quad Lengthener|BW|4|10|Tue Fri|211001|
+Overhead Stretch|BW|4|20 s|Wed Sat|211002|
+Handstand Hold|BW|4|15 s|Wed Sat|211002|
+Hamstring Pull|BW|4|10|Mon|211004|
+Lever|Tuck|5|6|Mon|211004|Straight Arms
+Hammer Curl|30 ea|5|8|Tue Fri|211005|
+Quad Lengthener|BW|4|30 s|Tue Fri|211005|
+Overhead Stretch|BW|4|20 s|Wed Sat|211006|
+Handstand Hold|BW|4|15 s|Wed Sat|211006|
+Hammer Curl|30 ea|6|8|Tue Fri|211008|
+Quad Lengthener|BW|4|30 s|Tue Fri|211008|
+Overhead Stretch|BW|4|25 s|Wed Sat|211009|
+Handstand Hold|BW|4|20 s|Wed Sat|211009|
+Lever|Tuck|6|6|Mon|211011|
+Hamstring Pull|BW|3|10|Mon|211011|+30s end hold
+Hammer Curl|30 ea|6|8|Tue Fri|211012|
+Quad Lengthener|BW|3|10|Tue Fri|211012|30 s
+Overhead Stretch|BW|4|25 s|Wed Sat|211013|
+Handstand Hold|BW|4|20 s|Wed Sat|211013|
+Lever|Adv. Tuck|3|6|Mon|211025|
+Hamstring Pull|BW|3|10|Mon Thu|211025|+30s end hold
+Hammer Curl|35 ea|3|6|Tue Fri|211026|
+Quad Lengthener|BW|3|10|Tue Fri|211026|30 s
+Overhead Stretch|BW|3|10|Wed Sat|211027|+30 s
+Handstand Hold|BW|3|25 s|Wed Sat|211027|
+Hammer Curl|35 ea|3|6|Tue Fri|211029|
+Quad Lengthener|BW|3|10|Tue Fri|211029|30 s
+Overhead Stretch|BW|3|10|Wed Sat|211030|+30 s
+Handstand Hold|BW|3|25 s|Wed Sat|211030|
+Lever|Adv. Tuck|3|6|Mon|211101|
+Hamstring Pull|BW|3|10|Mon Thu|211101|+30s end hold
+Hammer Curl|25 ea|3|8|Tue Fri|211102|stutter
+Quad Lengthener|BW|3|10|Tue Fri|211102|30 s
+Handstand Hold|BW|3|25 s|Wed Sat|211103|
+Overhead Stretch|BW|3|10|Wed Sat|211103|+30 s
+Hamstring Pull|BW|3|10|Mon Thu|211104|+30s end hold
+Hammer Curl|25 ea|3|8|Tue Fri|211105|stutter
+Quad Lengthener|BW|3|10|Tue Fri|211105|30 s
+Handstand Hold|BW|3|30 s|Wed Sat|211106|
+Overhead Stretch|BW|3|10|Wed Sat|211106|+30 s
+Lever|Adv. Tuck|3|6|Mon|211108|
+Hamstring Pull|BW|3|10|Mon Thu|211108|+30s end hold
+Hammer Curl|25 ea|3|6|Tue Fri|211109|stutter
+Quad Lengthener|BW|3|10|Tue Fri|211109|30 s
+Handstand Hold|BW|3|30 s|Wed Sat|211110|
+Overhead Stretch|BW|3|10|Wed Sat|211110|+30 s
+Hamstring Pull|BW|3|10|Mon Thu|211111|+30s end hold
+Hammer Curl|25 ea|3|6|Tue Fri|211112|stutter
+Quad Lengthener|BW|3|10|Tue Fri|211112|30 s
+Handstand Hold|BW|3|30 s|Wed Sat|211113|
+Overhead Stretch|BW|3|10|Wed Sat|211113|+30 s
+Lever|Adv. Tuck|3|6|Mon|211129|
+Hamstring Pull|BW|3|10|Mon Thu|211129|+30s end hold
+Hammer Curl|25 ea|3|6|Tue Fri|211130|stutter
+Quad Lengthener|BW|3|10|Tue Fri|211201|30 s
+Overhead Stretch|rm
+Bridge Strengthening|BW|3|10|Wed Sat||+30s end hold
+Lotus Strengthener|BW|3|10|Wed Sun||+30s end hold
+Handstand Hold|BW|3|35 s|Wed Sat|211201|1 Hand away from wall
+Lotus Strengthener|BW|3|10|Thu|211201|+30s end hold
+Hamstring Pull|BW|3|10|Mon Thu|211202|+30s end hold
+Hammer Curl|25 ea|3|6|Tue Fri|211203|stutter
+Quad Lengthener|BW|3|10|Tue Fri|211203|30 s
+Handstand Hold|BW|3|35 s|Wed Sat|211204| 
+Bridge Strengthening|BW|3|10|Wed Sat|211204|+30s end hold
+Hamstring Pull|BW|3|10|Mon Thu|211206|+30s end hold
+Lotus Strengthener|BW|3|10|Thu|211206|+30s end hold
+Lever|Adv. Tuck|3|6|Mon|211213|
+Hamstring Pull|BW|3|10|Mon Thu|211213|+30s end hold
+Hammer Curl|45 ea|3|6|Tue Fri|211214|Eccentric, wrap right wrist
+Quad Lengthener|BW|3|10|Tue Fri|211214|30 s
+Handstand Hold|BW|3|35 s|Wed Sat|211215| 
+Bridge Strengthening|BW|3|10|Wed Sat|211215|+30s end hold
+Hamstring Pull|BW|3|10|Mon Thu|211216|+30s end hold
+Hammer Curl|45 ea|3|6|Tue Fri|211217|Eccentric, wrap right wrist
+Lotus Strengthener|BW|3|10|Thu|211217|+30s end hold
+Quad Lengthener|BW|3|10|Tue Fri|211217|30 s
+Handstand Hold|BW|3|40 s|Wed Sat|211218| 
+Bridge Strengthening|BW|3|10|Wed Sat|211218|Lower back/hip focus
+Lever|Adv. Tuck|3|6|Mon|211220|Very strick form (straight arms, externally rotated) = low ROM for now
+Hamstring Pull|BW|3|10|Mon Thu|211220|+30s end hold
+Hammer Curl|45 ea|3|6|Tue Fri|211221|Eccentric, wrap right wrist
+Quad Lengthener|BW|3|10|Tue Fri|211221|30 s
+Handstand Hold|BW|3|40 s|Wed Sat|211223| 
+Bridge Strengthening|BW|3|10|Wed Sat|211224|Lower back/hip focus
+Lotus Strengthener|BW|3|10|Thu|211224|+30s end hold
+Hamstring Pull|BW|3|10|Mon Thu|211224|+30s end hold
+Quad Lengthener|BW|3|10|Tue Fri|211226|30 s
+Handstand Hold|BW|3|40 s|Wed Sat|211226| 
+Lever|Adv. Tuck|3|6|Mon|211227|Knees just past bar
+Hamstring Pull|BW|3|10|Mon Thu|211227|+30s end hold
+Hammer Curl|rm
+KB Curl|54|3|5|Tue|211228|Eccentric
+Quad Lengthener|BW|3|10|Tue Fri|211228|30 s
+Handstand Hold|BW|3|40 s|Wed Sat|211229| 
+Bridge Strengthening|BW|3|10|Wed Sat|211229|Lower back/hip focus
+Lotus Strengthener|BW|3|10|Thu|211231|+30s end hold
+Hamstring Pull|BW|3|10|Mon Thu|211231|+30s end hold
+KB Press|54|2|4|Fri|211231|
+Quad Lengthener|BW|3|10|Tue Fri|211231|30 s
+Handstand Hold|BW|3|40 s|Wed Sat|220101| 
+Lever|Adv. Tuck|3|6|Mon|220103|Knees just past bar
+KB Curl|54|3|5|Tue|220104|Eccentric
+Hamstring Pull|BW|3|10|Mon Thu|220104|+30s end hold
+Quad Lengthener|BW|3|10|Tue Fri|220104|30 s
+Handstand Hold|BW|3|40 s|Wed Sat|220106| 
+Bridge Strengthening|BW|3|10|Wed Sat|220107|Lower back/hip focus
+KB Press|54|3|4|Fri|220107|
+Lotus Strengthener|BW|3|10|Thu|220107|+30s end hold
+Lever|Adv. Tuck|3|6|Mon|220124|Knees several inches past bar
+Hamstring Pull|BW|3|10|Mon Thu|220124|+30s end hold
+KB Curl|54|2|5|Tue|220125|Eccentric
+Quad Lengthener|BW|3|10|Tue Fri|220125|30 s
+Handstand Hold|BW|2|50 s|Wed Sat|220126| 
+Bridge Strengthening|BW|3|10|Wed Sat|220126|Lower back/hip focus
+Hamstring Pull|BW|3|10|Mon Thu|220127|+30s end hold
+Lotus Strengthener|rm
+Side Spit Pull|BW|3|10|Thu|220127|+30s end hold
+KB Press|54|2|5|Fri|220128|+30s end hold
+Quad Lengthener|BW|3|10|Tue Fri|220128|30 s
+Handstand Hold|BW|2|50 s|Wed Sat|220129| 
+Lever|Adv. Tuck|3|6|Mon|220131|Knees several inches past bar
+Hamstring Pull|BW|3|10|Mon Thu|220131|+30s end hold
+KB Curl|54|3|5|Tue|220201|Eccentric
+Quad Lengthener|BW|3|10|Tue Fri|220201|30 s
+Handstand Hold|BW|3|20 s|Wed Sat|220203|No wall support
+Bridge Strengthening|BW|3|10|Wed|220203|+20s end hold; regular bridge
+Side Spit Pull|BW|3|10|Thu|220203|+30s end hold
+Hamstring Pull|BW|3|10|Mon Thu|220203|+30s end hold
+KB Press|54|3|5|Fri|220204|+30s end hold
+Handstand Hold|BW|3|20 s|Wed Sat|220205|No wall support
+Lever|Adv. Tuck|3|6|Mon|220207|Knees just below garage edge
+Hamstring Pull|BW|3|10|Mon Thu|220207|+30s end hold
+KB Curl|54|3|5|Tue|220208|Eccentric
+Quad Lengthener|BW|3|10|Tue Fri|220208|30 s
+Handstand Hold|BW|3|20 s|Wed Sat|220209|No wall support
+Bridge Strengthening|BW|3|10|Wed|220209|+20s end hold; regular bridge
+Hamstring Pull|BW|3|10|Mon Thu|220210|+30s end hold
+Side Spit Pull|BW|3|10|Thu|220210|+30s end hold
+KB Press|54|3|5|Fri|220211|+30s end hold
+Quad Lengthener|BW|3|10|Tue Fri|220211|30 s
+Deep Squat Compress|BW|3|10|Sat|220212|+30s end hold
+Handstand Hold|BW|3|20 s|Wed Sat|220212|No wall support
+Kneeling Compress|BW|3|10|Sun|220213|+30s end hold
+Lever|Adv. Tuck|3|6|Mon|220214|Knees just below garage edge
+Hamstring Pull|BW|3|10|Mon Thu|220214|+30s end hold
+KB Curl|54|3|5|Tue|220215|Eccentric
+Quad Lengthener|BW|3|10|Tue Fri|220215|30 s
+Handstand Hold|BW|3|20 s|Wed Sat|220216|No wall support
+Bridge Strengthening|BW|3|10|Wed|220216|+20s end hold; regular bridge
+Hamstring Pull|BW|3|10|Mon Thu|220217|+30s end hold
+Side Spit Pull|BW|3|10|Thu|220217|+30s end hold
+KB Press|54|3|5|Fri|220218|+30s end hold
+Quad Lengthener|BW|3|10|Tue Fri|220218|30 s
+Handstand Hold|BW|3|20 s|Wed Sat|220219|No wall support
+Deep Squat Compress|BW|3|10|Sat|220219|+30s end hold
+Kneeling Compress|BW|3|10|Sun|220220|+30s end hold
+Split Stance|BWS|2|10|All||Not all at once
+Side Spit Pull|BW|2|10|All||Not all at once
+Hamstring Pull|rm
+Quad Lengthener|rm
+Lever|Adv. Tuck|3|6|Mon|220307|Pulsing
+KB Curl|54|3|5|Tue|220308|Eccentric
+Handstand Posture|BW|2|10-20s|All||Not all at once
+Handstand Hold|rm
+Handstand Posture|rm
+Bridge Strengthening|BW|3|10|Wed|220309|+20s end hold; regular bridge
+KB Press|rm
+KB Clean|54|3|5|Fri|220312|
+Deep Squat Compress|BW|3|10|Sat|220312|
+Kneeling Compress|BW|3|10|Thu|220317|
+Lever|rm
+Bent Straight Arm Row|54|3|6|Mon|220314|
+KB Curl|rm
+KB Clean|54|3|6|Tue|220314|
+Kneeling Compress|BW|3|10|Thu|220317|
+Bridge Strengthening|BW|3|10|Wed|220317|From couch
+Deep Squat Compress|BW|3|10|Sat|220319|
+Bent Straight Arm Row|54|3|6|Mon|220321|
+KB Clean|54|3|6|Tue|220322|
+Bridge Strengthening|BW|3|10|Wed|220323|From couch
+Kneeling Compress|BW|3|10|Thu|220324|
+Bent Straight Arm Row|18|3|6|Mon|220328|
+KB Clean|54|3|6|Tue|220329|
+KB Clean|rm
+Split Stance|rm
+Side Spit Pull|rm
+Bent Straight Arm Row|rm
+Bent Straight Arm Row|18|3|6|Mon|220411|
+Horse Stance|18|1|10|All|220411|Not all at once
+Straight Backleg KOT|BW|1|10|All|220411|Not all at once - Knees over toes
+Handstand|BW|2|10-20s|All|220411|Not all at once
+Bent Straight Arm Row|18|3|6|Mon|220411|
+KB Clean and Press|54|3|6|Tue|220412|
+KB Clean and Press|54|3|6|Tue|220412|
+Bridge Strengthening|BW|3|10|Wed|220413|From couch
+Kneeling Compress|BW|3|10|Thu|220415|
+Bent Straight Arm Row|54|3|6|Mon|220418|
+KB Clean and Press|54|3|6|Tue|220419|
+Bridge Strengthening|BW|3|10|Wed|220420|From couch
+Kneeling Compress|BW|3|10|Thu|220421|
+Bent Straight Arm Row|54|3|6|Mon|220503|
+KB Clean and Press|54|2|6|Tue|220503|
+Bridge Strengthening|BW|3|10|Wed|220505|From couch
+Kneeling Compress|BW|3|10|Thu|220505|
+Deep Squat Compress|BW|3|10|Sat|220507|
+Bent Straight Arm Row|18|3|6|Mon|220510|
+Bridge Strengthening|BW|3|10|Wed|220511|From Ground
+Horse Stance|rm
+Straight Backleg KOT|rm
+Kneeling Compress|BW|3|10|Thu|220512|Leaning Back
+KB Clean and Press|54|3|4|Tue|220512|Better Form
+Deep Squat Compress|BW|3|10|Sat|220515|
+Bent Straight Arm Row|18|3|6|Mon|220516|
+KB Clean and Press|54|3|4|Tue|220517|Better Form
+Chair Front Splits|BW|3|10|Wed||
+Pancake|BW|3|10|Thu||
+Chair Front Splits|BW|3|10|Wed|220518|
+Bridge Strengthening|BW|3|10|Wed|220518|From Ground
+Kneeling Compress|BW|3|10|Thu|220519|Leaning Back
+Pancake|BW|3|10|Thu|220519|
+Deep Squat Compress|rm
+Pistol Squats|BW|2|10|Sat|220521|
+Split Leg Hamstring Curl|BW|3|10|Tue||
+Chair Front Splits|rm
+Pancake|rm
+Chair Split Extension|BW|3|10|Thu||
+Bent Straight Arm Row|18|3|10|Mon|220523|
+Chair Lean Leg Extension|BW|3|10|Mon|220523|
+Split Leg Hamstring Curl|BW|3|10|Tue|220524|
+KB Clean and Press|rm
+KB Overhead Press|56|2|10|Tue|220524|
+Kneeling Compress|rm
+Bridge Strengthening|BW|3|10|Wed|220526|From Ground
+Chair Split Extension|BW|3|10|Thu|220526|
+Bent Straight Arm Row|18|2|10|Mon|220620|
+Chair Lean Leg Extension|BW|2|10|Mon|220620|
+KB Overhead Press|36|2|10|Tue|220621|
+Handstand|rm
+Wrist Flexion|BW|2|10|Thu||
+Split Leg Hamstring Curl|BW|2|10|Tue|220621|
+Bridge Strengthening|BW|2|10|Wed|220622|From Ground
+Two Handed Bicep Curl|36|2|10|Thu||KettleBell
+Two Handed Bicep Curl|36|2|10|Thu|220623|KettleBell
+Chair Split Extension|BW|2|10|Thu|220623|
+Wrist Flexion|BW|2|10|Thu|220623|
+KB Carry|72|3|40|Sat||
+Bent Straight Arm Row|18|3|10|Mon|220627|
+Chair Lean Leg Extension|BW|3|10|Mon|220627|
+KB Overhead Press|36|3|10|Tue|220628|
+Split Leg Hamstring Curl|BW|3|10|Tue|220628|
+Backwards Walking|BW|3|10|Wed||Chair on Carpet
+Bridge Strengthening|BW|3|10|Wed|220629|From Ground
+Backwards Walking|BW|3|10|Wed|220629|Chair on Carpet
+Two Handed Bicep Curl|36|3|10|Thu|220630|KettleBell
+Chair Split Extension|BW|3|10|Thu|220630|One Leg at a time
+Wrist Flexion|BW|3|10|Thu|220630|
+Bent Straight Arm Row|18|3|10|Mon|220704|
+Chair Lean Leg Extension|BW|3|10|Mon|220704|
+KB Overhead Press|36|3|10|Tue|220705|
+Split Leg Hamstring Curl|BW|3|10|Tue|220705|
+Bridge Strengthening|BW|3|10|Wed|220707|From Ground
+Two Handed Bicep Curl|36|3|10|Thu|220707|KettleBell
+Backwards Walking|BW|3|10|Wed|220707|Chair on Carpet
+Wrist Flexion|BW|3|10|Thu|220707|
+Chair Split Extension|BW|3|10|Thu|220707|One Leg at a time
+KB Carry|54|3|50|Sat|220709|In front and at sides
+Pistol Squats|rm
+Squat Form|BW|3|10|Sat|220709|Shin and Hip flex
+Bent Straight Arm Row|18|3|10|Mon|220711|
+Chair Lean Leg Extension|BW|3|10|Mon|220711|
+KB Overhead Press|36|3|10|Tue|220712|
+Split Leg Hamstring Curl|BW|3|10|Tue|220712|
+Backwards Walking|BW|3|10|Wed|220713|Chair on Carpet
+Bridge Strengthening|BW|3|10|Wed|220713|From Ground
+Two Handed Bicep Curl|36|3|10|Thu|220714|KettleBell
+Wrist Flexion|BW|3|10|Thu|220714|
+Chair Split Extension|BW|3|10|Thu|220714|One Leg at a time
+KB Carry|54|3|100|Sat|220717|In front and at sides
+Squat Form|BW|3|10|Sat|220717|Shin and Hip flex
+Bent Straight Arm Row|18|3|10|Mon|220725|
+Chair Lean Leg Extension|BW|3|10|Mon|220725|Straddle Chair
+KB Overhead Press|36|3|10|Tue|220726|
+Split Leg Hamstring Curl|BW|3|10|Tue|220727|
+Bridge Strengthening|BW|3|10|Wed|220727|From Ground
+Backwards Walking|BW|3|10|Wed|220727|Chair on Carpet
+Two Handed Bicep Curl|36|3|10|Thu|220728|KettleBell, + 1x10 @ 54
+Wrist Flexion|BW|3|10|Thu|220728|
+KB Carry|54|3|100|Sat|220730|in front
+Squat Form|BW|3|10|Sat|220730|Shin and Hip flex
+Chair Split Extension|BW|3|10|Thu|220730|One Leg at a time
+Bent Straight Arm Row|18|3|10|Mon|220801|
+Chair Lean Leg Extension|BW|3|10|Mon|220801|Straddle Chair
+KB Overhead Press|36|3|10|Tue|220802|
+Split Leg Hamstring Curl|BW|3|10|Tue|220802|
+Two Handed Bicep Curl|36|3|10|Thu|220804|KettleBell, + 1x10 @ 54
+Wrist Flexion|BW|3|10|Thu|220804|
+Chair Split Extension|BW|3|10|Thu|220804|One Leg at a time
+Bridge Strengthening|BW|3|10|Wed|220806|From Ground
+KB Carry|54|3|50|Sat|220807|Front and Sides
+Squat Form|BW|3|10|Sat|220807|Shin and Hip flex
+Backwards Walking|BW|3|10|Wed|220807|Up stairs
+Bent Straight Arm Row|18|3|10|Mon|220808|
+Chair Lean Leg Extension|BW|3|10|Mon|220808|Straddle Chair
+KB Overhead Press|36|3|10|Tue|220809|
+Split Leg Hamstring Curl|BW|3|10|Tue|220809|
+Bridge Strengthening|BW|3|10|Wed|220811|From Ground
+Backwards Walking|BW|3|13|Wed|220811|Up stairs
+Balance Bicep Curl|18|3|10|Thu|220811|Upsidown Kettlebell Single Hand
+Two Handed Bicep Curl|rm
+Wrist Flexion|BW|3|10|Thu|220811|
+Chair Split Extension|BW|3|10|Thu|220813|One Leg at a time
+KB Carry|54|2x3|50|Sat|220813|Front and Side, Clusters of 3
+Squat Form|BW|2x3|10|Sat|220813|Shin and Hip flex
+Kettlebell Chest Fly|18|3|10|Mon|220815|One Handed
+Bent Straight Arm Row|rm
+Chair Lean Leg Extension|BW|5|10|Mon|220815|Straddle Chair
+KB Overhead Press|36|5|10|Tue|220816|
+Split Leg Hamstring Curl|BW|5|10|Tue|220817|
+Bridge Strengthening|BW|5|10|Wed|220817|From Ground
+Balance Bicep Curl|18|5|10|Thu|220818|Upsidown Kettlebell Single Hand
+Backwards Walking|BW|5|13|Wed|220818|Up stairs
+Wrist Flexion|BW|5|10|Thu|220819|
+Chair Split Extension|BW|5|10|Thu|220819|One Leg at a time
+KB Carry|54|10|50|Sat|220820|Front only
+Kettlebell Chest Fly|18|5|10|Mon|220823|One Handed
+Chair Lean Leg Extension|BW|10|10|Mon|220823|Straddle Chair
+Split Leg Hamstring Curl|rm
+Chair Lean Leg Extension|rm
+Stair Splits Flex|BW|5|10|Mon|220824|
+KB Overhead Press|36|5|10|Tue|220824|
+Bridge Strengthening|BW|5|10|Wed|220824|From Ground
+Backwards Walking|BW|5|13|Wed|220824|Up stairs
+Squat Form|BW|5|10|Sat|220827|Shin and Hip flex
+Balance Bicep Curl|18|12|10|Thu|220827|Upsidown Kettlebell Single Hand
+Chair Split Extension|BW|5|10|Thu|220827|Stairs
