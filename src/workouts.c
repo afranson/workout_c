@@ -282,8 +282,12 @@ workouts_print_workouts(struct bus *mainbus)
 {
     /* TODO Figure out/implement how I want to sort the workouts (by date?) */
     // qsort(mainbus->recent_workouts_indexes, mainbus->num_uniques, sizeof(size_t), compare_size_t);
-
-    workout_pprint_header();
+    switch ( mainbus->method ) {
+    case list_wid:
+	break;
+    default:
+	workout_pprint_header();
+    }
     for (size_t i=0; i<mainbus->num_uniques; i++) {
 	struct workout workout = mainbus->recent_workouts[i];
         switch ( mainbus->method ) {
@@ -421,7 +425,7 @@ workouts_list_wid_workout(struct bus *mainbus, char *id)
 	    workout_pprint(mainbus->workouts[i]);
         }
     }
-    exit(EXIT_SUCCESS);
+    return EXIT_SUCCESS;
 }
 
 
