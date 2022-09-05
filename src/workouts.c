@@ -517,6 +517,7 @@ workouts_generate_workout(char **default_options)
 
     char id[7];
     workouts_get_id(workout_pointers[0], id);
+    generated_workout.active = true;
     generated_workout.id = strdup(id);
     generated_workout.exercise = workout_pointers[0];
     generated_workout.weights = workout_pointers[1];
