@@ -49,7 +49,7 @@ struct bus
     FILE *workoutFile;
     size_t num_workouts;
     struct workout *workouts;
-    size_t *recent_workouts_indexes;
+    struct workout *recent_workouts;
     size_t num_uniques;
 };
 
@@ -58,6 +58,7 @@ extern struct bus bus_default;
 
 /* Utilities */
 void print_buffer(char* buff, size_t len);
+void remove_end_newline(char **bufferp);
 
 /* Splitting Strings */
 struct split_string strsplit(char * string_to_split, char delim);
@@ -65,12 +66,14 @@ void free_split_string(struct split_string);
 void print_split_string(struct split_string);
 int test_strsplit(void);
 
+/* Workout struct functions */
 void workout_pprint_header();
 void workout_pprint(struct workout workout);
 size_t workout_get_num_chars(struct workout workout);
 char *workout_to_string(struct workout workout_in);
 struct split_string workout_to_split_string(struct workout workout_in);
 struct workout string_to_workout(char* string);
+int workout_compare(struct workout workout_a, struct workout workout_b);
 
 /* Workouts Functions */
 struct bus workouts_init_bus(int, char **, char *);
@@ -84,7 +87,7 @@ size_t workouts_get_num_workouts(struct bus *);
 void workouts_read_workoutfile_into_bus(struct bus *);
  int workouts_read_rmline(struct bus *, struct split_string, size_t i);
  int workouts_read_full_line(struct bus *, size_t i, char* string);
- void workouts_update_recent_workouts_indexes(struct bus *, size_t);
+ void workouts_update_recent_workouts(struct bus *, struct workout workout);
 size_t workouts_get_most_recent_workout(struct bus *, char *workout_name, size_t i);
   void workouts_get_id(char *, char *);
 void workouts_safe_close_workoutfile(struct bus *);
@@ -96,7 +99,7 @@ void workouts_wid_actions(struct bus *);
   char *workouts_get_todays_date(void);
  void workouts_rm_wid_workout(struct bus *, char *);
   int workouts_write_rm_workout(FILE *, struct workout);
- void workouts_list_wid_workout(struct bus *, char *);
+ int workouts_list_wid_workout(struct bus *, char *);
  void workouts_edit_wid_workout(struct bus *, char *);
   int workouts_write_edited_workout(struct bus *, struct bus *, struct workout, struct workout);
   int workouts_cmp_line_to_workout(char *, struct workout);

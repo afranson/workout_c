@@ -126,7 +126,9 @@ workouts_create_workout(struct bus *mainbus)
 int
 workouts_write_full_workout(struct bus *mainbus, struct workout workout_to_add)
 {
-    fprintf(mainbus->workoutFile, "%s|%s|%s|%s|%s|%s\n", workout_to_add.exercise, workout_to_add.weights, workout_to_add.sets, workout_to_add.reps, workout_to_add.date, workout_to_add.notes);
+    char *workout_string = workout_to_string(workout_to_add);
+    fputs(workout_string, mainbus->workoutFile);
+    free(workout_string);
     return 0;
 }
 
@@ -173,76 +175,71 @@ workouts_get_num_workouts(struct bus *mainbus)
         perror("Error returning to start of file");
         exit(EXIT_FAILURE);
     }
-    return count;
+    return count+1;
 }
 
 
 /* Read all lines from the workout file into the bus
-   If a line has 2 entries, it's probably removed a workout
-   If it has 6 entries, it's probably a properly formatted line */
+   Normal workouts are read in full, rm's just add a
+   nonactive headstone workout */
 void
 workouts_read_workoutfile_into_bus(struct bus *mainbus)
 {
-    mainbus->workouts = malloc(mainbus->num_workouts * sizeof(struct workout));
-    mainbus->recent_workouts_indexes = malloc(mainbus->num_workouts * sizeof(size_t));
-    size_t workout_size = MAX_WORKOUT_SIZE; /* Long workout line */
-    char buffer[workout_size];
+    mainbus->workouts = malloc(mainbus->num_workouts * sizeof(*mainbus->workouts));
+    mainbus->recent_workouts = malloc(mainbus->num_workouts * sizeof(*mainbus->recent_workouts));
+    char buffer[MAX_WORKOUT_SIZE];
     size_t i = 0;
-    while ( fgets(buffer, workout_size, mainbus->workoutFile) )
-    {
+    while ( fgets(buffer, MAX_WORKOUT_SIZE, mainbus->workoutFile) ) {
 	buffer[strlen(buffer)-1] = '\0'; /* Remove \n at end of each line */
-        struct split_string parsed_string = strsplit(buffer, '|');
-        if (parsed_string.num_elements == 2 && !strcmp(parsed_string.str_p_array[1], "rm") ) {
-            workouts_read_rmline(mainbus, parsed_string, i);
-            i--; // don't advance counter
-            mainbus->num_workouts--;
-        } else if (parsed_string.num_elements == 7) {
-            workouts_read_full_line(mainbus, i, buffer);
-            workouts_update_recent_workouts_indexes(mainbus, i);
-        } else {
-            perror("Error importing workout line from file");
-        }
-        free_split_string(parsed_string);
-        i++;
+	struct workout buffer_workout = string_to_workout(buffer);
+	mainbus->workouts[i] = buffer_workout;
+	workouts_update_recent_workouts(mainbus, mainbus->workouts[i]);
+	i++;
     }
     return;
 }
 
 
-int
-workouts_read_rmline(struct bus *mainbus, struct split_string parsed_string, size_t i)
-{
-    // remove active stat from most recent workout matching parsed_string[0]
-    size_t workout_i = workouts_get_most_recent_workout(mainbus, parsed_string.str_p_array[0], i-1);
-    mainbus->workouts[workout_i].active = false;
-    return EXIT_SUCCESS;
-}
+
+/* int */
+/* workouts_read_rmline(struct bus *mainbus, struct split_string parsed_string, size_t i) */
+/* { */
+/*     // remove active stat from most recent workout matching parsed_string[0] */
+/*     size_t workout_i = workouts_get_most_recent_workout(mainbus, parsed_string.str_p_array[0], i-1); */
+/*     mainbus->workouts[workout_i].active = false; */
+/*     return EXIT_SUCCESS; */
+/* } */
 
 
-int
-workouts_read_full_line(struct bus* mainbus, size_t i, char* string)
-{
-    struct workout this_workout = string_to_workout(string);
-    mainbus->workouts[i] = this_workout;
+/* int */
+/* workouts_read_full_line(struct bus* mainbus, size_t i, char* string) */
+/* { */
+/*     struct workout this_workout = string_to_workout(string); */
+/*     mainbus->workouts[i] = this_workout; */
 
-    return EXIT_SUCCESS;
-}
+/*     return EXIT_SUCCESS; */
+/* } */
 
 
+/* If workout is active (i.e. not a rm entry), check for it in recent_workouts
+   and if it's there, update the pointer. If not, add it to the list. If it is
+   not active (rm entry), remove the active status from the recent_workouts entry. */
 void
-workouts_update_recent_workouts_indexes(struct bus *mainbus, size_t i)
+workouts_update_recent_workouts(struct bus *mainbus, struct workout workout)
 {
-    size_t match_j = 0;
-    for (size_t j=0; j < mainbus->num_uniques; j++) {
-        if( !strcmp(mainbus->workouts[mainbus->recent_workouts_indexes[j]].id, mainbus->workouts[i].id) ) {
-            match_j = j;
+    /* Find the index of the entry in recent_workouts that matches input workout */
+    size_t match_i = 0;
+    for (size_t i=0; i < mainbus->num_uniques; i++) {
+        if( !strcmp(mainbus->recent_workouts[i].id, workout.id) ) {
+            match_i = i;
         }
     }
-    if ( match_j == 0 ) {
-        mainbus->recent_workouts_indexes[mainbus->num_uniques] = i;
-        mainbus->num_uniques++;
-    } else {
-        mainbus->recent_workouts_indexes[match_j] = i;
+    if ( match_i == 0 ) {	/* Workout not found in recents */
+        mainbus->recent_workouts[mainbus->num_uniques++] = workout;
+    } else if ( workout.active ) { /* Workout found and active */
+        mainbus->recent_workouts[match_i] = workout;
+    } else {			/* workout found and rm entry */
+	mainbus->recent_workouts[match_i].active = false;
     }
     return;
 }
@@ -260,7 +257,7 @@ workouts_get_most_recent_workout(struct bus *mainbus, char *exercise, size_t max
 	    return i;
         }
     }
-    fprintf(stderr, "Failed to find instance of workout id, %s.\n", id);
+    fprintf(stderr, "Failed to find instance of workout id, %s for exercise %s.\n", id, exercise);
     return -1;
 }
 
@@ -304,22 +301,22 @@ void
 workouts_print_workouts(struct bus *mainbus)
 {
     // get the fields to be printed for the first round of possible printing
-    qsort(mainbus->recent_workouts_indexes, mainbus->num_uniques, sizeof(size_t), compare_size_t);
+    // qsort(mainbus->recent_workouts_indexes, mainbus->num_uniques, sizeof(size_t), compare_size_t);
 
     workout_pprint_header();
     for (size_t i=0; i<mainbus->num_uniques; i++) {
-        size_t index = mainbus->recent_workouts_indexes[i];
+	struct workout workout = mainbus->recent_workouts[i];
         switch ( mainbus->method ) {
         case all:
         case list:
         case rm:
         case progress:
         case edit:
-	    workout_pprint(mainbus->workouts[index]);
+	    workout_pprint(workout);
             break;
         case show:
-            if ( mainbus->workouts[index].active ) {
-		workout_pprint(mainbus->workouts[index]);
+            if ( workout.active ) {
+		workout_pprint(workout);
             }
             break;
         default:
@@ -428,7 +425,7 @@ workouts_write_rm_workout(FILE* workoutFile, struct workout workout_to_add)
 }
 
 
-void
+int
 workouts_list_wid_workout(struct bus *mainbus, char *id)
 {
     // print all matching workouts
@@ -438,16 +435,16 @@ workouts_list_wid_workout(struct bus *mainbus, char *id)
 	    workout_pprint(mainbus->workouts[i]);
         }
     }
-    exit(EXIT_SUCCESS);
+    return EXIT_SUCCESS;
 }
 
 
-void 
+void
 workouts_edit_wid_workout(struct bus *mainbus, char *id)
 {
     // open temp file for writing and main file for reading
     struct bus tempbus = bus_default;
-    tempbus.filename = strdup("tmp_workoutseditfile.txt");
+    tempbus.filename = "tmp_workoutseditfile.txt";
     tempbus.workoutFile = workouts_safe_open_workoutfile_append(&tempbus);
     mainbus->workoutFile = workouts_safe_open_workoutfile(mainbus);
 
@@ -477,101 +474,81 @@ workouts_edit_wid_workout(struct bus *mainbus, char *id)
 }
 
 
+/* TODO, this reads the whole input file again, should just loop over workouts in memory*/
 int
 workouts_write_edited_workout(struct bus *mainbus, struct bus *tempbus, struct workout original_workout, struct workout edited_workout)
 {
-    char buffer[MAX_WORKOUT_SIZE];
-    while ( fgets(buffer, MAX_WORKOUT_SIZE, mainbus->workoutFile ) ) {
-        if ( !workouts_cmp_line_to_workout(buffer, original_workout) )
+    char *workout_line;
+    struct workout woi;
+    for ( size_t i=0; i<mainbus->num_workouts; i++ ) {
+	woi = mainbus->workouts[i];
+	if ( workout_compare(woi, original_workout) ) /* If they're the same */
         {
-            //write new thing
+	    /* Replace the workout */
             workouts_write_full_workout(tempbus, edited_workout);
         } else {
-            // write old thing
-            fprintf(tempbus->workoutFile, "%s", buffer);
+            // write previous
+	    workout_line = workout_to_string(edited_workout);
+	    fputs(workout_line, tempbus->workoutFile);
+	    free(workout_line);
         }
     }
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 
-/* TODO, just hash the whole workout string and compare hashes */
-int
-workouts_cmp_line_to_workout(char *buffer, struct workout active_workout)
-{
-    struct split_string ss = strsplit(buffer, '|');
-    char **struct_list = ss.str_p_array;
+/* int */
+/* workouts_cmp_line_to_workout(char *line, struct workout active_workout) */
+/* { */
+/*     struct workout line_workout = string_to_workout(line); */
+/*     return workout_compare(line_workout, active_workout); */
+/* } */
 
-    if ( ss.num_elements == 2 ) {
-        return 1;
-    } else if ( !strcmp(struct_list[0], active_workout.exercise)
-                && !strcmp(struct_list[1], active_workout.weights)
-                && !strcmp(struct_list[2], active_workout.sets)
-                && !strcmp(struct_list[3], active_workout.reps)
-                && !strcmp(struct_list[4], active_workout.date)
-                && !strcmp(struct_list[5], active_workout.notes) ) {
-        return 0;
-    } else {
-        return 1;
-    }
-}
 
-/* TODO this could be a lot better */
 struct workout
 workouts_generate_workout(char **default_options)
 {
     /* TODO maybe ncurses to prefill stdin with default values */
-    // add something in
-    // allocate new workout space
-    char **total_buffer = (char **)malloc( MAX_WORKOUT_SIZE*sizeof(char *));
-    char *first_data_loc = (char *)(total_buffer + 6);
-    memset(total_buffer, 0, 6*sizeof(char *) + MAX_WORKOUT_SIZE);
-    for (int i=0; i<6; i++) {
-        total_buffer[i] = first_data_loc + 50*i;
-    }
+    /* Create a new workout and makes it's fields point at the stdin input */
+    struct workout generated_workout = workout_default;
+    char *workout_pointers[7];
+    char *buffer = malloc(MAX_WORKOUT_SIZE);
 
     // collect fields from user
-    const char *fields[] = {"Name", "Weights", "Sets", "Reps", "Date", "Notes"};
-    printf("Enter Name then Weights ... Sets Reps Date Notes\n");
+    const char *fields[] = {"Name", "Weights", "Sets", "Reps", "Days", "Date", "Notes"};
+    printf("Enter Name then Weights ... Sets Reps Days Date Notes\n");
     if ( default_options == NULL ) {
-        for (int i=0; i<6; i++)
+        for (int i=0; i<7; i++)
         {
             printf("%s: ", fields[i]);
-	    fgets(total_buffer[i], 200, stdin);
+	    fgets(buffer, MAX_WORKOUT_SIZE, stdin);
+	    buffer[strlen(buffer)-1] = '\0'; /* Remove \n at end of input */
+	    workout_pointers[i] = strdup(buffer);
         }
     } else {
-        for (int i=0; i<6; i++)
+        for (int i=0; i<7; i++)
         {
             printf("%s [%s]: ", fields[i], default_options[i]);
-            fgets(total_buffer[i], 200, stdin);
-            if ( total_buffer[i][0] == '\n' || !total_buffer[i] ) {
-                strcpy(total_buffer[i], default_options[i]);
-            }
+            fgets(buffer, MAX_WORKOUT_SIZE, stdin);
+            if ( buffer[0] == '\n' || !buffer ) {
+		workout_pointers[i] = strdup(default_options[i]);
+            } else {
+		buffer[strlen(buffer)-1] = '\0'; /* Remove \n at end of input */
+		workout_pointers[i] = strdup(buffer);
+	    }
         }
-
     }
+    free(buffer);
 
-    // remove \n from the ends
-    int j;
-    char c;
-    for (int i=0; i<6; i++)
-    {
-        j=0;
-        do {
-            c = total_buffer[i][j];
-            j++;
-        } while ( c != '\n' && c != '\0' );
-        total_buffer[i][j-1] = '\0';
-    }
-
+    generated_workout.exercise = workout_pointers[0];
+    generated_workout.weights = workout_pointers[1];
+    generated_workout.sets = workout_pointers[2];
+    generated_workout.reps = workout_pointers[3];
+    generated_workout.days = workout_pointers[4];
+    generated_workout.date = workout_pointers[5];
+    generated_workout.notes = workout_pointers[6]; 
+    
     // uncomment to see the whole allocated buffer in hex
     // for (int i=0; i<525; i++) { printf("%#.2x ", *(*total_buffer + i)); if ((i+1)%50 == 0) printf("\n"); } printf("\n");
-    struct workout workout_to_add = workout_default;
-    workout_to_add.exercise = total_buffer[0];
-    workout_to_add.weights = total_buffer[1];
-    workout_to_add.sets = total_buffer[2];
-    workout_to_add.reps = total_buffer[3];
-    workout_to_add.date = total_buffer[4];
-    workout_to_add.notes = total_buffer[5];
-    return workout_to_add;
+    return generated_workout;
 }

@@ -37,5 +37,13 @@ main(int argc, char **argv)
     // print final state to user
     workouts_print_workouts(&mainbus);
 
+    free(mainbus.filename);
+    for (size_t i=0; i<mainbus.num_workouts; i++) {
+	free(mainbus.workouts[i].id);
+	free(mainbus.workouts[i].exercise);
+    }
+    free(mainbus.workouts);
+    free(mainbus.recent_workouts);
+
     return EXIT_SUCCESS;
 }

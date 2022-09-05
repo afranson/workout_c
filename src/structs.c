@@ -25,17 +25,16 @@ workout_pprint(struct workout workout)
 size_t
 workout_get_num_chars(struct workout workout)
 {
-    /* Need to add in days later */
-    return strlen(workout.id) + strlen(workout.exercise) + strlen(workout.weights) + strlen(workout.sets) + strlen(workout.reps) + strlen(workout.days) + strlen(workout.date) + strlen(workout.notes);
+    return strlen(workout.exercise) + strlen(workout.weights) + strlen(workout.sets) + strlen(workout.reps) + strlen(workout.days) + strlen(workout.date) + strlen(workout.notes);
 }
 
 
 char *
-workout_to_string(struct workout workout_in)
+workout_to_string(struct workout workout)
 {
     /* Upgrade to snprintf for safety */
-    char *buffer = malloc(8 + sizeof(char)*workout_get_num_chars(workout_in));
-    sprintf(buffer, "%s|%s|%s|%s|%s|%s|%s\n", workout_in.exercise, workout_in.weights, workout_in.sets, workout_in.reps, workout_in.days, workout_in.date, workout_in.notes);
+    char *buffer = malloc(8 + sizeof(char)*workout_get_num_chars(workout));
+    sprintf(buffer, "%s|%s|%s|%s|%s|%s|%s\n", workout.exercise, workout.weights, workout.sets, workout.reps, workout.days, workout.date, workout.notes);
     return buffer;
 }
 
@@ -51,6 +50,8 @@ workout_to_split_string(struct workout workout_in)
 }
 
 
+/* Parses a line into a workout. If the line removes a workout from themselves
+   active ppol of workouts, it is saved with the 'active' field set to false*/
 struct workout
 string_to_workout(char* string)
 {
@@ -60,14 +61,37 @@ string_to_workout(char* string)
     char **workout_fields = parsed_string.str_p_array;
     struct workout return_workout;
 
-    return_workout.active = true;
-    return_workout.id = id;
-    return_workout.exercise = workout_fields[0];
-    return_workout.weights = workout_fields[1];
-    return_workout.sets = workout_fields[2];
-    return_workout.reps = workout_fields[3];
-    return_workout.days = workout_fields[4];
-    return_workout.date = workout_fields[5];
-    return_workout.notes = workout_fields[6];
+    if ( parsed_string.num_elements == 2 ) { /* rm */
+	return_workout.active = false;
+	return_workout.id = id;
+	return_workout.exercise = workout_fields[0];
+    } else {
+	return_workout.active = true;
+	return_workout.id = id;
+	return_workout.exercise = workout_fields[0];
+	return_workout.weights = workout_fields[1];
+	return_workout.sets = workout_fields[2];
+	return_workout.reps = workout_fields[3];
+	return_workout.days = workout_fields[4];
+	return_workout.date = workout_fields[5];
+	return_workout.notes = workout_fields[6];
+    }
     return return_workout;
+}
+
+
+int
+workout_compare(struct workout workout_a, struct workout workout_b)
+{
+    if ( !strcmp(workout_a.exercise, workout_b.exercise)
+	 && !strcmp(workout_a.weights, workout_b.weights)
+	 && !strcmp(workout_a.sets, workout_b.sets)
+	 && !strcmp(workout_a.reps, workout_b.reps)
+	 && !strcmp(workout_a.days, workout_b.days)	
+	 && !strcmp(workout_a.date, workout_b.date)
+	 && !strcmp(workout_a.notes, workout_b.notes) ) {
+        return 1;
+    } else {
+	return 0;
+    }
 }
