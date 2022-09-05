@@ -475,6 +475,7 @@ workouts_write_edited_workout(struct bus *mainbus, struct bus *tempbus, struct w
 	    /* Replace the workout in file and in bus */
             workouts_write_full_workout(tempbus, edited_workout);
 	    mainbus->workouts[i] = edited_workout;
+	    workouts_update_recent_workouts(mainbus, mainbus->workouts[i]);
         } else {
             // write previous
 	    workout_line = workout_to_string(woi);
