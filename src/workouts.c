@@ -129,7 +129,7 @@ workouts_write_full_workout(struct bus *mainbus, struct workout workout_to_add)
     char *workout_string = workout_to_string(workout_to_add);
     fputs(workout_string, mainbus->workoutFile);
     free(workout_string);
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 
@@ -175,7 +175,7 @@ workouts_get_num_workouts(struct bus *mainbus)
         perror("Error returning to start of file");
         exit(EXIT_FAILURE);
     }
-    return count+1;
+    return count;
 }
 
 
@@ -229,7 +229,7 @@ workouts_update_recent_workouts(struct bus *mainbus, struct workout workout)
 size_t
 workouts_get_most_recent_workout(struct bus *mainbus, char *exercise, size_t max_i)
 {
-    char id[10];
+    char id[7];
     workouts_get_id(exercise, id);
     for (int i=max_i; i>=0; i--) {
         if( !strcmp(mainbus->workouts[i].id, id) ) {
@@ -237,7 +237,7 @@ workouts_get_most_recent_workout(struct bus *mainbus, char *exercise, size_t max
         }
     }
     fprintf(stderr, "Failed to find instance of workout id, %s for exercise %s.\n", id, exercise);
-    return -1;
+    return EXIT_FAILURE;
 }
 
 
@@ -400,7 +400,7 @@ int
 workouts_write_rm_workout(FILE* workoutFile, struct workout workout_to_add)
 {
     fprintf(workoutFile, "%s|%s\n", workout_to_add.exercise, "rm");
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 
@@ -414,7 +414,7 @@ workouts_list_wid_workout(struct bus *mainbus, char *id)
 	    workout_pprint(mainbus->workouts[i]);
         }
     }
-    return EXIT_SUCCESS;
+    exit(EXIT_SUCCESS);
 }
 
 
