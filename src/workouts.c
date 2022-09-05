@@ -29,7 +29,9 @@ void
 workouts_print_workouts(struct bus *mainbus)
 {
     /* TODO Figure out/implement how I want to sort the workouts (by date?) */
-    // qsort(mainbus->recent_workouts_indexes, mainbus->num_uniques, sizeof(size_t), compare_size_t);
+
+    qsort(mainbus->recent_workouts, mainbus->num_uniques, sizeof(*mainbus->recent_workouts), compare_date);
+    
     switch ( mainbus->method ) {
     case list_wid:
 	break;
@@ -59,16 +61,16 @@ workouts_print_workouts(struct bus *mainbus)
 
 
 /* Comparison algorithm for sorting  */
-int compare_size_t(const void *a, const void *b)
+int
+compare_date(const void *a, const void *b)
 {
-    return *(size_t *)a - *(size_t *)b;    
-}
-
-int compare_date(const struct workout *a, const struct workout *b)
-{
-    char *date_1 = a->date;
-    char *date_2 = b->date;
-    
+    const struct workout *workout_1 = (const struct workout *)a;
+    const struct workout *workout_2 = (const struct workout *)b;
+    long int date_1, date_2;
+    char *tmp_ptr;
+    date_1 = strtol(workout_1->date, &tmp_ptr, 10);
+    date_2 = strtol(workout_2->date, &tmp_ptr, 10);
+    return date_1 - date_2;
 }
 
 

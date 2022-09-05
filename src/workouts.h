@@ -95,7 +95,7 @@ void free_bus(struct bus *);
 /* Workouts Functions */
 size_t workouts_get_most_recent_workout(struct bus *, char *workout_name, size_t i);
 void workouts_print_workouts(struct bus *);
- int compare_size_t(const void *, const void *);
+int compare_date(const void *a, const void *b);
 void workouts_wid_actions(struct bus *);
  int workouts_progress_wid_workout(struct bus *, char *id);
  int workouts_rm_wid_workout(struct bus *, char *id);
