@@ -59,6 +59,7 @@ extern struct bus bus_default;
 /* Utilities */
 void print_buffer(char* buff, size_t len);
 void remove_end_newline(char **bufferp);
+char *get_todays_date_yymmdd(void);
 
 /* Splitting Strings */
 struct split_string strsplit(char * string_to_split, char delim);
@@ -89,6 +90,7 @@ void bus_read_workoutfile(struct bus *);
 void bus_safe_close_workoutfile(struct bus *);
 int bus_write_workout(struct bus *, struct workout);
 void bus_update_recent_workouts(struct bus *, struct workout workout);
+void free_bus(struct bus *);
 
 /* Workouts Functions */
 size_t workouts_get_most_recent_workout(struct bus *, char *workout_name, size_t i);
@@ -96,7 +98,6 @@ void workouts_print_workouts(struct bus *);
  int compare_size_t(const void *, const void *);
 void workouts_wid_actions(struct bus *);
  int workouts_progress_wid_workout(struct bus *, char *id);
-  char *workouts_get_todays_date(void);
  int workouts_rm_wid_workout(struct bus *, char *id);
   int workouts_write_rm_workout(FILE *, struct workout);
  int workouts_list_wid_workout(struct bus *, char *id);

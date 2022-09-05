@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "workouts.h"
 
 
@@ -30,4 +31,15 @@ remove_end_newline(char **bufferp)
 	*bufferp[--len] = '\0';
     }
     return;
+}
+
+
+char *
+get_todays_date_yymmdd(void)
+{
+    time_t t = time(NULL);
+    struct tm *tm = localtime(&t);
+    char *todays_date = malloc(7);
+    strftime(todays_date, 7, "%y%m%d", tm);
+    return todays_date;
 }

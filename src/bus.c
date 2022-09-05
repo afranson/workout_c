@@ -5,6 +5,8 @@
 #include "workouts.h"
 
 
+struct bus bus_default = {0, NULL, broken, NULL, NULL, 0, NULL, NULL, 0};
+
 /* Main object that gets passed around during the execution of the program.
    Stores CLI args, parsed CLI args, the filename, number of workouts, the workouts themselves, recent workouts, and number of unique workouts.*/
 struct bus
@@ -28,8 +30,7 @@ struct string_method_pair
     enum methods method;
 };
 
-const struct string_method_pair two_args_checks[] = { { "create", create }, { "help", help }, { "all", all }, { "show", show } };
-const struct string_method_pair three_args_checks[] = { { "list", list_wid }, { "progress", progress_wid }, { "edit", edit_wid }, { "rm", rm_wid } };
+
 /* Parses the command line args for the program
    If 1 (no args) - default to show
    If 2 - Check for create, help, all, and show
@@ -37,12 +38,14 @@ const struct string_method_pair three_args_checks[] = { { "list", list_wid }, { 
 enum methods
 bus_parse_argv(struct bus *mainbus)
 {
+    const struct string_method_pair two_args_checks[] = { { "create", create }, { "help", help }, { "all", all }, { "show", show } };
+    const struct string_method_pair three_args_checks[] = { { "list", list_wid }, { "progress", progress_wid }, { "edit", edit_wid }, { "rm", rm_wid } };
     enum methods method = mainbus->method;
     int argc = mainbus->argc;
     char **argv = mainbus->argv;
     if ( argc == 1 ) { 		/* No arguments given */
         method = show;
-    } else if ( argc == 2 ) { 	/* Sinlge argument given */
+    } else if ( argc == 2 ) { 	/* Single argument given */
 	for ( size_t i=0; i<sizeof(two_args_checks)/sizeof(two_args_checks[0]); i++ ) {
 	    
 	    struct string_method_pair arg_check = two_args_checks[i];
@@ -220,3 +223,28 @@ bus_update_recent_workouts(struct bus *mainbus, struct workout workout)
     return;
 }
 
+
+/* Close the workout file with error reporting */
+void
+bus_safe_close_workoutfile(struct bus *mainbus)
+{
+   if ( fclose(mainbus->workoutFile) ) {
+        perror("Error closing workouts file");
+        exit(EXIT_FAILURE);
+    }
+    return;
+}
+
+
+void
+free_bus(struct bus *mainbus)
+{
+    free(mainbus->filename);
+    for (size_t i=0; i<mainbus->num_workouts; i++) {
+	free(mainbus->workouts[i].id);
+	free(mainbus->workouts[i].exercise); /* Frees all fields due to how split_strings work */
+    }
+    free(mainbus->workouts);
+    free(mainbus->recent_workouts);
+    return;
+}

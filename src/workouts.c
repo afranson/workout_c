@@ -2,13 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <time.h>
 #include "workouts.h"
 
 
 /* Default, empty objects for initializing */
 struct workout workout_default = {.active=false, .next_workout=NULL, .previous_workout=NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
-struct bus bus_default = {0, NULL, broken, NULL, NULL, 0, NULL, NULL, 0};
 
 
 /* Returns the index of the most recent (latest in list) workout with id matching
@@ -23,18 +21,6 @@ workouts_get_most_recent_workout(struct bus *mainbus, char *exercise, size_t max
     }
     fprintf(stderr, "Failed to find instance of workout id, %s for exercise %s.\n", workout_get_id(exercise), exercise);
     return EXIT_FAILURE;
-}
-
-
-/* Close the workout file with error reporting */
-void
-bus_safe_close_workoutfile(struct bus *mainbus)
-{
-   if ( fclose(mainbus->workoutFile) ) {
-        perror("Error closing workouts file");
-        exit(EXIT_FAILURE);
-    }
-    return;
 }
 
 
@@ -115,7 +101,7 @@ workouts_progress_wid_workout(struct bus *mainbus, char *id)
     // fill fields with proper defaults
     struct split_string default_workout_ss = workout_to_split_string(temp_workout);
     char **default_workout = default_workout_ss.str_p_array;
-    char *todays_date = workouts_get_todays_date();
+    char *todays_date = get_todays_date_yymmdd();
     
     default_workout[5] = todays_date;
 
@@ -132,17 +118,6 @@ workouts_progress_wid_workout(struct bus *mainbus, char *id)
     // close file
     bus_safe_close_workoutfile(mainbus);
     return EXIT_SUCCESS;
-}
-
-
-char *
-workouts_get_todays_date(void)
-{
-    time_t t = time(NULL);
-    struct tm *tm = localtime(&t);
-    char *todays_date = malloc(7);
-    strftime(todays_date, 7, "%y%m%d", tm);
-    return todays_date;
 }
 
 

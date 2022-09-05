@@ -37,7 +37,7 @@ workout_to_string(struct workout workout)
 {
     /* Upgrade to snprintf for safety */
     char *buffer = malloc(8 + sizeof(char)*workout_get_num_chars(workout));
-    if ( !strcmp(workout.notes, "rm") ) { /* It's an rm workout */
+    if ( !strcmp(workout.notes, "rm") ) { // It's an rm workout
 	sprintf(buffer, "%s|rm\n", workout.exercise);
     } else {
 	sprintf(buffer, "%s|%s|%s|%s|%s|%s|%s\n", workout.exercise, workout.weights, workout.sets, workout.reps, workout.days, workout.date, workout.notes);
@@ -50,7 +50,7 @@ struct split_string
 workout_to_split_string(struct workout workout_in)
 {
     char *workout_string = workout_to_string(workout_in);
-    workout_string[strlen(workout_string)-1] = '\0'; /* remove final \n */
+    remove_end_newline(&workout_string);
     struct split_string ss = strsplit(workout_string, '|');
     free(workout_string);
     return ss;
@@ -78,7 +78,7 @@ string_to_workout(char* string)
     char **workout_fields = parsed_string.str_p_array;
     struct workout return_workout;
 
-    if ( parsed_string.num_elements == 2 ) { /* rm */
+    if ( parsed_string.num_elements == 2 ) { // rm
 	return_workout = create_rm_workout(workout_fields[0]);
     } else {
 	return_workout.active = true;
@@ -99,13 +99,13 @@ string_to_workout(char* string)
 int
 workout_compare(struct workout workout_a, struct workout workout_b)
 {
-    if (    !strcmp(workout_a.exercise, workout_b.exercise)
+    if ( !strcmp(workout_a.exercise, workout_b.exercise)
 	 && !strcmp(workout_a.weights, workout_b.weights)
 	 && !strcmp(workout_a.sets, workout_b.sets)
 	 && !strcmp(workout_a.reps, workout_b.reps)
 	 && !strcmp(workout_a.days, workout_b.days)	
 	 && !strcmp(workout_a.date, workout_b.date)
-	 && !strcmp(workout_a.notes, workout_b.notes) ) { /* If all fields are equal */
+	 && !strcmp(workout_a.notes, workout_b.notes) ) { // If all fields are equal
         return 1;
     } else {
 	return 0;
