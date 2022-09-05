@@ -1,7 +1,8 @@
 #include <string.h>
 #include "workouts.h"
 
-// TODO make id generation avoid collisions --> 
+/* TODO Hash table for ids and avoid collisions */
+/* TODO Hash table to recent_workouts so it doesn't have to loop over itself each time for membership */
 
 int
 main(int argc, char **argv)
@@ -33,10 +34,11 @@ main(int argc, char **argv)
     // print final state to user
     workouts_print_workouts(&mainbus);
 
+    /* Free mainbus completely */
     free(mainbus.filename);
     for (size_t i=0; i<mainbus.num_workouts; i++) {
 	free(mainbus.workouts[i].id);
-	free(mainbus.workouts[i].exercise);
+	free(mainbus.workouts[i].exercise); /* Frees all fields due to how split_strings work */
     }
     free(mainbus.workouts);
     free(mainbus.recent_workouts);

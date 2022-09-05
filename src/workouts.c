@@ -472,6 +472,7 @@ workouts_write_edited_workout(struct bus *mainbus, struct bus *tempbus, struct w
 	woi = mainbus->workouts[i];
 	if ( workout_compare(woi, original_workout) ) /* If they're the same */
         {
+	    puts("here");
 	    /* Replace the workout in file and in bus */
             workouts_write_full_workout(tempbus, edited_workout);
 	    mainbus->workouts[i] = edited_workout;
