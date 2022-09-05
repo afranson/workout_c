@@ -393,7 +393,8 @@ workouts_rm_wid_workout(struct bus *mainbus, char *id)
     // Then write rm field
     workouts_write_rm_workout(mainbus->workoutFile, temp_workout);
     // Update mainbus
-    workouts_update_recent_workouts(mainbus, temp_workout);
+    mainbus->workouts[mainbus->num_workouts] = create_rm_workout(temp_workout.exercise);
+    workouts_update_recent_workouts(mainbus, mainbus->workouts[mainbus->num_workouts]);
 
     // close file
     workouts_safe_close_workoutfile(mainbus);

@@ -50,6 +50,19 @@ workout_to_split_string(struct workout workout_in)
 }
 
 
+struct workout
+create_rm_workout(char *exercise)
+{
+    char *id = malloc(5 * sizeof(char));
+    workouts_get_id(exercise, id);
+    struct workout return_workout;
+    return_workout.active = false;
+    return_workout.id = id;
+    return_workout.exercise = exercise;
+    return return_workout;
+}
+
+
 /* Parses a line into a workout. If the line removes a workout from themselves
    active ppol of workouts, it is saved with the 'active' field set to false*/
 struct workout
@@ -62,9 +75,7 @@ string_to_workout(char* string)
     struct workout return_workout;
 
     if ( parsed_string.num_elements == 2 ) { /* rm */
-	return_workout.active = false;
-	return_workout.id = id;
-	return_workout.exercise = workout_fields[0];
+	return_workout = create_rm_workout(workout_fields[0]);
     } else {
 	return_workout.active = true;
 	return_workout.id = id;

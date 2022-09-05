@@ -72,6 +72,7 @@ void workout_pprint(struct workout workout);
 size_t workout_get_num_chars(struct workout workout);
 char *workout_to_string(struct workout workout_in);
 struct split_string workout_to_split_string(struct workout workout_in);
+struct workout create_rm_workout(char *exercise);
 struct workout string_to_workout(char* string);
 int workout_compare(struct workout workout_a, struct workout workout_b);
 
