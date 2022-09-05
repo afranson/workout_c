@@ -34,7 +34,11 @@ workout_to_string(struct workout workout)
 {
     /* Upgrade to snprintf for safety */
     char *buffer = malloc(8 + sizeof(char)*workout_get_num_chars(workout));
-    sprintf(buffer, "%s|%s|%s|%s|%s|%s|%s\n", workout.exercise, workout.weights, workout.sets, workout.reps, workout.days, workout.date, workout.notes);
+    if ( !strcmp(workout.notes, "rm") ) { /* It's an rm workout */
+	sprintf(buffer, "%s|rm\n", workout.exercise);
+    } else {
+	sprintf(buffer, "%s|%s|%s|%s|%s|%s|%s\n", workout.exercise, workout.weights, workout.sets, workout.reps, workout.days, workout.date, workout.notes);
+    }
     return buffer;
 }
 

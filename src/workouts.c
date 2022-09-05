@@ -439,16 +439,16 @@ workouts_edit_wid_workout(struct bus *mainbus, char *id)
     mainbus->workoutFile = workouts_safe_open_workoutfile(mainbus);
 
     size_t most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts-1);
-    struct workout temp_workout = mainbus->workouts[most_current_index];
+    struct workout previous_workout = mainbus->workouts[most_current_index];
     struct workout generated_workout;
 
     // fill fields with proper defaults
-    struct split_string default_workout_ss = workout_to_split_string(temp_workout);
+    struct split_string default_workout_ss = workout_to_split_string(previous_workout);
     char **default_workout = default_workout_ss.str_p_array;
     generated_workout = workouts_generate_workout(default_workout);
 
     // Then write whole file replacing just the edited workout
-    workouts_write_edited_workout(mainbus, &tempbus, temp_workout, generated_workout);
+    workouts_write_edited_workout(mainbus, &tempbus, previous_workout, generated_workout);
 
     free_split_string(default_workout_ss);
 
@@ -472,13 +472,12 @@ workouts_write_edited_workout(struct bus *mainbus, struct bus *tempbus, struct w
 	woi = mainbus->workouts[i];
 	if ( workout_compare(woi, original_workout) ) /* If they're the same */
         {
-	    puts("here");
 	    /* Replace the workout in file and in bus */
             workouts_write_full_workout(tempbus, edited_workout);
 	    mainbus->workouts[i] = edited_workout;
         } else {
             // write previous
-	    workout_line = workout_to_string(edited_workout);
+	    workout_line = workout_to_string(woi);
 	    fputs(workout_line, tempbus->workoutFile);
 	    free(workout_line);
         }
