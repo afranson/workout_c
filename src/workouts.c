@@ -200,27 +200,6 @@ workouts_read_workoutfile_into_bus(struct bus *mainbus)
 }
 
 
-
-/* int */
-/* workouts_read_rmline(struct bus *mainbus, struct split_string parsed_string, size_t i) */
-/* { */
-/*     // remove active stat from most recent workout matching parsed_string[0] */
-/*     size_t workout_i = workouts_get_most_recent_workout(mainbus, parsed_string.str_p_array[0], i-1); */
-/*     mainbus->workouts[workout_i].active = false; */
-/*     return EXIT_SUCCESS; */
-/* } */
-
-
-/* int */
-/* workouts_read_full_line(struct bus* mainbus, size_t i, char* string) */
-/* { */
-/*     struct workout this_workout = string_to_workout(string); */
-/*     mainbus->workouts[i] = this_workout; */
-
-/*     return EXIT_SUCCESS; */
-/* } */
-
-
 /* If workout is active (i.e. not a rm entry), check for it in recent_workouts
    and if it's there, update the pointer. If not, add it to the list. If it is
    not active (rm entry), remove the active status from the recent_workouts entry. */
@@ -308,13 +287,12 @@ workouts_print_workouts(struct bus *mainbus)
 	struct workout workout = mainbus->recent_workouts[i];
         switch ( mainbus->method ) {
         case all:
-        case list:
-        case rm:
-        case progress:
-        case edit:
+        case rm_wid:
 	    workout_pprint(workout);
             break;
         case show:
+	    /* case progress_wid: */ /* Must re-read the file for this to work currently*/
+        /* case edit_wid: */
             if ( workout.active ) {
 		workout_pprint(workout);
             }
@@ -470,12 +448,10 @@ workouts_edit_wid_workout(struct bus *mainbus, char *id)
     // move temp file to overwrite real one
     rename(tempbus.filename, mainbus->filename);
 
-    /* TODO need to free the tempbus */
     return;
 }
 
 
-/* TODO, this reads the whole input file again, should just loop over workouts in memory*/
 int
 workouts_write_edited_workout(struct bus *mainbus, struct bus *tempbus, struct workout original_workout, struct workout edited_workout)
 {
@@ -485,8 +461,9 @@ workouts_write_edited_workout(struct bus *mainbus, struct bus *tempbus, struct w
 	woi = mainbus->workouts[i];
 	if ( workout_compare(woi, original_workout) ) /* If they're the same */
         {
-	    /* Replace the workout */
+	    /* Replace the workout in file and in bus */
             workouts_write_full_workout(tempbus, edited_workout);
+	    mainbus->workouts[i] = edited_workout;
         } else {
             // write previous
 	    workout_line = workout_to_string(edited_workout);
@@ -496,14 +473,6 @@ workouts_write_edited_workout(struct bus *mainbus, struct bus *tempbus, struct w
     }
     return EXIT_SUCCESS;
 }
-
-
-/* int */
-/* workouts_cmp_line_to_workout(char *line, struct workout active_workout) */
-/* { */
-/*     struct workout line_workout = string_to_workout(line); */
-/*     return workout_compare(line_workout, active_workout); */
-/* } */
 
 
 struct workout

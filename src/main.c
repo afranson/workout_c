@@ -1,10 +1,6 @@
 #include <string.h>
 #include "workouts.h"
 
-// TODO add uniques counter to bus - AND implement
-// TODO add most recent workouts vector to bus - AND implement
-//
-// TODO make id generation more human friendly --> Assisted Pistol Squat -> apsq
 // TODO make id generation avoid collisions --> 
 
 int

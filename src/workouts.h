@@ -85,8 +85,6 @@ FILE *workouts_safe_open_workoutfile(struct bus *);
 FILE *workouts_safe_open_workoutfile_append(struct bus *);
 size_t workouts_get_num_workouts(struct bus *);
 void workouts_read_workoutfile_into_bus(struct bus *);
- int workouts_read_rmline(struct bus *, struct split_string, size_t i);
- int workouts_read_full_line(struct bus *, size_t i, char* string);
  void workouts_update_recent_workouts(struct bus *, struct workout workout);
 size_t workouts_get_most_recent_workout(struct bus *, char *workout_name, size_t i);
   void workouts_get_id(char *, char *);
@@ -102,7 +100,6 @@ void workouts_wid_actions(struct bus *);
  int workouts_list_wid_workout(struct bus *, char *);
  void workouts_edit_wid_workout(struct bus *, char *);
   int workouts_write_edited_workout(struct bus *, struct bus *, struct workout, struct workout);
-  int workouts_cmp_line_to_workout(char *, struct workout);
   struct workout workouts_generate_workout(char *[6]);
 
 #endif
