@@ -20,10 +20,10 @@ main(int argc, char **argv)
     mainbus.workoutFile = bus_safe_open_workoutfile(&mainbus);
 
     // get file length (for memory allocation)
-    mainbus.num_workouts = workouts_get_num_workouts(&mainbus);
+    mainbus.num_workouts = bus_get_num_workouts(&mainbus);
 
     // read file contents into memory
-    workouts_read_workoutfile_into_bus(&mainbus);
+    bus_read_workoutfile(&mainbus);
 
     // close file
     bus_safe_close_workoutfile(&mainbus);

@@ -75,6 +75,7 @@ struct split_string workout_to_split_string(struct workout workout_in);
 struct workout create_rm_workout(char *exercise);
 struct workout string_to_workout(char* string);
 int workout_compare(struct workout workout_a, struct workout workout_b);
+char *workout_get_id(char *name);
 
 /* Bus Functions */
 struct bus bus_init(int argc, char **argv, char *filename);
@@ -83,15 +84,14 @@ FILE *bus_safe_open_workoutfile(struct bus *);
 FILE *bus_safe_open_workoutfile_append(struct bus *);
 void bus_handle_create_help_broken_methods(struct bus *);
 int bus_create_and_add_workout(struct bus *);
+size_t bus_get_num_workouts(struct bus *);
+void bus_read_workoutfile(struct bus *);
 void bus_safe_close_workoutfile(struct bus *);
+int bus_write_workout(struct bus *, struct workout);
+void bus_update_recent_workouts(struct bus *, struct workout workout);
 
 /* Workouts Functions */
-  int workouts_write_full_workout(struct bus *, struct workout);
-size_t workouts_get_num_workouts(struct bus *);
-void workouts_read_workoutfile_into_bus(struct bus *);
- void workouts_update_recent_workouts(struct bus *, struct workout workout);
 size_t workouts_get_most_recent_workout(struct bus *, char *workout_name, size_t i);
-  void workouts_get_id(char *name, char *id);
 void workouts_print_workouts(struct bus *);
  int compare_size_t(const void *, const void *);
 void workouts_wid_actions(struct bus *);
