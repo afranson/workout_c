@@ -416,7 +416,8 @@ workouts_list_wid_workout(struct bus *mainbus, char *id)
     // print all matching workouts
     workout_pprint_header();
     for (size_t i=0; i < mainbus->num_workouts; i++) {
-        if( !strcmp(mainbus->workouts[i].id, id) ) {
+        if( !strcmp(mainbus->workouts[i].id, id)
+	    && strcmp(mainbus->workouts[i].notes, "rm") ) { /* ID matches and notes is not "rm" */
 	    workout_pprint(mainbus->workouts[i]);
         }
     }

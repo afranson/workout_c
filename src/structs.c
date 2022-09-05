@@ -59,6 +59,7 @@ create_rm_workout(char *exercise)
     return_workout.active = false;
     return_workout.id = id;
     return_workout.exercise = exercise;
+    return_workout.notes = "rm";
     return return_workout;
 }
 
