@@ -16,7 +16,7 @@ struct bus bus_default = {0, NULL, broken, NULL, NULL, 0, NULL, NULL, 0};
 /* Main object that gest passed around during the execution of the program.
    Stores CLI args, parsed CLI args, the filename, number of workouts, the workouts themselves, recent workouts, and number of unique workouts.*/
 struct bus
-workouts_init_bus(int argc, char **argv, char *filename)
+bus_init(int argc, char **argv, char *filename)
 {
     struct bus mainbus = bus_default;
     mainbus.argc = argc;
@@ -43,7 +43,7 @@ const struct string_method_pair three_args_checks[] = { { "list", list_wid }, { 
    If 2 - Check for create, help, all, and show
    If 3 - Check for list, progress, edit, and rm. */
 enum methods
-workouts_parse_options(struct bus *mainbus)
+bus_parse_argv(struct bus *mainbus)
 {
     enum methods method = mainbus->method;
     int argc = mainbus->argc;
@@ -77,11 +77,11 @@ workouts_parse_options(struct bus *mainbus)
 
 /* Prints the result of the user asking for help or using the command line args incorrectly. */
 void
-workouts_handle_create_help_broken_methods(struct bus *mainbus)
+bus_handle_create_help_broken_methods(struct bus *mainbus)
 {
     if ( mainbus->method == create )
     {
-        workouts_create_workout(mainbus);
+        bus_create_and_add_workout(mainbus);
         mainbus->method = show;
         return;
     } else if ( mainbus->method == help || mainbus->method == broken) {
@@ -102,19 +102,19 @@ workouts_handle_create_help_broken_methods(struct bus *mainbus)
 
 /* Creates a new workout  */
 int
-workouts_create_workout(struct bus *mainbus)
+bus_create_and_add_workout(struct bus *mainbus)
 {
     // generate the new workout from user input
     struct workout workout_to_add = workouts_generate_workout(NULL);
 
     // open file for appending
-    mainbus->workoutFile = workouts_safe_open_workoutfile_append(mainbus);
+    mainbus->workoutFile = bus_safe_open_workoutfile_append(mainbus);
 
     // write the new workout
     workouts_write_full_workout(mainbus, workout_to_add);
 
     // close file
-    workouts_safe_close_workoutfile(mainbus);
+    bus_safe_close_workoutfile(mainbus);
 
     // reassure user
     printf("'%s' added to workouts.\n", workout_to_add.exercise);
@@ -135,7 +135,7 @@ workouts_write_full_workout(struct bus *mainbus, struct workout workout_to_add)
 
 /* Opens the workout file for reading with errors if it fails to open */
 FILE *
-workouts_safe_open_workoutfile(struct bus *mainbus)
+bus_safe_open_workoutfile(struct bus *mainbus)
 {
     FILE *workoutFile;
     if ( (workoutFile = fopen(mainbus->filename, "r")) == NULL ) {
@@ -148,7 +148,7 @@ workouts_safe_open_workoutfile(struct bus *mainbus)
 
 /* Opens the workout file for appending with errors if it fails to open */
 FILE *
-workouts_safe_open_workoutfile_append(struct bus *mainbus)
+bus_safe_open_workoutfile_append(struct bus *mainbus)
 {
     FILE *workoutFile;
     if ( (workoutFile = fopen(mainbus->filename, "a")) == NULL ) {
@@ -266,7 +266,7 @@ workouts_get_id(char *name, char *id)
 
 /* Close the workout file with error reporting */
 void
-workouts_safe_close_workoutfile(struct bus *mainbus)
+bus_safe_close_workoutfile(struct bus *mainbus)
 {
    if ( fclose(mainbus->workoutFile) ) {
         perror("Error closing workouts file");
@@ -344,7 +344,7 @@ int
 workouts_progress_wid_workout(struct bus *mainbus, char *id)
 {
     // open file for appending
-    mainbus->workoutFile = workouts_safe_open_workoutfile_append(mainbus);
+    mainbus->workoutFile = bus_safe_open_workoutfile_append(mainbus);
 
     size_t most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts-1);
 
@@ -368,7 +368,7 @@ workouts_progress_wid_workout(struct bus *mainbus, char *id)
     free(todays_date);
 
     // close file
-    workouts_safe_close_workoutfile(mainbus);
+    bus_safe_close_workoutfile(mainbus);
     return EXIT_SUCCESS;
 }
 
@@ -388,7 +388,7 @@ int
 workouts_rm_wid_workout(struct bus *mainbus, char *id)
 {
     // open file for appending
-    mainbus->workoutFile = workouts_safe_open_workoutfile_append(mainbus);
+    mainbus->workoutFile = bus_safe_open_workoutfile_append(mainbus);
 
     // get matching workout
     size_t most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts-1);
@@ -401,7 +401,7 @@ workouts_rm_wid_workout(struct bus *mainbus, char *id)
     workouts_update_recent_workouts(mainbus, mainbus->workouts[mainbus->num_workouts]);
 
     // close file
-    workouts_safe_close_workoutfile(mainbus);
+    bus_safe_close_workoutfile(mainbus);
     return EXIT_SUCCESS;
 }
 
@@ -435,8 +435,8 @@ workouts_edit_wid_workout(struct bus *mainbus, char *id)
     // open temp file for writing and main file for reading
     struct bus tempbus = bus_default;
     tempbus.filename = "tmp_workoutseditfile.txt";
-    tempbus.workoutFile = workouts_safe_open_workoutfile_append(&tempbus);
-    mainbus->workoutFile = workouts_safe_open_workoutfile(mainbus);
+    tempbus.workoutFile = bus_safe_open_workoutfile_append(&tempbus);
+    mainbus->workoutFile = bus_safe_open_workoutfile(mainbus);
 
     size_t most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts-1);
     struct workout previous_workout = mainbus->workouts[most_current_index];
@@ -453,8 +453,8 @@ workouts_edit_wid_workout(struct bus *mainbus, char *id)
     free_split_string(default_workout_ss);
 
     // close files
-    workouts_safe_close_workoutfile(mainbus);
-    workouts_safe_close_workoutfile(&tempbus);
+    bus_safe_close_workoutfile(mainbus);
+    bus_safe_close_workoutfile(&tempbus);
 
     // move temp file to overwrite real one
     rename(tempbus.filename, mainbus->filename);

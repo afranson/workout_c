@@ -8,16 +8,16 @@ int
 main(int argc, char **argv)
 {
     // initialize omnibus
-    struct bus mainbus = workouts_init_bus(argc, argv, "../data/workoutinfo.txt");
+    struct bus mainbus = bus_init(argc, argv, "../data/workoutinfo.txt");
 
     // parse options
-    mainbus.method = workouts_parse_options(&mainbus);
+    mainbus.method = bus_parse_argv(&mainbus);
 
     // resolve create, help, and broken methods (don't require file reads)
-    workouts_handle_create_help_broken_methods(&mainbus);
+    bus_handle_create_help_broken_methods(&mainbus);
 
     // open file for reading
-    mainbus.workoutFile = workouts_safe_open_workoutfile(&mainbus);
+    mainbus.workoutFile = bus_safe_open_workoutfile(&mainbus);
 
     // get file length (for memory allocation)
     mainbus.num_workouts = workouts_get_num_workouts(&mainbus);
@@ -26,7 +26,7 @@ main(int argc, char **argv)
     workouts_read_workoutfile_into_bus(&mainbus);
 
     // close file
-    workouts_safe_close_workoutfile(&mainbus);
+    bus_safe_close_workoutfile(&mainbus);
 
     // perform wid (with id) actions
     workouts_wid_actions(&mainbus);

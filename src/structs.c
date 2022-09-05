@@ -3,6 +3,8 @@
 #include <string.h>
 #include "workouts.h"
 
+/* TODO Can I create a tuple structure to retain the named aspect and be able to loop? */
+
 /* Trying to construct things atomistically */
 
 const char *workout_pprint_format = "%-4s |%-25s |%-9s |%-4s |%-6s |%-11s |%-8s |%s\n";

@@ -76,31 +76,32 @@ struct workout create_rm_workout(char *exercise);
 struct workout string_to_workout(char* string);
 int workout_compare(struct workout workout_a, struct workout workout_b);
 
+/* Bus Functions */
+struct bus bus_init(int argc, char **argv, char *filename);
+enum methods bus_parse_argv(struct bus *);
+FILE *bus_safe_open_workoutfile(struct bus *);
+FILE *bus_safe_open_workoutfile_append(struct bus *);
+void bus_handle_create_help_broken_methods(struct bus *);
+int bus_create_and_add_workout(struct bus *);
+void bus_safe_close_workoutfile(struct bus *);
+
 /* Workouts Functions */
-struct bus workouts_init_bus(int, char **, char *);
-enum methods workouts_parse_options(struct bus *);
-void workouts_handle_create_help_broken_methods(struct bus *);
- int workouts_create_workout(struct bus *);
   int workouts_write_full_workout(struct bus *, struct workout);
-FILE *workouts_safe_open_workoutfile(struct bus *);
-FILE *workouts_safe_open_workoutfile_append(struct bus *);
 size_t workouts_get_num_workouts(struct bus *);
 void workouts_read_workoutfile_into_bus(struct bus *);
  void workouts_update_recent_workouts(struct bus *, struct workout workout);
 size_t workouts_get_most_recent_workout(struct bus *, char *workout_name, size_t i);
-  void workouts_get_id(char *, char *);
-void workouts_safe_close_workoutfile(struct bus *);
+  void workouts_get_id(char *name, char *id);
 void workouts_print_workouts(struct bus *);
- size_t *workouts_get_indexes_to_print(struct bus *, size_t *);
  int compare_size_t(const void *, const void *);
 void workouts_wid_actions(struct bus *);
- int workouts_progress_wid_workout(struct bus *, char *);
+ int workouts_progress_wid_workout(struct bus *, char *id);
   char *workouts_get_todays_date(void);
- int workouts_rm_wid_workout(struct bus *, char *);
+ int workouts_rm_wid_workout(struct bus *, char *id);
   int workouts_write_rm_workout(FILE *, struct workout);
- int workouts_list_wid_workout(struct bus *, char *);
- void workouts_edit_wid_workout(struct bus *, char *);
-  int workouts_write_edited_workout(struct bus *, struct bus *, struct workout, struct workout);
-  struct workout workouts_generate_workout(char *[6]);
+ int workouts_list_wid_workout(struct bus *, char *id);
+ void workouts_edit_wid_workout(struct bus *main, char *temp);
+  int workouts_write_edited_workout(struct bus *main, struct bus *temp, struct workout original, struct workout edited);
+  struct workout workouts_generate_workout(char **default_options);
 
 #endif
