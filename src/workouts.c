@@ -64,6 +64,13 @@ int compare_size_t(const void *a, const void *b)
     return *(size_t *)a - *(size_t *)b;    
 }
 
+int compare_date(const struct workout *a, const struct workout *b)
+{
+    char *date_1 = a->date;
+    char *date_2 = b->date;
+    
+}
+
 
 void
 workouts_wid_actions(struct bus *mainbus)

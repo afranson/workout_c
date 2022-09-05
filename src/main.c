@@ -4,6 +4,7 @@
 /* TODO Hash table for ids and avoid collisions */
 /* TODO Hash table to recent_workouts so it doesn't have to loop over itself each time for membership */
 /* TODO make progress with an old rm'd workout bring it back to life */
+/* TODO sorting */
 
 int
 main(int argc, char **argv)

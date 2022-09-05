@@ -12,9 +12,8 @@ strsplit(char* string, char delim)
  Freeing the split string requires freeing each pointer within the pointer array and the array itself. */
 {
     size_t string_length = strlen(string);
-    char* sacrificial_string = malloc(string_length + 1); /* The +1 is VERY important to hold the NULL character */
-    strncpy(sacrificial_string, string, string_length);
-    char** split_string_array = malloc(sizeof(*split_string_array) * string_length);
+    char *sacrificial_string = strdup(string);
+    char **split_string_array = malloc(sizeof(*split_string_array) * string_length);
     split_string_array[0] = (char *)(sacrificial_string);
     size_t i=0, j=1; /* i traverses the string, j the return pointer array */
     
