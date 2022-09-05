@@ -375,11 +375,12 @@ workouts_progress_wid_workout(struct bus *mainbus, char *id)
     default_workout[4] = todays_date;
 
     temp_workout = workouts_generate_workout(default_workout);
-    printf("here?\n");
+
     // Then write full
     workouts_write_full_workout(mainbus, temp_workout);
 
     free_split_string(default_workout_ss);
+    free(todays_date);
 
     // close file
     workouts_safe_close_workoutfile(mainbus);

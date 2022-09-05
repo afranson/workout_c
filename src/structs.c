@@ -76,6 +76,7 @@ string_to_workout(char* string)
 	return_workout.date = workout_fields[5];
 	return_workout.notes = workout_fields[6];
     }
+    free(workout_fields);
     return return_workout;
 }
 
