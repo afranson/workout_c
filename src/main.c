@@ -23,6 +23,9 @@ main(int argc, char **argv)
     // Get file length (for memory allocation)
     mainbus.num_workouts = bus_get_num_workouts(&mainbus);
 
+    // Allocate space for workouts
+    bus_malloc_workouts(&mainbus);
+
     // Read file contents into memory
     bus_read_workoutfile(&mainbus);
 

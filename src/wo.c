@@ -4,11 +4,12 @@
 #include <ctype.h>
 #include "workouts.h"
 
+
 /* TODO Can I create a tuple structure to retain the named aspect and be able to loop? */
 
 /* Trying to construct things atomistically */
 
-const char *workout_pprint_format = "%-4s |%-25s |%-9s |%-4s |%-6s |%-11s |%-8s |%s\n";
+const char *workout_pprint_format = "%-6s |%-25s |%-9s |%-4s |%-6s |%-11s |%-8s |%s\n";
 
 
 void
@@ -50,7 +51,8 @@ struct split_string
 workout_to_split_string(struct workout workout_in)
 {
     char *workout_string = workout_to_string(workout_in);
-    remove_end_newline(&workout_string);
+    workout_string[strlen(workout_string) - 1] = '\0';
+    // remove_end_newline(&workout_string);
     struct split_string ss = strsplit(workout_string, '|');
     free(workout_string);
     return ss;
@@ -116,7 +118,7 @@ workout_compare(struct workout workout_a, struct workout workout_b)
 /* Takes a string "name," performs an algorithm, and puts the result into "id"
    Currently takes first letters of each word and then more if neccessary from the last word to make 4 chars */
 char *
-workout_get_id(char *name)
+workout_get_id2(char *name)
 {
     char *id = malloc(7 * sizeof(*id));
     char c = 'a';
@@ -132,5 +134,28 @@ workout_get_id(char *name)
         }
     }
     id[leader_char_index + char_index]= '\0';
+    return id;
+}
+
+
+/* Generates id by taking first 2 chars from each word (space sep) */
+char *
+workout_get_id(char *name)
+{
+    char *id = malloc(7 * sizeof(*id));
+    size_t chars_left_from_current_word = 2;
+    size_t id_index = 0;
+    for (size_t i=0; i<strlen(name); i++) { /* Loop over name */
+	if (id_index == 6) {		    /* Filled the buffer */
+	    return id;
+	}
+	if (chars_left_from_current_word > 0) { /* If we're taking chars */
+	    id[id_index++] = tolower(name[i]);
+	    chars_left_from_current_word--;
+	} else if (name[i] == ' ') { /* Not taking chars, and rand into a space (indicating new word) */
+	    chars_left_from_current_word = 2;
+	}
+    }
+    id[id_index] = '\0';
     return id;
 }

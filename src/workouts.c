@@ -6,7 +6,7 @@
 
 
 /* Default, empty objects for initializing */
-struct workout workout_default = {.active=false, .next_workout=NULL, .previous_workout=NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+struct workout workout_default = {.active=false, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 
 
 /* Returns the index of the most recent (latest in list) workout with id matching

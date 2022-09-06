@@ -23,12 +23,13 @@ print_buffer(char* buff, size_t len)
 
 
 /* Safe way to remove newline from end of input (from stdin for example) */
+/* Currently does not work, *bufferp[len - 1] segfaults... */
 void
 remove_end_newline(char **bufferp)
 {
     size_t len = strlen(*bufferp);
     if (len > 0 && *bufferp[len-1] == '\n') {
-	*bufferp[--len] = '\0';
+	*bufferp[len-1] = '\0';
     }
     return;
 }

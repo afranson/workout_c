@@ -175,6 +175,15 @@ bus_get_num_workouts(struct bus *mainbus)
 }
 
 
+/* Allocate space for workouts based on length of workout file (num_workouts) */
+void
+bus_malloc_workouts(struct bus *mainbus)
+{
+    /* +1s account for potential added or modified workouts */
+    mainbus->workouts = malloc((mainbus->num_workouts+1) * sizeof(*mainbus->workouts));
+    mainbus->recent_workouts = malloc((mainbus->num_workouts+1) * sizeof(*mainbus->recent_workouts));
+    return;
+}
 
 
 /* Read all lines from the workout file into the bus
@@ -183,9 +192,6 @@ bus_get_num_workouts(struct bus *mainbus)
 void
 bus_read_workoutfile(struct bus *mainbus)
 {
-    /* +1s account for potential added or modified workouts */
-    mainbus->workouts = malloc((mainbus->num_workouts+1) * sizeof(*mainbus->workouts));
-    mainbus->recent_workouts = malloc((mainbus->num_workouts+1) * sizeof(*mainbus->recent_workouts));
     char buffer[MAX_WORKOUT_SIZE];
     size_t i = 0;
     while ( fgets(buffer, MAX_WORKOUT_SIZE, mainbus->workoutFile) ) {
@@ -197,7 +203,6 @@ bus_read_workoutfile(struct bus *mainbus)
     }
     return;
 }
-
 
 
 /* If workout is active (i.e. not a rm entry), check for it in recent_workouts

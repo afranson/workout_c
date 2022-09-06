@@ -457,3 +457,5 @@ Backwards Walking|BW|5|13|Wed|220824|Up stairs
 Squat Form|BW|5|10|Sat|220827|Shin and Hip flex
 Balance Bicep Curl|18|12|10|Thu|220827|Upsidown Kettlebell Single Hand
 Chair Split Extension|BW|5|10|Thu|220827|Stairs
+Kettlebell Chest Fly|18|2|10|Mon|220906|One Handed
+Stair Splits Flex|BW|2|10|Mon|220906|

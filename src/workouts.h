@@ -14,8 +14,6 @@ enum methods { broken, show, create, progress, progress_wid, edit, edit_wid, rm,
 struct workout
 {
     bool active;
-    struct workout* next_workout;
-    struct workout* previous_workout;
     char* id;
     char* exercise;
     char* weights;
@@ -28,7 +26,6 @@ struct workout
 
 struct workouts
 {
-    struct workout *all_lines; 	/* Contains the whole file */
     struct workout *all_workouts; /* Gets rid of the rm's */
     struct workout *recent_workouts; /* Only the active and most recent version of workouts */
     char **unique_workout_names;     /* For determining if a workout is new or not */
@@ -86,6 +83,7 @@ FILE *bus_safe_open_workoutfile_append(struct bus *);
 void bus_handle_create_help_broken_methods(struct bus *);
 int bus_create_and_add_workout(struct bus *);
 size_t bus_get_num_workouts(struct bus *);
+void bus_malloc_workouts(struct bus *);
 void bus_read_workoutfile(struct bus *);
 void bus_safe_close_workoutfile(struct bus *);
 int bus_write_workout(struct bus *, struct workout);
