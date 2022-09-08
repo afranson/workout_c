@@ -12,14 +12,14 @@ struct workout workout_default = {.active=false, NULL, NULL, NULL, NULL, NULL, N
 /* Returns the index of the most recent (latest in list) workout with id matching
    the given exercise */
 size_t
-workouts_get_most_recent_workout(struct bus *mainbus, char *exercise, size_t max_i)
+workouts_get_most_recent_workout(struct bus *mainbus, char *id, size_t max_i)
 {
     for (int i=max_i; i>=0; i--) {
-        if( !strcmp(mainbus->workouts[i].id, workout_get_id(exercise)) ) {
+        if( !strcmp(mainbus->workouts[i].id, id) ) {
 	    return i;
         }
     }
-    fprintf(stderr, "Failed to find instance of workout id, %s for exercise %s.\n", workout_get_id(exercise), exercise);
+    fprintf(stderr, "Error: Failed to find instance of workout id, %s.\n", id);
     return EXIT_FAILURE;
 }
 

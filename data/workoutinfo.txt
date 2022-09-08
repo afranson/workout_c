@@ -459,3 +459,4 @@ Balance Bicep Curl|18|12|10|Thu|220827|Upsidown Kettlebell Single Hand
 Chair Split Extension|BW|5|10|Thu|220827|Stairs
 Kettlebell Chest Fly|18|2|10|Mon|220906|One Handed
 Stair Splits Flex|BW|2|10|Mon|220906|
+KB Overhead Press|36|2|10|Tue|220906|

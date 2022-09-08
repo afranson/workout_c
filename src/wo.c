@@ -84,7 +84,7 @@ string_to_workout(char* string)
 	return_workout = create_rm_workout(workout_fields[0]);
     } else {
 	return_workout.active = true;
-	return_workout.id = workout_get_id(parsed_string.str_p_array[0]);
+	return_workout.id = workout_get_id(workout_fields[0]);
 	return_workout.exercise = workout_fields[0];
 	return_workout.weights = workout_fields[1];
 	return_workout.sets = workout_fields[2];
@@ -143,6 +143,7 @@ char *
 workout_get_id(char *name)
 {
     char *id = malloc(7 * sizeof(*id));
+    memset(id, 0, 8);
     size_t chars_left_from_current_word = 2;
     size_t id_index = 0;
     for (size_t i=0; i<strlen(name); i++) { /* Loop over name */
@@ -156,6 +157,5 @@ workout_get_id(char *name)
 	    chars_left_from_current_word = 2;
 	}
     }
-    id[id_index] = '\0';
     return id;
 }
