@@ -50,6 +50,12 @@ struct bus
     size_t num_uniques;
 };
 
+struct size_t_w_error
+{
+    size_t value;
+    bool error;
+};
+
 extern struct workout workout_default;
 extern struct bus bus_default;
 
@@ -91,7 +97,7 @@ void bus_update_recent_workouts(struct bus *, struct workout workout);
 void free_bus(struct bus *);
 
 /* Workouts Functions */
-size_t workouts_get_most_recent_workout(struct bus *, char *workout_name, size_t i);
+struct size_t_w_error workouts_get_most_recent_workout(struct bus *, char *workout_name, size_t i);
 void workouts_print_workouts(struct bus *);
 int compare_date(const void *a, const void *b);
 void workouts_wid_actions(struct bus *);

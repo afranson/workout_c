@@ -26,7 +26,6 @@ src/tst/tests.o: src/tst/tests.c $(DEPS)
 
 $(EXE): $(OBJ) $(BIN_SRC)
 		$(CC) -o $@ $^ $(CFLAGS)
-		rm -f *.o
 
 $(TST):  $(OBJ) $(TST_SRC)
 		$(CC) -o $@ $^ $(CFLAGS)

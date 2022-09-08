@@ -25,19 +25,20 @@ strsplit(char* string, char delim)strsplit10,254
 void print_split_string(struct split_string ss)print_split_string45,1697
 void free_split_string(struct split_string ss)free_split_string54,1859
 
-src/wo.c,718
-const char *workout_pprint_format = "%-4s |%-25s |%-9s |%-4s |%-6s |%-11s |%-8s |%s\n";workout_pprint_format11,257
-workout_pprint_header()workout_pprint_header15,352
-workout_pprint(struct workout workout)workout_pprint22,492
-workout_get_num_chars(struct workout workout)workout_get_num_chars29,697
-workout_to_string(struct workout workout)workout_to_string36,935
-workout_to_split_string(struct workout workout_in)workout_to_split_string50,1419
-create_rm_workout(char *exercise)create_rm_workout61,1691
-string_to_workout(char* string)string_to_workout75,2124
-workout_compare(struct workout workout_a, struct workout workout_b)workout_compare100,2899
-workout_get_id(char *name)workout_get_id119,3586
+src/wo.c,771
+const char *workout_pprint_format = "%-6s |%-25s |%-9s |%-4s |%-6s |%-11s |%-8s |%s\n";workout_pprint_format12,258
+workout_pprint_header()workout_pprint_header16,353
+workout_pprint(struct workout workout)workout_pprint23,493
+workout_get_num_chars(struct workout workout)workout_get_num_chars30,698
+workout_to_string(struct workout workout)workout_to_string37,936
+workout_to_split_string(struct workout workout_in)workout_to_split_string51,1420
+create_rm_workout(char *exercise)create_rm_workout63,1750
+string_to_workout(char* string)string_to_workout77,2183
+workout_compare(struct workout workout_a, struct workout workout_b)workout_compare102,2947
+workout_get_id2(char *name)workout_get_id2121,3634
+workout_get_id(char *name)workout_get_id143,4238
 
-src/workouts.h,2996
+src/workouts.h,2796
 #define WORKOUTS_HWORKOUTS_H4,73
 #define MAX_WORKOUT_SIZE MAX_WORKOUT_SIZE10,154
 enum methods { broken, show, create, progress, progress_wid, edit, edit_wid, rm, rm_wid, list, lmethods12,185
@@ -56,39 +57,36 @@ enum methods { broken, show, create, progress, progress_wid, edit, edit_wid, rm,
 enum methods { broken, show, create, progress, progress_wid, edit, edit_wid, rm, rm_wid, list, lhelp12,185
 struct workoutworkout14,304
     bool active;active16,321
-    struct workout* next_workout;next_workout17,338
-    struct workout* previous_workout;previous_workout18,372
-    char* id;id19,410
-    char* exercise;exercise20,424
-    char* weights;weights21,444
-    char* sets;sets22,463
-    char* reps;reps23,479
-    char* days;days24,495
-    char* date;date25,511
-    char* notes;notes26,527
-struct workoutsworkouts29,548
-    struct workout *all_lines; 	/* Contains the whole file */all_lines31,566
-    struct workout *all_workouts; /* Gets rid of the rm's */all_workouts32,628
-    struct workout *recent_workouts; /* Only the active and most recent version of workouts */recent_workouts33,689
-    char **unique_workout_names;     /* For determining if a workout is new or not */unique_workout_names34,784
-struct split_stringsplit_string37,874
-    char **str_p_array;str_p_array39,896
-    size_t num_elements;num_elements40,920
-struct busbus43,949
-    int argc;argc45,962
-    char **argv;argv46,976
-    enum methods method;method47,993
-    char *filename;filename48,1018
-    FILE *workoutFile;workoutFile49,1038
-    size_t num_workouts;num_workouts50,1061
-    struct workout *workouts;workouts51,1086
-    struct workout *recent_workouts;recent_workouts52,1116
-    size_t num_uniques;num_uniques53,1153
+    char* id;id17,338
+    char* exercise;exercise18,352
+    char* weights;weights19,372
+    char* sets;sets20,391
+    char* reps;reps21,407
+    char* days;days22,423
+    char* date;date23,439
+    char* notes;notes24,455
+struct workoutsworkouts27,476
+    struct workout *all_workouts; /* Gets rid of the rm's */all_workouts29,494
+    struct workout *recent_workouts; /* Only the active and most recent version of workouts */recent_workouts30,555
+    char **unique_workout_names;     /* For determining if a workout is new or not */unique_workout_names31,650
+struct split_stringsplit_string34,740
+    char **str_p_array;str_p_array36,762
+    size_t num_elements;num_elements37,786
+struct busbus40,815
+    int argc;argc42,828
+    char **argv;argv43,842
+    enum methods method;method44,859
+    char *filename;filename45,884
+    FILE *workoutFile;workoutFile46,904
+    size_t num_workouts;num_workouts47,927
+    struct workout *workouts;workouts48,952
+    struct workout *recent_workouts;recent_workouts49,982
+    size_t num_uniques;num_uniques50,1019
 
 src/utility.c,177
 print_buffer(char* buff, size_t len)print_buffer14,310
-remove_end_newline(char **bufferp)remove_end_newline27,535
-get_todays_date_yymmdd(void)get_todays_date_yymmdd38,707
+remove_end_newline(char **bufferp)remove_end_newline28,597
+get_todays_date_yymmdd(void)get_todays_date_yymmdd39,769
 
 src/tst/tests.c,66
 int main()main6,90
@@ -96,10 +94,10 @@ int test_strsplit(void)test_strsplit13,177
 
 src/tst/test,0
 
-src/main.c,39
-main(int argc, char **argv)main9,276
+src/main.c,40
+main(int argc, char **argv)main10,375
 
-src/bus.c,1186
+src/bus.c,1256
 struct bus bus_default = {0, NULL, broken, NULL, NULL, 0, NULL, NULL, 0};bus_default8,145
 bus_init(int argc, char **argv, char *filename)bus_init13,453
 struct string_method_pairstring_method_pair27,801
@@ -112,28 +110,31 @@ bus_write_workout(struct bus *mainbus, struct workout workout_to_add)bus_write_
 bus_safe_open_workoutfile(struct bus *mainbus)bus_safe_open_workoutfile134,4533
 bus_safe_open_workoutfile_append(struct bus *mainbus)bus_safe_open_workoutfile_append147,4863
 bus_get_num_workouts(struct bus *mainbus)bus_get_num_workouts160,5220
-bus_read_workoutfile(struct bus *mainbus)bus_read_workoutfile184,5792
-bus_update_recent_workouts(struct bus *mainbus, struct workout workout)bus_update_recent_workouts207,6720
-bus_safe_close_workoutfile(struct bus *mainbus)bus_safe_close_workoutfile229,7488
-free_bus(struct bus *mainbus)free_bus240,7681
+bus_malloc_workouts(struct bus *mainbus)bus_malloc_workouts180,5731
+bus_read_workoutfile(struct bus *mainbus)bus_read_workoutfile193,6188
+bus_update_recent_workouts(struct bus *mainbus, struct workout workout)bus_update_recent_workouts212,6862
+bus_safe_close_workoutfile(struct bus *mainbus)bus_safe_close_workoutfile234,7630
+free_bus(struct bus *mainbus)free_bus245,7823
 
-src/workouts.c,1158
-struct workout workout_default = {.active=false, .next_workout=NULL, .previous_workout=NULL, NULworkout_default9,150
-workouts_get_most_recent_workout(struct bus *mainbus, char *exercise, size_t max_i)workouts_get_most_recent_workout15,408
-workouts_print_workouts(struct bus *mainbus)workouts_print_workouts29,842
-compare_date(const void *a, const void *b)compare_date65,1682
-workouts_wid_actions(struct bus *mainbus)workouts_wid_actions78,2046
-workouts_progress_wid_workout(struct bus *mainbus, char *id)workouts_progress_wid_workout101,2620
-workouts_rm_wid_workout(struct bus *mainbus, char *id)workouts_rm_wid_workout134,3680
-workouts_write_rm_workout(FILE* workoutFile, struct workout workout_to_add)workouts_write_rm_workout156,4426
-workouts_list_wid_workout(struct bus *mainbus, char *id)workouts_list_wid_workout164,4605
-workouts_edit_wid_workout(struct bus *mainbus, char *id)workouts_edit_wid_workout179,5017
-workouts_write_edited_workout(struct bus *mainbus, struct bus *tempbus, struct workout original_workouts_write_edited_workout213,6253
-workouts_generate_workout(char **default_options)workouts_generate_workout237,7044
+src/workouts.c,1152
+struct workout workout_default = {.active=false, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL}workout_default9,150
+workouts_get_most_recent_workout(struct bus *mainbus, char *id, size_t max_i)workouts_get_most_recent_workout15,364
+workouts_print_workouts(struct bus *mainbus)workouts_print_workouts29,729
+compare_date(const void *a, const void *b)compare_date65,1569
+workouts_wid_actions(struct bus *mainbus)workouts_wid_actions78,1933
+workouts_progress_wid_workout(struct bus *mainbus, char *id)workouts_progress_wid_workout101,2507
+workouts_rm_wid_workout(struct bus *mainbus, char *id)workouts_rm_wid_workout134,3567
+workouts_write_rm_workout(FILE* workoutFile, struct workout workout_to_add)workouts_write_rm_workout156,4313
+workouts_list_wid_workout(struct bus *mainbus, char *id)workouts_list_wid_workout164,4492
+workouts_edit_wid_workout(struct bus *mainbus, char *id)workouts_edit_wid_workout179,4904
+workouts_write_edited_workout(struct bus *mainbus, struct bus *tempbus, struct workout original_workouts_write_edited_workout213,6140
+workouts_generate_workout(char **default_options)workouts_generate_workout237,6931
 
-README.md,56
+README.md,117
 # WorkoutsWorkouts1,0
-# Stuff to doStuff to do8,289
+## Basic UsageBasic Usage7,288
+## InstallInstall27,885
+# Stuff to doStuff to do32,1147
 
 TAGS,0
 

@@ -11,16 +11,16 @@ struct workout workout_default = {.active=false, NULL, NULL, NULL, NULL, NULL, N
 
 /* Returns the index of the most recent (latest in list) workout with id matching
    the given exercise */
-size_t
+struct size_t_w_error
 workouts_get_most_recent_workout(struct bus *mainbus, char *id, size_t max_i)
 {
     for (int i=max_i; i>=0; i--) {
         if( !strcmp(mainbus->workouts[i].id, id) ) {
-	    return i;
+	    return (struct size_t_w_error){.value=i, .error=false};
         }
     }
     fprintf(stderr, "Error: Failed to find instance of workout id, %s.\n", id);
-    return EXIT_FAILURE;
+    return (struct size_t_w_error){.value=0, .error=true};
 }
 
 
@@ -103,9 +103,14 @@ workouts_progress_wid_workout(struct bus *mainbus, char *id)
     // open file for appending
     mainbus->workoutFile = bus_safe_open_workoutfile_append(mainbus);
 
-    size_t most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts-1);
-
-    struct workout temp_workout = mainbus->workouts[most_current_index];
+    struct size_t_w_error most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts-1);
+    if ( most_current_index.error ) {
+	printf("\nWorkout id '%s' is not valid. Please see valid id's seen on leftmost column after using the 'all' command below.\n\n", id);
+	mainbus->method = all;
+	return EXIT_FAILURE;
+    }
+    
+    struct workout temp_workout = mainbus->workouts[most_current_index.value];
 
     // fill fields with proper defaults
     struct split_string default_workout_ss = workout_to_split_string(temp_workout);
@@ -137,8 +142,15 @@ workouts_rm_wid_workout(struct bus *mainbus, char *id)
     mainbus->workoutFile = bus_safe_open_workoutfile_append(mainbus);
 
     // get matching workout
-    size_t most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts-1);
-    struct workout temp_workout = mainbus->workouts[most_current_index];
+    struct size_t_w_error most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts-1);
+    if ( most_current_index.error ) {
+	printf("\nWorkout id '%s' is not valid. Please see valid id's seen on leftmost column after using the 'show' command below.\n\n", id);
+
+	mainbus->method = show;
+	return EXIT_FAILURE;
+    }
+    
+    struct workout temp_workout = mainbus->workouts[most_current_index.value];
 
     // Then write rm field
     workouts_write_rm_workout(mainbus->workoutFile, temp_workout);
@@ -184,8 +196,14 @@ workouts_edit_wid_workout(struct bus *mainbus, char *id)
     tempbus.workoutFile = bus_safe_open_workoutfile_append(&tempbus);
     mainbus->workoutFile = bus_safe_open_workoutfile(mainbus);
 
-    size_t most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts-1);
-    struct workout previous_workout = mainbus->workouts[most_current_index];
+    struct size_t_w_error most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts-1);
+    if ( most_current_index.error ) {\
+	printf("\nWorkout id '%s' is not valid. Please see valid id's seen on leftmost column after using the 'show' command below.\n\n", id);
+	mainbus->method = show;
+	return;
+    }
+
+    struct workout previous_workout = mainbus->workouts[most_current_index.value];
     struct workout generated_workout;
 
     // fill fields with proper defaults
