@@ -1,9 +1,11 @@
 #include <string.h>
 #include "workouts.h"
 
-/* TODO Hash table for ids and avoid collisions */
 /* TODO Hash table to recent_workouts so it doesn't have to loop over itself each time for membership */
-/* TODO make progress with an old rm'd workout bring it back to life */
+/* TODO Don't allow name modification when editing/progressing workouts */
+/* TODO Autofill today's date when creating a new workout */
+/* TODO Import data from .csv/other programs? What kind of formats are people using for their workouts? */
+
 
 int
 main(int argc, char **argv)
