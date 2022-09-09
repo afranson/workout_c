@@ -84,14 +84,14 @@ char *workout_get_id(char *name);
 /* Bus Functions */
 struct bus bus_init(int argc, char **argv, char *filename);
 enum methods bus_parse_argv(struct bus *);
-FILE *bus_safe_open_workoutfile(struct bus *);
-FILE *bus_safe_open_workoutfile_append(struct bus *);
+FILE *bus_open_workoutfile(struct bus *);
+FILE *bus_open_workoutfile_append(struct bus *);
 void bus_handle_create_help_broken_methods(struct bus *);
 int bus_create_and_add_workout(struct bus *);
 size_t bus_get_num_workouts(struct bus *);
 void bus_malloc_workouts(struct bus *);
 void bus_read_workoutfile(struct bus *);
-void bus_safe_close_workoutfile(struct bus *);
+void bus_close_workoutfile(struct bus *);
 int bus_write_workout(struct bus *, struct workout);
 void bus_update_recent_workouts(struct bus *, struct workout workout);
 void free_bus(struct bus *);

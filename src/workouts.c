@@ -101,7 +101,7 @@ int
 workouts_progress_wid_workout(struct bus *mainbus, char *id)
 {
     // open file for appending
-    mainbus->workoutFile = bus_safe_open_workoutfile_append(mainbus);
+    mainbus->workoutFile = bus_open_workoutfile_append(mainbus);
 
     struct size_t_w_error most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts-1);
     if ( most_current_index.error ) {
@@ -130,7 +130,7 @@ workouts_progress_wid_workout(struct bus *mainbus, char *id)
     free(todays_date);
 
     // close file
-    bus_safe_close_workoutfile(mainbus);
+    bus_close_workoutfile(mainbus);
     return EXIT_SUCCESS;
 }
 
@@ -139,7 +139,7 @@ int
 workouts_rm_wid_workout(struct bus *mainbus, char *id)
 {
     // open file for appending
-    mainbus->workoutFile = bus_safe_open_workoutfile_append(mainbus);
+    mainbus->workoutFile = bus_open_workoutfile_append(mainbus);
 
     // get matching workout
     struct size_t_w_error most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts-1);
@@ -159,7 +159,7 @@ workouts_rm_wid_workout(struct bus *mainbus, char *id)
     bus_update_recent_workouts(mainbus, mainbus->workouts[mainbus->num_workouts]);
 
     // close file
-    bus_safe_close_workoutfile(mainbus);
+    bus_close_workoutfile(mainbus);
     return EXIT_SUCCESS;
 }
 
@@ -167,8 +167,7 @@ workouts_rm_wid_workout(struct bus *mainbus, char *id)
 int
 workouts_write_rm_workout(FILE* workoutFile, struct workout workout_to_add)
 {
-    fprintf(workoutFile, "%s|%s\n", workout_to_add.exercise, "rm");
-    return EXIT_SUCCESS;
+    return fprintf(workoutFile, "%s|%s\n", workout_to_add.exercise, "rm");
 }
 
 
@@ -193,8 +192,8 @@ workouts_edit_wid_workout(struct bus *mainbus, char *id)
     // open temp file for writing and main file for reading
     struct bus tempbus = bus_default;
     tempbus.filename = "tmp_workoutseditfile.txt";
-    tempbus.workoutFile = bus_safe_open_workoutfile_append(&tempbus);
-    mainbus->workoutFile = bus_safe_open_workoutfile(mainbus);
+    tempbus.workoutFile = bus_open_workoutfile_append(&tempbus);
+    mainbus->workoutFile = bus_open_workoutfile(mainbus);
 
     struct size_t_w_error most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts-1);
     if ( most_current_index.error ) {\
@@ -217,8 +216,8 @@ workouts_edit_wid_workout(struct bus *mainbus, char *id)
     free_split_string(default_workout_ss);
 
     // close files
-    bus_safe_close_workoutfile(mainbus);
-    bus_safe_close_workoutfile(&tempbus);
+    bus_close_workoutfile(mainbus);
+    bus_close_workoutfile(&tempbus);
 
     // move temp file to overwrite real one
     rename(tempbus.filename, mainbus->filename);
@@ -232,7 +231,7 @@ workouts_write_edited_workout(struct bus *mainbus, struct bus *tempbus, struct w
 {
     char *workout_line;
     struct workout woi;
-    for ( size_t i=0; i<mainbus->num_workouts; i++ ) {
+    for ( size_t i=0; i<mainbus->num_workouts; ++i ) {
 	woi = mainbus->workouts[i];
 	if ( workout_compare(woi, original_workout) ) /* If they're the same */
         {
@@ -297,6 +296,6 @@ workouts_generate_workout(char **default_options)
     generated_workout.notes = workout_pointers[6]; 
     
     // uncomment to see the whole allocated buffer in hex
-    // for (int i=0; i<525; i++) { printf("%#.2x ", *(*total_buffer + i)); if ((i+1)%50 == 0) printf("\n"); } printf("\n");
+    // for (int i=0; i<525; ++i) { printf("%#.2x ", *(*total_buffer + i)); if ((i+1)%50 == 0) printf("\n"); } printf("\n");
     return generated_workout;
 }

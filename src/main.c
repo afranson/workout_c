@@ -18,7 +18,7 @@ main(int argc, char **argv)
     bus_handle_create_help_broken_methods(&mainbus);
 
     // Open file for reading
-    mainbus.workoutFile = bus_safe_open_workoutfile(&mainbus);
+    mainbus.workoutFile = bus_open_workoutfile(&mainbus);
 
     // Get file length (for memory allocation)
     mainbus.num_workouts = bus_get_num_workouts(&mainbus);
@@ -30,7 +30,7 @@ main(int argc, char **argv)
     bus_read_workoutfile(&mainbus);
 
     // Close file
-    bus_safe_close_workoutfile(&mainbus);
+    bus_close_workoutfile(&mainbus);
 
     // Perform wid (with id) actions
     workouts_wid_actions(&mainbus);

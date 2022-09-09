@@ -103,13 +103,13 @@ bus_create_and_add_workout(struct bus *mainbus)
     struct workout workout_to_add = workouts_generate_workout(NULL);
 
     // open file for appending
-    mainbus->workoutFile = bus_safe_open_workoutfile_append(mainbus);
+    mainbus->workoutFile = bus_open_workoutfile_append(mainbus);
 
     // write the new workout
     bus_write_workout(mainbus, workout_to_add);
 
     // close file
-    bus_safe_close_workoutfile(mainbus);
+    bus_close_workoutfile(mainbus);
 
     // reassure user
     printf("'%s' added to workouts.\n", workout_to_add.exercise);
@@ -131,7 +131,7 @@ bus_write_workout(struct bus *mainbus, struct workout workout_to_add)
 
 /* Opens the workout file for reading with errors if it fails to open */
 FILE *
-bus_safe_open_workoutfile(struct bus *mainbus)
+bus_open_workoutfile(struct bus *mainbus)
 {
     FILE *workoutFile;
     if ( (workoutFile = fopen(mainbus->filename, "r")) == NULL ) {
@@ -144,7 +144,7 @@ bus_safe_open_workoutfile(struct bus *mainbus)
 
 /* Opens the workout file for appending with errors if it fails to open */
 FILE *
-bus_safe_open_workoutfile_append(struct bus *mainbus)
+bus_open_workoutfile_append(struct bus *mainbus)
 {
     FILE *workoutFile;
     if ( (workoutFile = fopen(mainbus->filename, "a")) == NULL ) {
@@ -231,7 +231,7 @@ bus_update_recent_workouts(struct bus *mainbus, struct workout workout)
 
 /* Close the workout file with error reporting */
 void
-bus_safe_close_workoutfile(struct bus *mainbus)
+bus_close_workoutfile(struct bus *mainbus)
 {
    if ( fclose(mainbus->workoutFile) ) {
         perror("Error closing workouts file");
