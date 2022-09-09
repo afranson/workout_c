@@ -20,7 +20,7 @@ cd /path/to/git_repo
 ./bin/workouts c     # Create a brand new workout
 ./bin/workouts p id  # Progress a workout with matching id (add a new entry that is a derivative of the last one)
 ./bin/workouts r id  # Take a workout (id) out of the current list of workouts
-./bin/workouts e id  # Edit the most recent workout with matchine id
+./bin/workouts e id  # Edit the most recent workout with matching id
 
 ```
 
