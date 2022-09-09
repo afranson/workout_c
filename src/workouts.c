@@ -14,8 +14,9 @@ struct workout workout_default = {.active=false, NULL, NULL, NULL, NULL, NULL, N
 struct size_t_w_error
 workouts_get_most_recent_workout(struct bus *mainbus, char *id, size_t max_i)
 {
-    for (int i=max_i; i>=0; i--) {
-        if( !strcmp(mainbus->workouts[i].id, id) ) {
+    for (int i=max_i; i>=0; --i) {
+        if( !strcmp(mainbus->workouts[i].id, id)
+	    && strcmp(mainbus->workouts[i].notes, "rm")) {
 	    return (struct size_t_w_error){.value=i, .error=false};
         }
     }
