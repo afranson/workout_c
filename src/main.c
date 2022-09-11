@@ -3,7 +3,6 @@
 
 /* TODO Hash table to recent_workouts so it doesn't have to loop over itself each time for membership */
 /* TODO Don't allow name modification when editing/progressing workouts */
-/* TODO Autofill today's date when creating a new workout */
 /* TODO Import data from .csv/other programs? What kind of formats are people using for their workouts? */
 
 

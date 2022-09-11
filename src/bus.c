@@ -100,7 +100,8 @@ int
 bus_create_and_add_workout(struct bus *mainbus)
 {
     // generate the new workout from user input
-    struct workout workout_to_add = workouts_generate_workout(NULL);
+    char *todays_date = get_todays_date_yymmdd();
+    struct workout workout_to_add = workouts_generate_workout((char *[7]){"", "", "", "", "", todays_date, ""});
 
     // open file for appending
     mainbus->workoutFile = bus_open_workoutfile_append(mainbus);
@@ -113,6 +114,7 @@ bus_create_and_add_workout(struct bus *mainbus)
 
     // reassure user
     printf("'%s' added to workouts.\n", workout_to_add.exercise);
+    free(todays_date);
     return EXIT_SUCCESS;
 }
 

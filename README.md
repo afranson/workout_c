@@ -27,7 +27,6 @@ Searching workouts:
 ```
 ./bin/workout a | fzf # Use your searcher of choice (grep, sed, fzf, etc.) to find that one workout you did for a month two years ago that started with a p and had two t's
 alias wod='date; /path/to/git_repo/bin/workouts | grep -E "(Days|$(date | cut -c 1-3))"'  # See all of the workouts slotted for today (assuming you use 3+ letter abbreviations [Mon, Tue, ...] for the "Days" field)
-
 ```
 
 ## Install
