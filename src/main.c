@@ -2,6 +2,7 @@
 #include "workouts.h"
 
 /* TODO Make sure things work properly for long entries */
+/* TODO Refactor 'wid' objects to be smaller and easier to reason */
 /* TODO Add ability to rewrite file with new headers/fields */
 /* TODO Config file so user can define what fields they want */
 /* TODO Make config editable on command line (as long as config options stays small) */
@@ -45,7 +46,7 @@ main(int argc, char **argv)
     // Print final state to user
     workouts_print_workouts(&mainbus);
 
-    // Free mainbus completely
+    // Free mainbus
     free_bus(&mainbus);
     
     return EXIT_SUCCESS;
