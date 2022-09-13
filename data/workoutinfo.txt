@@ -466,3 +466,5 @@ Chair Split Extension|BW|2|10|Thu|220908|Stairs
 Backwards Walking|18|2|13|Wed|220908|Up stairs
 Bridge Strengthening|BW|2|10|Wed|220908|From Ground
 KB Carry|54|2|90|Sat|220910|Front only
+Squat Form|BW|2|10|Sat|220912|Shin and Hip flex
+Kettlebell Chest Fly|18|3|20|Mon|220912|One Handed

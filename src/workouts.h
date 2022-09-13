@@ -82,7 +82,7 @@ int workout_compare(struct workout workout_a, struct workout workout_b);
 char *workout_get_id(char *name);
 
 /* Bus Functions */
-struct bus bus_init(int argc, char **argv, char *filename);
+struct bus bus_init(int argc, char **argv, const char *filename);
 enum methods bus_parse_argv(struct bus *);
 FILE *bus_open_workoutfile(struct bus *);
 FILE *bus_open_workoutfile_append(struct bus *);

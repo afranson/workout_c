@@ -1,5 +1,6 @@
 /* Defines function related to 'pure' bus activity */
 
+#include <errno.h>		/* errno */
 #include <string.h>
 #include <libgen.h> 		/* basename, dirname */
 #include "workouts.h"
@@ -10,7 +11,7 @@ struct bus bus_default = {0, NULL, broken, NULL, NULL, 0, NULL, NULL, 0};
 /* Main object that gets passed around during the execution of the program.
    Stores CLI args, parsed CLI args, the filename, number of workouts, the workouts themselves, recent workouts, and number of unique workouts.*/
 struct bus
-bus_init(int argc, char **argv, char *filename)
+bus_init(int argc, char **const argv, const char *const filename)
 {
     struct bus mainbus = bus_default;
     mainbus.argc = argc;
@@ -36,7 +37,7 @@ struct string_method_pair
    If 2 - Check for create, help, all, and show
    If 3 - Check for list, progress, edit, and rm. */
 enum methods
-bus_parse_argv(struct bus *mainbus)
+bus_parse_argv(struct bus *const mainbus)
 {
     const struct string_method_pair two_args_checks[] = { { "create", create }, { "help", help }, { "all", all }, { "show", show } };
     const struct string_method_pair three_args_checks[] = { { "list", list_wid }, { "progress", progress_wid }, { "edit", edit_wid }, { "rm", rm_wid } };
@@ -72,7 +73,7 @@ bus_parse_argv(struct bus *mainbus)
 
 /* Prints the result of the user asking for help or using the command line args incorrectly. */
 void
-bus_handle_create_help_broken_methods(struct bus *mainbus)
+bus_handle_create_help_broken_methods(struct bus *const mainbus)
 {
     if ( mainbus->method == create )
     {
@@ -97,7 +98,7 @@ bus_handle_create_help_broken_methods(struct bus *mainbus)
 
 /* Creates a new workout  */
 int
-bus_create_and_add_workout(struct bus *mainbus)
+bus_create_and_add_workout(struct bus *const mainbus)
 {
     // generate the new workout from user input
     char *todays_date = get_todays_date_yymmdd();
@@ -121,7 +122,7 @@ bus_create_and_add_workout(struct bus *mainbus)
 
 /* Writes a workout to the workout file */
 int
-bus_write_workout(struct bus *mainbus, struct workout workout_to_add)
+bus_write_workout(struct bus *const mainbus, const struct workout workout_to_add)
 {
     char *workout_string = workout_to_string(workout_to_add);
     fputs(workout_string, mainbus->workoutFile);
@@ -133,20 +134,31 @@ bus_write_workout(struct bus *mainbus, struct workout workout_to_add)
 
 /* Opens the workout file for reading with errors if it fails to open */
 FILE *
-bus_open_workoutfile(struct bus *mainbus)
+bus_open_workoutfile(struct bus *const mainbus)
 {
     FILE *workoutFile;
-    if ( (workoutFile = fopen(mainbus->filename, "r")) == NULL ) {
-        perror("Error opening workouts file");
-        exit(EXIT_FAILURE);
+    if ( (workoutFile = fopen(mainbus->filename, "r")) ) { // All is good
+	return workoutFile;
+    } else { // File pointer is NULL
+	if ( errno == 2 ) { // File does not exist
+	    if ( (workoutFile = fopen(mainbus->filename, "a+")) ) { // Created file successfully
+		printf("Created new file '%s'.\n", mainbus->filename);
+		return workoutFile;
+	    } else {		// Unable to create file
+		fprintf(stderr, "Error creating file '%s' for appending. Errno: %d.\n", mainbus->filename, errno);
+		exit(EXIT_FAILURE);
+	    }
+	} else { 		/* Errno is not 2, Needs further investigation. */
+	    fprintf(stderr, "Error opening file '%s' for reading. Errno: %d.\n", mainbus->filename, errno);
+	    exit(EXIT_FAILURE);
+	}
     }
-    return workoutFile;
 }
 
 
 /* Opens the workout file for appending with errors if it fails to open */
 FILE *
-bus_open_workoutfile_append(struct bus *mainbus)
+bus_open_workoutfile_append(struct bus *const mainbus)
 {
     FILE *workoutFile;
     if ( (workoutFile = fopen(mainbus->filename, "a")) == NULL ) {
@@ -159,7 +171,7 @@ bus_open_workoutfile_append(struct bus *mainbus)
 
 /* Counts number of newlines in the file as a safe (over)estimate of the number of workouts */
 size_t
-bus_get_num_workouts(struct bus *mainbus)
+bus_get_num_workouts(struct bus *const mainbus)
 {
     char c;
     size_t count = 0;
@@ -179,7 +191,7 @@ bus_get_num_workouts(struct bus *mainbus)
 
 /* Allocate space for workouts based on length of workout file (num_workouts) */
 void
-bus_malloc_workouts(struct bus *mainbus)
+bus_malloc_workouts(struct bus *const mainbus)
 {
     /* +1s account for potential added or modified workouts */
     mainbus->workouts = malloc((mainbus->num_workouts+1) * sizeof(*mainbus->workouts));
@@ -192,7 +204,7 @@ bus_malloc_workouts(struct bus *mainbus)
    Normal workouts are read in full, rm's just add a
    nonactive headstone workout */
 void
-bus_read_workoutfile(struct bus *mainbus)
+bus_read_workoutfile(struct bus *const mainbus)
 {
     char buffer[MAX_WORKOUT_SIZE];
     size_t i = 0;
@@ -211,7 +223,7 @@ bus_read_workoutfile(struct bus *mainbus)
    and if it's there, update the pointer. If not, add it to the list. If it is
    not active (rm entry), remove the active status from the recent_workouts entry. */
 void
-bus_update_recent_workouts(struct bus *mainbus, struct workout workout)
+bus_update_recent_workouts(struct bus *const mainbus, struct workout workout)
 {
     /* Find the index of the entry in recent_workouts that matches input workout */
     int match_i = -1;
@@ -233,7 +245,7 @@ bus_update_recent_workouts(struct bus *mainbus, struct workout workout)
 
 /* Close the workout file with error reporting */
 void
-bus_close_workoutfile(struct bus *mainbus)
+bus_close_workoutfile(struct bus *const mainbus)
 {
    if ( fclose(mainbus->workoutFile) ) {
         perror("Error closing workouts file");
@@ -244,7 +256,7 @@ bus_close_workoutfile(struct bus *mainbus)
 
 
 void
-free_bus(struct bus *mainbus)
+free_bus(struct bus *const mainbus)
 {
     free(mainbus->filename);
     for (size_t i=0; i<mainbus->num_workouts; i++) {

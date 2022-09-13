@@ -1,8 +1,13 @@
 #include <string.h>
 #include "workouts.h"
 
-/* TODO Hash table to recent_workouts so it doesn't have to loop over itself each time for membership */
+/* TODO Add ability to rewrite file with new headers/fields */
+/* TODO Config file so user can define what fields they want */
+/* TODO Make config editable on command line (as long as config options stays small) */
+/* TODO Hash table for recent_workouts so it doesn't have to loop over itself each time for membership */
+/* TODO Add const to functions that accept pointers where appropriate */
 /* TODO Don't allow name modification when editing/progressing workouts */
+/* TODO Make name modification when editing or progressing insert an rm of the prior name after its entry */
 /* TODO Import data from .csv/other programs? What kind of formats are people using for their workouts? */
 
 
