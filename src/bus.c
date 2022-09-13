@@ -32,6 +32,21 @@ struct string_method_pair
 };
 
 
+/* Iterate over  */
+enum methods
+check_argv_against_pairs(const struct string_method_pair *smp, size_t smp_len, char** argv)
+{
+    for ( size_t i=0; i<smp_len; i++ ) {
+	    
+	if ( !strcmp(argv[1], smp[i].string) || argv[1][0] == smp[i].string[0] ) { /* Check is strings match or if first letters match */
+	    return smp[i].method;
+	}
+    }
+    fprintf(stderr, "Error: Failed to find '%s'. Either invalid option or wrong number of inputs.\n", argv[1]);
+    return broken;
+}
+
+
 /* Parses the command line args for the program
    If 1 (no args) - default to show
    If 2 - Check for create, help, all, and show
@@ -47,23 +62,9 @@ bus_parse_argv(struct bus *const mainbus)
     if ( argc == 1 ) { 		/* No arguments given */
         method = show;
     } else if ( argc == 2 ) { 	/* Single argument given */
-	for ( size_t i=0; i<sizeof(two_args_checks)/sizeof(two_args_checks[0]); i++ ) {
-	    
-	    struct string_method_pair arg_check = two_args_checks[i];
-	    if ( !strcmp(argv[1], arg_check.string) || argv[1][0] == arg_check.string[0] ) {
-		method = arg_check.method;
-		break;
-	    }
-	}
+	method = check_argv_against_pairs(two_args_checks, sizeof(two_args_checks)/sizeof(two_args_checks[0]), argv);
     } else if ( argc == 3 ) {	/* 2 arguments given */
-	for ( size_t i=0; i<sizeof(three_args_checks)/sizeof(three_args_checks[0]); i++ ) {
-	    
-	    struct string_method_pair arg_check = three_args_checks[i];
-	    if ( !strcmp(argv[1], arg_check.string) || argv[1][0] == arg_check.string[0] ) {
-		method = arg_check.method;
-		break;
-	    }
-	}
+	method = check_argv_against_pairs(three_args_checks, sizeof(three_args_checks)/sizeof(three_args_checks[0]), argv);
     } else {			/* Too many arguments */
         printf("\t** Invalid argument combination **\n");
         method = broken;
@@ -81,7 +82,7 @@ bus_handle_create_help_broken_methods(struct bus *const mainbus)
         mainbus->method = show;
         return;
     } else if ( mainbus->method == help || mainbus->method == broken) {
-        puts("usage:  workouts [option]");
+        puts("usage:  workouts [[o]ption] [id]");
         puts("___options___");
 	printf("%-12s --  %s\n", "help", "Display this help message");
         printf("%-12s --  %s\n", "show", "Default, list all active, recent workouts and ids");
