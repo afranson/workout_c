@@ -1,6 +1,7 @@
 #include <string.h>
 #include "workouts.h"
 
+/* TODO Make sure things work properly for long entries */
 /* TODO Add ability to rewrite file with new headers/fields */
 /* TODO Config file so user can define what fields they want */
 /* TODO Make config editable on command line (as long as config options stays small) */

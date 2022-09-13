@@ -12,6 +12,8 @@ cd /path/to/git_repo
 ./bin/workouts s  # Show current workouts
 ./bin/workouts a  # Show the most recent version of all workouts in file
 ./bin/workouts h  # Show all options and usage
+./bin/workouts l id # List all workouts with matching id
+./bin/workouts d id # Show most recent workout matching id in full detail
 ```
 
 Modifying workouts:

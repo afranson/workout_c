@@ -83,14 +83,15 @@ bus_handle_create_help_broken_methods(struct bus *const mainbus)
     } else if ( mainbus->method == help || mainbus->method == broken) {
         puts("usage:  workouts [option]");
         puts("___options___");
+	printf("%-12s --  %s\n", "help", "Display this help message");
         printf("%-12s --  %s\n", "show", "Default, list all active, recent workouts and ids");
         printf("%-12s --  %s\n", "all", "Show all active and disactive, recent workouts");
         printf("%-12s --  %s\n", "create", "Create a new workout and add to active workouts");
-        printf("%-12s --  %s\n", "help", "Display this help message");
+	printf("%-9s %s --  %s\n", "list", "id", "Show history of one particular workout");
+	printf("%-9s %s --  %s\n", "detail", "id", "Show full detail for long entries");
         printf("%-9s %s --  %s\n", "progress", "id", "Advance an active workout to its next form");
         printf("%-9s %s --  %s\n", "edit", "id", "Edit any recent workout in-place");
         printf("%-9s %s --  %s\n", "rm", "id", "Deactivate an active workout");
-        printf("%-9s %s --  %s\n", "list", "id", "Show history of one particular workout");
         exit(EXIT_SUCCESS);
     }
 }
