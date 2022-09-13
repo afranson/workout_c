@@ -98,26 +98,26 @@ int test_strsplit(void)test_strsplit13,177
 src/tst/test,0
 
 src/main.c,40
-main(int argc, char **argv)main12,519
+main(int argc, char **argv)main16,779
 
 src/bus.c,1322
-struct bus bus_default = {0, NULL, broken, NULL, NULL, 0, NULL, NULL, 0};bus_default8,145
-bus_init(int argc, char **const argv, const char *const filename)bus_init13,453
-struct string_method_pairstring_method_pair27,819
-    char* string;string29,847
-    enum methods method;method30,865
-bus_parse_argv(struct bus *const mainbus)bus_parse_argv39,1093
-bus_handle_create_help_broken_methods(struct bus *const mainbus)bus_handle_create_help_broken_methods75,2543
-bus_create_and_add_workout(struct bus *const mainbus)bus_create_and_add_workout100,3673
-bus_write_workout(struct bus *const mainbus, const struct workout workout_to_add)bus_write_workout124,4357
-bus_open_workoutfile(struct bus *const mainbus)bus_open_workoutfile136,4688
-bus_open_workoutfile_append(struct bus *const mainbus)bus_open_workoutfile_append149,5019
-bus_get_num_workouts(struct bus *const mainbus)bus_get_num_workouts162,5377
-bus_malloc_workouts(struct bus *const mainbus)bus_malloc_workouts182,5894
-bus_read_workoutfile(struct bus *const mainbus)bus_read_workoutfile195,6357
-bus_update_recent_workouts(struct bus *const mainbus, struct workout workout)bus_update_recent_workouts214,7037
-bus_close_workoutfile(struct bus *const mainbus)bus_close_workoutfile236,7811
-free_bus(struct bus *const mainbus)free_bus247,8005
+struct bus bus_default = {0, NULL, broken, NULL, NULL, 0, NULL, NULL, 0};bus_default9,177
+bus_init(int argc, char **const argv, const char *const filename)bus_init14,485
+struct string_method_pairstring_method_pair28,851
+    char* string;string30,879
+    enum methods method;method31,897
+bus_parse_argv(struct bus *const mainbus)bus_parse_argv40,1125
+bus_handle_create_help_broken_methods(struct bus *const mainbus)bus_handle_create_help_broken_methods76,2575
+bus_create_and_add_workout(struct bus *const mainbus)bus_create_and_add_workout101,3705
+bus_write_workout(struct bus *const mainbus, const struct workout workout_to_add)bus_write_workout125,4389
+bus_open_workoutfile(struct bus *const mainbus)bus_open_workoutfile137,4720
+bus_open_workoutfile_append(struct bus *const mainbus)bus_open_workoutfile_append161,5592
+bus_get_num_workouts(struct bus *const mainbus)bus_get_num_workouts174,5950
+bus_malloc_workouts(struct bus *const mainbus)bus_malloc_workouts194,6467
+bus_read_workoutfile(struct bus *const mainbus)bus_read_workoutfile207,6930
+bus_update_recent_workouts(struct bus *const mainbus, struct workout workout)bus_update_recent_workouts226,7610
+bus_close_workoutfile(struct bus *const mainbus)bus_close_workoutfile248,8384
+free_bus(struct bus *const mainbus)free_bus259,8578
 
 src/workouts.c,1152
 struct workout workout_default = {.active=false, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL}workout_default9,150
@@ -136,7 +136,7 @@ workouts_generate_workout(char **default_options)workouts_generate_workout255,
 README.md,84
 # WorkoutsWorkouts1,0
 ## Basic UsageBasic Usage7,288
-## InstallInstall32,1299
+## InstallInstall34,1302
 
 TAGS,0
 

@@ -9,7 +9,7 @@
 
 #define MAX_WORKOUT_SIZE 1000
 
-enum methods { broken, show, create, progress, progress_wid, edit, edit_wid, rm, rm_wid, list, list_wid, all, help };
+enum methods { METHOD_MIN=-1, broken, help, show, all, create, progress_wid, edit_wid, rm_wid, list_wid, detail_wid, METHOD_MAX };
 
 struct workout
 {
@@ -73,6 +73,7 @@ int test_strsplit(void);
 /* Workout struct functions */
 void workout_pprint_header();
 void workout_pprint(struct workout workout);
+void workout_detail_print(struct workout workout);
 size_t workout_get_num_chars(struct workout workout);
 char *workout_to_string(struct workout workout_in);
 struct split_string workout_to_split_string(struct workout workout_in);
@@ -102,6 +103,7 @@ void workouts_print_workouts(struct bus *);
 int compare_date(const void *a, const void *b);
 void workouts_wid_actions(struct bus *);
  int workouts_progress_wid_workout(struct bus *, char *id);
+ int workouts_detail_wid_workout(struct bus *, char *id);
  int workouts_rm_wid_workout(struct bus *, char *id);
   int workouts_write_rm_workout(FILE *, struct workout);
  int workouts_list_wid_workout(struct bus *, char *id);

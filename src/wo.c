@@ -10,6 +10,7 @@
 /* Trying to construct things atomistically */
 
 const char *workout_pprint_format = "%-6s |%-25s |%-9s |%-4s |%-6s |%-11s |%-8s |%s\n";
+const char *workout_detail_format = "ID: %s\nExercise: %s\nWeight: %s\nSets: %s\nReps: %s\nDays: %s\nDate: %s\nNotes: %s\n";
 
 
 void
@@ -23,6 +24,13 @@ void
 workout_pprint(struct workout workout)
 {
     printf(workout_pprint_format, workout.id, workout.exercise, workout.weights, workout.sets, workout.reps, workout.days, workout.date, workout.notes);
+}
+
+
+void
+workout_detail_print(struct workout workout)
+{
+    printf(workout_detail_format, workout.id, workout.exercise, workout.weights, workout.sets, workout.reps, workout.days, workout.date, workout.notes);
 }
 
 

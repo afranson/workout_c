@@ -40,7 +40,7 @@ enum methods
 bus_parse_argv(struct bus *const mainbus)
 {
     const struct string_method_pair two_args_checks[] = { { "create", create }, { "help", help }, { "all", all }, { "show", show } };
-    const struct string_method_pair three_args_checks[] = { { "list", list_wid }, { "progress", progress_wid }, { "edit", edit_wid }, { "rm", rm_wid } };
+    const struct string_method_pair three_args_checks[] = { { "list", list_wid }, {"detail", detail_wid}, { "progress", progress_wid }, { "edit", edit_wid }, { "rm", rm_wid } };
     enum methods method = mainbus->method;
     int argc = mainbus->argc;
     char **argv = mainbus->argv;

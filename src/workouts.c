@@ -35,6 +35,7 @@ workouts_print_workouts(struct bus *mainbus)
     
     switch ( mainbus->method ) {
     case list_wid:
+    case detail_wid:
 	break;
     default:
 	workout_pprint_header();
@@ -79,22 +80,41 @@ void
 workouts_wid_actions(struct bus *mainbus)
 {
     switch( mainbus->method ) {
-        case progress_wid:
-            workouts_progress_wid_workout(mainbus, mainbus->argv[2]);
-            break;
-        case rm_wid:
-            workouts_rm_wid_workout(mainbus, mainbus->argv[2]);
-            break;
-        case list_wid:
-            workouts_list_wid_workout(mainbus, mainbus->argv[2]);
-            break;
-        case edit_wid:
-            workouts_edit_wid_workout(mainbus, mainbus->argv[2]);
-            break;
-        default:
-            break;
+    case progress_wid:
+	workouts_progress_wid_workout(mainbus, mainbus->argv[2]);
+	break;
+    case detail_wid:
+	workouts_detail_wid_workout(mainbus, mainbus->argv[2]);
+	break;
+    case rm_wid:
+	workouts_rm_wid_workout(mainbus, mainbus->argv[2]);
+	break;
+    case list_wid:
+	workouts_list_wid_workout(mainbus, mainbus->argv[2]);
+	break;
+    case edit_wid:
+	workouts_edit_wid_workout(mainbus, mainbus->argv[2]);
+	break;
+    default:
+	break;
     }
     return;
+}
+
+
+int
+workouts_detail_wid_workout(struct bus *const mainbus, char *id)
+{
+    struct size_t_w_error most_current_index = workouts_get_most_recent_workout(mainbus, id, mainbus->num_workouts-1);
+    if ( most_current_index.error ) {
+	printf("\nWorkout id '%s' is not valid. Please see valid id's seen on leftmost column after using the 'all' command below.\n\n", id);
+	mainbus->method = all;
+	return EXIT_FAILURE;
+    }
+
+    workout_detail_print(mainbus->workouts[most_current_index.value]);
+    
+    return EXIT_SUCCESS;
 }
 
 
