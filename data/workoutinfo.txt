@@ -468,5 +468,4 @@ Bridge Strengthening|BW|2|10|Wed|220908|From Ground
 KB Carry|54|2|90|Sat|220910|Front only
 Squat Form|BW|2|10|Sat|220912|Shin and Hip flex
 Kettlebell Chest Fly|18|3|20|Mon|220912|One Handed
-The workout has a really long name|The weights field is also super long|I did lots and lots of sets|And 100 different kinds of reps|I do it every day of the week and need to say so|220913|I love to write really long notes that take up whole pages based on how I feel and how I sound and what the environment is doing around me and this would be really annoying to use the edit feature with if I just mispelled a word and needed to change it. That would be really unfortunate. BUt I also like to talk about which plates I used and how many people were in the gym and what they were wearing and what I was wearing and how much I ate before hand and all the details possible.
 KB Overhead Press|36|3|12|Tue|220913|
