@@ -9,7 +9,7 @@
 
 /* Trying to construct things atomistically */
 
-const char *workout_pprint_format = "%-6s |%-25s |%-9s |%-4s |%-6s |%-11s |%-8s |%s\n";
+const char *workout_pprint_format = "%-6.6s |%-25.25s |%-9.9s |%-4.4s |%-6.6s |%-11.11s |%-8.8s |%-.40s\n";
 const char *workout_detail_format = "ID: %s\nExercise: %s\nWeight: %s\nSets: %s\nReps: %s\nDays: %s\nDate: %s\nNotes: %s\n";
 
 
