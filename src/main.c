@@ -1,7 +1,6 @@
 #include <string.h>
 #include "workouts.h"
 
-/* TODO Make sure things work properly for long entries */
 /* TODO Add ability to backup workouts file (maybe compress it too) */
 /* TODO Refactor 'wid' objects to be smaller and easier to reason */
 /* TODO Add ability to rewrite file with new headers/fields */

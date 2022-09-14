@@ -25,20 +25,20 @@ strsplit(char* string, char delim)strsplit10,254
 void print_split_string(struct split_string ss)print_split_string45,1697
 void free_split_string(struct split_string ss)free_split_string54,1859
 
-src/wo.c,972
-const char *workout_pprint_format = "%-6s |%-25s |%-9s |%-4s |%-6s |%-11s |%-8s |%s\n";workout_pprint_format12,258
-const char *workout_detail_format = "ID: %s\nExercise: %s\nWeight: %s\nSets: %s\nReps: %s\nDays:workout_detail_format13,346
-workout_pprint_header()workout_pprint_header17,478
-workout_pprint(struct workout workout)workout_pprint24,618
-workout_detail_print(struct workout workout)workout_detail_print31,821
-workout_get_num_chars(struct workout workout)workout_get_num_chars38,1032
-workout_to_string(struct workout workout)workout_to_string45,1270
-workout_to_split_string(struct workout workout_in)workout_to_split_string59,1754
-create_rm_workout(char *exercise)create_rm_workout71,2084
-string_to_workout(char* string)string_to_workout85,2517
-workout_compare(struct workout workout_a, struct workout workout_b)workout_compare110,3281
-workout_get_id2(char *name)workout_get_id2129,3968
-workout_get_id(char *name)workout_get_id151,4572
+src/wo.c,981
+const char *workout_pprint_format = "%-6.6s |%-25.25s |%-9.9s |%-4.4s |%-6.6s |%-11.11s |%-8.8s workout_pprint_format12,258
+const char *workout_detail_format = "ID: %s\nExercise: %s\nWeight: %s\nSets: %s\nReps: %s\nDays:workout_detail_format13,366
+workout_pprint_header()workout_pprint_header17,498
+workout_pprint(struct workout workout)workout_pprint24,638
+workout_detail_print(struct workout workout)workout_detail_print31,841
+workout_get_num_chars(struct workout workout)workout_get_num_chars38,1052
+workout_to_string(struct workout workout)workout_to_string45,1290
+workout_to_split_string(struct workout workout_in)workout_to_split_string59,1774
+create_rm_workout(char *exercise)create_rm_workout71,2104
+string_to_workout(char* string)string_to_workout85,2537
+workout_compare(struct workout workout_a, struct workout workout_b)workout_compare110,3301
+workout_get_id2(char *name)workout_get_id2129,3988
+workout_get_id(char *name)workout_get_id151,4592
 
 src/workouts.h,2810
 #define WORKOUTS_HWORKOUTS_H4,73
@@ -99,7 +99,7 @@ int test_strsplit(void)test_strsplit13,177
 src/tst/test,0
 
 src/main.c,40
-main(int argc, char **argv)main17,862
+main(int argc, char **argv)main17,874
 
 src/bus.c,1446
 struct bus bus_default = {0, NULL, broken, NULL, NULL, 0, NULL, NULL, 0};bus_default9,177
@@ -148,3 +148,5 @@ TAGS,0
 data/workoutinfo.txt.full,0
 
 data/workoutinfo.txt,0
+
+data/wo.gz,0
