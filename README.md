@@ -25,6 +25,11 @@ cd /path/to/git_repo
 ./bin/workouts e id  # Edit the most recent workout with matching id
 ```
 
+Backup workouts:
+```
+./bin/workouts b     # Creates a backup of the workoutinfo.txt file in gzip format
+```
+
 Searching workouts:
 ```
 ./bin/workout a | fzf
