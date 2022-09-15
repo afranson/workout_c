@@ -469,3 +469,9 @@ KB Carry|54|2|90|Sat|220910|Front only
 Squat Form|BW|2|10|Sat|220912|Shin and Hip flex
 Kettlebell Chest Fly|18|3|20|Mon|220912|One Handed
 KB Overhead Press|36|3|12|Tue|220913|
+Stair Splits Flex|rm
+Stairs Forward Split|BW|3|10|Thu|220915|
+Chair Split Extension|rm
+Stair Side Split|BW|3|10|Thu|220915|
+Backwards Walking|18|3|13|Wed|220915|Up stairs
+Bridge Strengthening|BW|3|10|Wed|220915|From Ground

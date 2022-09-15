@@ -32,6 +32,22 @@ Searching workouts:
 
 alias wod='date; /path/to/git_repo/bin/workouts | grep -E "(Days|$(date | cut -c 1-3))"'
 # ^ See all of the workouts slotted for today (assuming you use 3+ letter abbreviations [Mon, Tue, ...] for the "Days" field)
+
+wods () {
+    date;
+    if [ $# -eq 0 ]; then
+	/home/aj/Documents/workout_progn/workout_c/bin/workouts | grep -E "(Days|$(date | cut -c 1-3))"
+    elif [ $# -eq 1 ]; then
+	/home/aj/Documents/workout_progn/workout_c/bin/workouts | grep -E "(Days|$1)"
+    elif [ $# -eq 2 ]; then
+	/home/aj/Documents/workout_progn/workout_c/bin/workouts | grep -E "(Days|$1|$2)"
+    elif [ $# -eq 3 ]; then
+	/home/aj/Documents/workout_progn/workout_c/bin/workouts | grep -E "(Days|$1|$2|$3)"
+    else
+	echo "Too many args"
+    fi
+}
+# ^ Bash function to show what workouts you have to do (0 args = today, 1-3 args = on those days)
 ```
 
 ## Install

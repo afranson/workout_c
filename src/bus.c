@@ -4,6 +4,7 @@
 #include <string.h>
 #include <libgen.h> 		/* basename, dirname */
 #include "workouts.h"
+#include <zlib.h>
 
 
 struct bus bus_default = {0, NULL, broken, NULL, NULL, 0, NULL, NULL, 0};
@@ -54,7 +55,7 @@ check_argv_against_pairs(const struct string_method_pair *smp, size_t smp_len, c
 enum methods
 bus_parse_argv(struct bus *const mainbus)
 {
-    const struct string_method_pair two_args_checks[] = { { "create", create }, { "help", help }, { "all", all }, { "show", show } };
+    const struct string_method_pair two_args_checks[] = { {"backup", backup}, { "create", create }, { "help", help }, { "all", all }, { "show", show } };
     const struct string_method_pair three_args_checks[] = { { "list", list_wid }, {"detail", detail_wid}, { "progress", progress_wid }, { "edit", edit_wid }, { "rm", rm_wid } };
     enum methods method = mainbus->method;
     int argc = mainbus->argc;
@@ -74,13 +75,16 @@ bus_parse_argv(struct bus *const mainbus)
 
 /* Prints the result of the user asking for help or using the command line args incorrectly. */
 void
-bus_handle_create_help_broken_methods(struct bus *const mainbus)
+bus_do_broken_help_create_backup(struct bus *const mainbus)
 {
     if ( mainbus->method == create )
     {
         bus_create_and_add_workout(mainbus);
         mainbus->method = show;
         return;
+    } else if ( mainbus->method == backup ) {
+	bus_backup_workout_file(mainbus);
+	exit(EXIT_SUCCESS);
     } else if ( mainbus->method == help || mainbus->method == broken) {
         puts("usage:  workouts [[o]ption] [id]");
         puts("___options___");
@@ -94,7 +98,33 @@ bus_handle_create_help_broken_methods(struct bus *const mainbus)
         printf("%-9s %s --  %s\n", "edit", "id", "Edit any recent workout in-place");
         printf("%-9s %s --  %s\n", "rm", "id", "Deactivate an active workout");
         exit(EXIT_SUCCESS);
+    } else {
+	return;
     }
+}
+
+
+void
+bus_backup_workout_file(struct bus *const mainbus)
+{
+    size_t length = strlen(mainbus->filename);
+    char *compressed_filename = malloc(4 + length);
+    sprintf(compressed_filename, "%s.gz", mainbus->filename);
+    printf("Backing up '%s' to gzipped file '%s'.\n", mainbus->filename, compressed_filename);
+    mainbus->workoutFile = bus_open_workoutfile(mainbus);
+    FILE *compressed_file = fopen(compressed_filename, "wb");
+    if ( !compressed_file ) {
+	fprintf(stderr, "Failed to open compressed file, %s\n", compressed_filename);
+	fclose(mainbus->workoutFile);
+	return;
+    }
+    int ret = def(mainbus->workoutFile, compressed_file, -1);
+    if ( ret != Z_OK ) {
+	zerr(ret);
+    }
+    fclose(mainbus->workoutFile);
+    fclose(compressed_file);
+    return;
 }
 
 

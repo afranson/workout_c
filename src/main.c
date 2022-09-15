@@ -22,7 +22,7 @@ main(int argc, char **argv)
     mainbus.method = bus_parse_argv(&mainbus);
 
     // Resolve create, help, and broken methods (don't require file reads)
-    bus_handle_create_help_broken_methods(&mainbus);
+    bus_do_broken_help_create_backup(&mainbus);
 
     // Open file for reading
     mainbus.workoutFile = bus_open_workoutfile(&mainbus);

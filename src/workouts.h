@@ -9,7 +9,7 @@
 
 #define MAX_WORKOUT_SIZE 1000
 
-enum methods { METHOD_MIN=-1, broken, help, show, all, create, progress_wid, edit_wid, rm_wid, list_wid, detail_wid, METHOD_MAX };
+enum methods { METHOD_MIN=-1, broken, help, show, all, create, progress_wid, edit_wid, rm_wid, list_wid, detail_wid, backup, METHOD_MAX };
 
 struct workout
 {
@@ -59,6 +59,10 @@ struct size_t_w_error
 extern struct workout workout_default;
 extern struct bus bus_default;
 
+/* Compression */
+void zerr(int ret);
+int def(FILE *src, FILE *dst, int level);
+
 /* Utilities */
 void print_buffer(char* buff, size_t len);
 void remove_end_newline(char **bufferp);
@@ -87,7 +91,8 @@ struct bus bus_init(int argc, char **argv, const char *filename);
 enum methods bus_parse_argv(struct bus *);
 FILE *bus_open_workoutfile(struct bus *);
 FILE *bus_open_workoutfile_append(struct bus *);
-void bus_handle_create_help_broken_methods(struct bus *);
+void bus_do_broken_help_create_backup(struct bus *);
+void bus_backup_workout_file(struct bus *);
 int bus_create_and_add_workout(struct bus *);
 size_t bus_get_num_workouts(struct bus *);
 void bus_malloc_workouts(struct bus *);
