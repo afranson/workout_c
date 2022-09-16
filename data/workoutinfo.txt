@@ -475,3 +475,5 @@ Chair Split Extension|rm
 Stair Side Split|BW|3|10|Thu|220915|
 Backwards Walking|18|3|13|Wed|220915|Up stairs
 Bridge Strengthening|BW|3|10|Wed|220915|From Ground
+Wrist Flexion|BW|3|10|Mon|220915|
+Balance Bicep Curl|18|3|12|Tue|220915|Upsidown Kettlebell Single Hand

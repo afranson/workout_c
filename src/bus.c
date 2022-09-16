@@ -91,6 +91,7 @@ bus_do_broken_help_create_backup(struct bus *const mainbus)
 	printf("%-12s --  %s\n", "help", "Display this help message");
         printf("%-12s --  %s\n", "show", "Default, list all active, recent workouts and ids");
         printf("%-12s --  %s\n", "all", "Show all active and disactive, recent workouts");
+	printf("%-12s --  %s\n", "backup", "Create a gzip backup of the workout datafile");
         printf("%-12s --  %s\n", "create", "Create a new workout and add to active workouts");
 	printf("%-9s %s --  %s\n", "list", "id", "Show history of one particular workout");
 	printf("%-9s %s --  %s\n", "detail", "id", "Show full detail for long entries");
