@@ -66,12 +66,13 @@ make clean
 rm data/workoutinfo.txt data/workoutinfo.txt.full
 make
 ```
-You may need to install 'make' and 'gcc' depending on your distro and prior install history.
+You may need to install 'make', 'gcc', 'zlib', and 'zlib-devel' depending on your distro and prior install history.
 
 ## Tutorial
 ```
 # Tutorial
-./bin/workouts c   # Create your first workout entry
-./bin/workouts s   # Show the entry
+./bin/workouts c           # Create your first workout entry
+./bin/workouts s           # Show the entry
 ./bin/workouts p your_id   # Progress the workout you just created
+./bin/workouts b           # Backup your workouts file
 ```

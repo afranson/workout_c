@@ -108,9 +108,9 @@ bus_do_broken_help_create_backup(struct bus *const mainbus)
 void
 bus_backup_workout_file(struct bus *const mainbus)
 {
-    size_t length = strlen(mainbus->filename);
     char *today = get_todays_date_yymmdd();
-    char *compressed_filename = malloc(4 + length + 1 + strlen(today));
+    /* Allocate space for base filename/path, '_', date, and '.gz' '\0'  */
+    char *compressed_filename = malloc(strlen(mainbus->filename) + 1 + strlen(today) + 4);
     sprintf(compressed_filename, "%s_%s.gz", mainbus->filename, today); /* TODO, I would like the date to be in front */
     printf("Backing up '%s' to gzipped file '%s'.\n", mainbus->filename, compressed_filename);
     mainbus->workoutFile = bus_open_workoutfile(mainbus);
