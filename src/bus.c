@@ -84,7 +84,7 @@ bus_do_broken_help_create_backup(struct bus *const mainbus)
         return;
     } else if ( mainbus->method == backup ) {
 	bus_backup_workout_file(mainbus);
-	exit(EXIT_SUCCESS);
+	return;
     } else if ( mainbus->method == help || mainbus->method == broken) {
         puts("usage:  workouts [[o]ption] [id]");
         puts("___options___");
@@ -109,11 +109,14 @@ void
 bus_backup_workout_file(struct bus *const mainbus)
 {
     size_t length = strlen(mainbus->filename);
-    char *compressed_filename = malloc(4 + length);
-    sprintf(compressed_filename, "%s.gz", mainbus->filename);
+    char *today = get_todays_date_yymmdd();
+    char *compressed_filename = malloc(4 + length + 1 + strlen(today));
+    sprintf(compressed_filename, "%s_%s.gz", mainbus->filename, today); /* TODO, I would like the date to be in front */
     printf("Backing up '%s' to gzipped file '%s'.\n", mainbus->filename, compressed_filename);
     mainbus->workoutFile = bus_open_workoutfile(mainbus);
     FILE *compressed_file = fopen(compressed_filename, "wb");
+    free(today);
+    free(compressed_filename);
     if ( !compressed_file ) {
 	fprintf(stderr, "Failed to open compressed file, %s\n", compressed_filename);
 	fclose(mainbus->workoutFile);

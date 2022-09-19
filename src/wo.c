@@ -151,7 +151,6 @@ char *
 workout_get_id(char *name)
 {
     char *id = malloc(7 * sizeof(*id));
-    memset(id, 0, 8);
     size_t chars_left_from_current_word = 2;
     size_t id_index = 0;
     for (size_t i=0; i<strlen(name); i++) { /* Loop over name */
@@ -164,6 +163,7 @@ workout_get_id(char *name)
 	} else if (name[i] == ' ') { /* Not taking chars, and rand into a space (indicating new word) */
 	    chars_left_from_current_word = 2;
 	}
+	id[id_index] = '\0';
     }
     return id;
 }

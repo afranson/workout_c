@@ -36,6 +36,7 @@ workouts_print_workouts(struct bus *mainbus)
     switch ( mainbus->method ) {
     case list_wid:
     case detail_wid:
+    case backup:
 	break;
     default:
 	workout_pprint_header();
