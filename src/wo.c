@@ -74,6 +74,11 @@ create_rm_workout(char *exercise)
     return_workout.active = false;
     return_workout.id = workout_get_id(exercise);
     return_workout.exercise = exercise;
+    return_workout.weights = "\0";
+    return_workout.sets = "\0";
+    return_workout.reps = "\0";
+    return_workout.days = "\0";
+    return_workout.date = "\0";
     return_workout.notes = "rm";
     return return_workout;
 }
