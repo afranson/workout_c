@@ -481,3 +481,5 @@ KB Carry|54|3|90|Sat|220918|Front only
 Squat Form|BW|3|10|Sat|220919|Shin and Hip flex
 Kettlebell Chest Fly|18|5|20|Mon|220919|One Handed
 Wrist Flexion|BW|5|10|Mon|220919|
+KB Overhead Press|36|5|12|Tue|220920|
+Balance Bicep Curl|18|5|12|Tue|220920|Upsidown Kettlebell Single Hand
