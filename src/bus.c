@@ -105,6 +105,7 @@ bus_do_broken_help_create_backup(struct bus *const mainbus)
 }
 
 
+/* Backs up the workout file with the date */
 void
 bus_backup_workout_file(struct bus *const mainbus)
 {
@@ -132,7 +133,7 @@ bus_backup_workout_file(struct bus *const mainbus)
 }
 
 
-/* Creates a new workout  */
+/* Creates a new workout and adds it to the workout file and buses workouts list */
 int
 bus_create_and_add_workout(struct bus *const mainbus)
 {
@@ -291,6 +292,7 @@ bus_close_workoutfile(struct bus *const mainbus)
 }
 
 
+/* Completely frees the bus at the end of the program */
 void
 free_bus(struct bus *const mainbus)
 {

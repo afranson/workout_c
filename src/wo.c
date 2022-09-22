@@ -13,6 +13,7 @@ const char *workout_pprint_format = "%-6.6s |%-25.25s |%-9.9s |%-4.4s |%-6.6s |%
 const char *workout_detail_format = "ID: %s\nExercise: %s\nWeight: %s\nSets: %s\nReps: %s\nDays: %s\nDate: %s\nNotes: %s\n";
 
 
+/* Print the line that names the fields of each column when pprinting a workout */
 void
 workout_pprint_header()
 {
@@ -20,6 +21,7 @@ workout_pprint_header()
 }
 
 
+/* Print a workout in a standard, pleasing manner */
 void
 workout_pprint(struct workout workout)
 {
@@ -27,6 +29,7 @@ workout_pprint(struct workout workout)
 }
 
 
+/* Brute force print a workout row by row */
 void
 workout_detail_print(struct workout workout)
 {
@@ -34,6 +37,7 @@ workout_detail_print(struct workout workout)
 }
 
 
+/* Get the total size of a workout if you were to butt all the fields up right against each other */
 size_t
 workout_get_num_chars(struct workout workout)
 {
@@ -41,10 +45,11 @@ workout_get_num_chars(struct workout workout)
 }
 
 
+/* Turn a workout into a string delimited by | between workout fields */
 char *
 workout_to_string(struct workout workout)
 {
-    /* Upgrade to snprintf for safety */
+    /* TODO Upgrade to snprintf for safety */
     char *buffer = malloc(8 + sizeof(char)*workout_get_num_chars(workout));
     if ( !strcmp(workout.notes, "rm") ) { // It's an rm workout
 	sprintf(buffer, "%s|rm\n", workout.exercise);
@@ -55,6 +60,7 @@ workout_to_string(struct workout workout)
 }
 
 
+/* Turn a workout delimited by | into an array of strings */
 struct split_string
 workout_to_split_string(struct workout workout_in)
 {
@@ -67,6 +73,7 @@ workout_to_split_string(struct workout workout_in)
 }
 
 
+/* Create a workout stub for rm entries */
 struct workout
 create_rm_workout(char *exercise)
 {
@@ -111,6 +118,7 @@ string_to_workout(char* string)
 }
 
 
+/* Check if tow workouts are equal, field by field */
 int
 workout_compare(struct workout workout_a, struct workout workout_b)
 {
