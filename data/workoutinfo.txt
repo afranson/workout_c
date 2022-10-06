@@ -485,3 +485,11 @@ KB Overhead Press|36|5|12|Tue|220920|
 Balance Bicep Curl|18|5|12|Tue|220920|Upsidown Kettlebell Single Hand
 Bridge Strengthening|BW|5|10|Wed|220921|From Ground
 Backwards Walking|18|5|13|Wed|220921|Up stairs
+Stairs Forward Split|BW|5|10|Thu|220922|
+Stair Side Split|BW|5|10|Thu|220922|
+Kettlebell Chest Fly|18|1|25|Mon|221003|One Handed
+Wrist Flexion|BW|1|10|Mon|221003|
+KB Overhead Press|36|1|9|Tue|221004|
+Balance Bicep Curl|18|1|13|Tue|221004|Upsidown Kettlebell Single Hand
+Bridge Strengthening|BW|1|10|Wed|221005|From Ground
+Backwards Walking|18|1|13|Wed|221005|Up stairs

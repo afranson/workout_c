@@ -1,8 +1,7 @@
 #include <string.h>
 #include "workouts.h"
 
-/* TODO Add ability to backup workouts file (maybe compress it too [gunzip]) */
-/* TODO Add ability to rewrite file with new headers/fields */
+/* TODO Add ability to rewrite file with new headers/fields (Transfer from one format to another) */
 /* TODO Config file so user can define what fields they want */
 /* TODO Make config editable on command line (as long as config options stays small) */
 /* TODO Hash table for recent_workouts so it doesn't have to loop over itself each time for membership */
@@ -47,6 +46,6 @@ main(int argc, char **argv)
 
     // Free mainbus
     free_bus(&mainbus);
-    
+
     return EXIT_SUCCESS;
 }
